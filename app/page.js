@@ -1,15 +1,39 @@
 "use client";
 
-import FileUpload from "@/components/FileUpload";
-import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/src/contexts/AuthContext";
+import FileUpload from "@/src/components/FileUpload";
+import Navbar from "@/src/components/Navbar";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const router = useRouter();
+  const { currentUser, loading, signOut } = useAuth(); // Get signOut function from useAuth
   const [showAnalysisBar, setShowAnalysisBar] = useState(true);
+
+  // Redirect logic
+  useEffect(() => {
+    if (!loading && !currentUser) {
+      router.push("/login");
+    }
+  }, [currentUser, loading, router]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Add a proper loading spinner
+  }
 
   return (
     <>
-      {/* <Navbar /> */}
+      {/* Logout Button */}
+      {currentUser && (
+        <button
+          onClick={signOut}
+          className="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        >
+          Logout
+        </button>
+      )}
+
       <div
         className={`flex p-4 ${!showAnalysisBar ? "justify-center gap-4" : ""}`}
       >
@@ -33,7 +57,7 @@ export default function Home() {
           <div
             className={`m-4 bg-gray-100 ${
               showAnalysisBar ? "w-[30%]" : "w-[0%]"
-            } p-8 rounded-lg`}
+            } p-8 rounded-lg relative`}
           >
             <button
               onClick={() => setShowAnalysisBar(false)}

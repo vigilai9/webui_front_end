@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    reactStrictMode: true,
+    compiler: {
+      styledComponents: true,
+    },
+    typescript: {
+      ignoreBuildErrors: true, // Temporary during setup
+    },
+  };
+  
+  export default nextConfig;
