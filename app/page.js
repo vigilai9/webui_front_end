@@ -1,64 +1,73 @@
 "use client";
 
+import Analyze from "@/components/Analyze";
+import ChatBot from "@/components/Chatbot";
 import FileUpload from "@/components/FileUpload";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [showAnalysisBar, setShowAnalysisBar] = useState(true);
 
+  const toggleAnalysisBar = () => {
+    setShowAnalysisBar(!showAnalysisBar);
+  };
+
+  const changeLoadingState = (loading) => {
+    setLoading(loading);
+  };
+
+  const setAnalysisData = (data) => {
+    setData(data);
+  };
   return (
     <>
-      {/* <Navbar /> */}
-      <div
-        className={`flex p-4 ${!showAnalysisBar ? "justify-center gap-4" : ""}`}
-      >
-        <div
-          className={`m-4 bg-gray-100 ${
-            showAnalysisBar ? "w-[70%]" : "w-[80%]"
-          } p-8 rounded-lg`}
-        >
-          <FileUpload />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-        {showAnalysisBar ? (
+      <div>
+        <Navbar />
+        <div className={`bg-[#d4d6cb] flex p-10 gap-8 `}>
           <div
-            className={`m-4 bg-gray-100 ${
-              showAnalysisBar ? "w-[30%]" : "w-[0%]"
-            } p-8 rounded-lg`}
+            className={`h-full bg-gray-100 ${
+              showAnalysisBar ? "w-[60%]" : "w-[60%]"
+            } p-8 rounded-lg mx-auto`}
           >
-            <button
-              onClick={() => setShowAnalysisBar(false)}
-              className="absolute top-8 right-8 p-2 hover:bg-gray-300"
-            >
-              ✕
-            </button>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <FileUpload
+              toggleAnalysisBar={toggleAnalysisBar}
+              analysisResponse={setAnalysisData}
+              toggleLoading={changeLoadingState}
+            />
           </div>
-        ) : (
-          <button
-            onClick={() => setShowAnalysisBar(true)}
-            className="fixed right-4 top-1/2  p-3 bg-gray-200 hover:bg-gray-300 shadow-lg"
-          >
-            ➤
-          </button>
-        )}
+          {showAnalysisBar && (
+            <div className="bg-gray-100 w-[40%] p-8 rounded-lg min-h-screen flex flex-col">
+              <button
+                className="absolute top-12 right-16"
+                onClick={toggleAnalysisBar}
+              >
+                x
+              </button>
+
+              <Analyze loading={loading} data={data} />
+
+              <div className="mt-auto pt-4 border-t border-gray-200">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mr-2">
+                  Preview Report
+                </button>
+                <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                  Download Report
+                </button>
+              </div>
+            </div>
+          )}
+          {!showAnalysisBar && (
+            <button
+              className="fixed right-4 top-1/2"
+              onClick={toggleAnalysisBar}
+            >
+              <img className="w-10 h-10" src="/right.png" />
+            </button>
+          )}
+        </div>
       </div>
     </>
   );
