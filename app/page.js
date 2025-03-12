@@ -5,11 +5,33 @@ import ChatBot from "@/components/Chatbot";
 import FileUpload from "@/components/FileUpload";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAnalysisBar, setShowAnalysisBar] = useState(true);
+  const { currentUser, loading: authLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading && !currentUser) {
+      router.push("/login");
+    }
+  }, [currentUser, router, authLoading]);
+
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (!currentUser) {
+    return null;
+  }
 
   const toggleAnalysisBar = () => {
     setShowAnalysisBar(!showAnalysisBar);
@@ -37,6 +59,9 @@ export default function Home() {
               analysisResponse={setAnalysisData}
               toggleLoading={changeLoadingState}
             />
+            <div className="mt-6 p-10">
+              <ChatBot />
+            </div>
           </div>
           {showAnalysisBar && (
             <div className="bg-gray-100 w-[40%] p-8 rounded-lg min-h-screen flex flex-col">
