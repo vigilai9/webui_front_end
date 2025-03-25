@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { UploadCloud } from "lucide-react";
+import { useDropzone } from "react-dropzone";
 
 export default function FileUpload({
   toggleAnalysisBar,
@@ -7,41 +9,53 @@ export default function FileUpload({
 }) {
   const [videoPlayBackUrl, setVideoPlayBackUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [buttonText, setButtonText] = useState("Upload");
+  const [buttonText, setButtonText] = useState("Select Video");
   const [analysisData, setAnalysisData] = useState({});
-  const [disableButton, setDisableButton] = useState(false);
+  const [disableRemoveButton, setDisableRemoveButton] = useState(false);
 
-  const videoRef = useRef();
-
-  const handleFileChange = (e) => {
-    console.log("Called");
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    setVideoPlayBackUrl(URL.createObjectURL(file));
-  };
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "video/*",
+    onDrop: (acceptedFiles) => {
+      console.log(acceptedFiles);
+      setSelectedFile(acceptedFiles[0]);
+      setVideoPlayBackUrl(URL.createObjectURL(acceptedFiles[0]));
+      setButtonText("Upload");
+    },
+  });
 
   const handleUpload = async () => {
     const updateState = (text, disable) => {
-      setButtonText(text), setDisableButton(disable);
+      setButtonText(text), setDisableRemoveButton(disable);
     };
     const videoId = "1cc06063-f";
+    if (["Show Analysis"].includes(buttonText)) {
+      toggleAnalysisBar(true);
+      setButtonText("Hide Analysis");
+    }
+    if (["Hide Analysis"].includes(buttonText)) {
+      toggleAnalysisBar(false);
+      setButtonText("Show Analysis");
+    }
     if (["Analyze", "Retry..."].includes(buttonText)) {
       try {
         updateState("Analyzing...", true);
+        toggleLoading(true);
+        toggleAnalysisBar(true);
         const res = await fetch(
           `https://wu40yoqun0.execute-api.us-east-2.amazonaws.com/Production/videos/video/timeline?videoId=${videoId}`
         );
         const data = await res.json();
-        // console.log(data[0]?.data?.scene_analysis);
         analysisResponse(data[0]?.data?.scene_analysis);
-        updateState("Analyzed", false);
-        toggleAnalysisBar(true);
+        updateState("Hide Analysis", false);
+
+        toggleLoading(false);
       } catch (error) {
         updateState("Retry", false);
         throw new Error("Server");
       }
     }
-    if (["Upload", "Re upload"].includes(buttonText)) {
+
+    if (["Upload"].includes(buttonText)) {
       try {
         updateState("Uploading", true);
         const res = await fetch(
@@ -72,7 +86,7 @@ export default function FileUpload({
   const onDeleteSelection = () => {
     setVideoPlayBackUrl(null);
     setSelectedFile(null);
-    document.getElementById("file-input").value = "";
+    setButtonText("Select Video");
   };
 
   const onReselect = () => {
@@ -80,68 +94,49 @@ export default function FileUpload({
   };
 
   return (
-    <div className="flex justify-center items-center rounded-md p-8 mx-10 my-2 border border-black">
-      <div>
-        <input
-          className="opacity-0 absolute h-0 w-0"
-          id="file-input"
-          type="file"
-          accept="video/*"
-          onChange={handleFileChange}
-        />
-        <div className="rounded-md">
-          {selectedFile != null && (
-            <video
-              // ref={videoRef}
-              src={videoPlayBackUrl}
-              controls
-              className="rounded-md w-full h-60 object-fill"
-            />
-          )}
-
-          {/* <img src="/upload_2.png" className="w-16 h-16" /> */}
-          <div className="flex flex-col justify-center items-center">
-            {selectedFile == null && (
-              <img src="/upload_2.png" width={80} height={80} />
-            )}
-
-            {selectedFile == null && (
-              <label
-                htmlFor="file-input"
-                className="font-serif text-3xl font-bold my-2"
-              >
-                Select your video
-              </label>
-            )}
-
-            {selectedFile != null && (
-              <div className="flex gap-8 mt-4">
-                <button
-                  className="border border-black text-black px-8 py-2 rounded-lg w-[200px]"
-                  onClick={onDeleteSelection}
-                >
-                  Delete Selection
-                </button>
-                <button
-                  className="bg-black text-white px-8 py-2 rounded-lg w-[200px]"
-                  disabled={disableButton}
-                  onClick={handleUpload}
-                >
-                  {buttonText}
-                </button>
-                {/* <button
-                htmlFor="file-input"
-                className="border border-black text-black px-8 py-2 rounded-lg w-[200px]"
-                disabled={videoPlayBackUrl ? false : true}
-                // onClick={onReselect}
-              >
-                Reselect
-              </button> */}
-              </div>
-            )}
+    <>
+      {!selectedFile && (
+        <div className="border-1 p-6 rounded-lg text-center">
+          <div
+            {...getRootProps()}
+            className="flex flex-col items-center justify-center cursor-pointer p-4 bg-gray-100"
+          >
+            <UploadCloud size={50} className="text-blue-600" />
+            <input {...getInputProps()} />
+            <p>Drag and drop or click to select</p>
+            <button
+              className="bg-blue-500 text-white px-3 py-1.5 rounded-md mt-4 text-xl"
+              onClick={handleUpload}
+            >
+              {buttonText}
+            </button>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+      {selectedFile && (
+        <div className="h-[200px] mx-auto flex flex-col justify-center items-center mt-8">
+          <video
+            src={videoPlayBackUrl}
+            controls
+            className="rounded-lg w-[50%] h-full object-cover"
+          />
+          <div className="flex mt-4 gap-4">
+            <button
+              className="bg-blue-500 rounded-lg text-white px-4 py-2 text-xl"
+              onClick={handleUpload}
+            >
+              {buttonText}
+            </button>
+            <button
+              className="border-1 border-blue-500 px-4 py-2 rounded-lg text-xl"
+              onClick={onDeleteSelection}
+              disabled={disableRemoveButton}
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

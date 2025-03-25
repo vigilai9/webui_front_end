@@ -1,21 +1,26 @@
 import Card from "./Card";
+import { useState } from "react";
 
-const Analyze = ({ data, loading }) => {
+const Analyze = ({ data, loading, toggleAnalysisBar }) => {
   const safeData = Array.isArray(data) ? data : [];
+  const [value, setValue] = useState(50);
 
   return (
-    <div className="p-4">
+    <div>
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-6">
           {Array.from({ length: 3 }).map((_, index) => (
             <Card key={index} loading={true} />
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-8">
-          {safeData.map((item) => (
-            <Card key={item?.scene_number} loading={false} data={item} />
-          ))}
+        <div>
+          <p className="font-bold text-2xl mb-4">Event Details: </p>
+          <div className="flex flex-col gap-8">
+            {safeData.map((item) => (
+              <Card loading={false} data={item} />
+            ))}
+          </div>
         </div>
       )}
     </div>
