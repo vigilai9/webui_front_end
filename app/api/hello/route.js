@@ -1,36 +1,59 @@
+// dummy api remove in production with actual api
+
 export async function GET(req) {
-  const videoAnalysisData = {
-    "video_analysis": [
-      {
-        "description": "<h1>Incident Analysis</h1><h2>Abstract</h2><p>The video captures a series of events leading up to an altercation.</p><h2>Key Personalities</h2><ul><li><strong>Subject A (Black Hoodie, Blue Jeans):</strong> Observed pacing back and forth.</li><li><strong>Subject B (White Shirt, Black Pants):</strong> Initially seated, then suddenly stands up.</li><li><strong>Subject C (Red Jacket, Grey Pants):</strong> Seen interacting with Subject B before the event.</li></ul>",
-        "start_time": "02:15:10",
-        "end_time": "02:20:45",
-        "level": 1,
-        "brief": "Tension builds up before an argument breaks out.",
-        "serial_no": 12,
-        "images": [
-          "https://via.placeholder.com/150/0000FF",
-          "https://via.placeholder.com/150/FF0000"
-        ]
-      },
-      {
-        "description": "<h1>Incident Analysis</h1><h2>Abstract</h2><p>The video captures a series of events leading up to an altercation.</p><h2>Key Personalities</h2><ul><li><strong>Subject A (Black Hoodie, Blue Jeans):</strong> Observed pacing back and forth.</li><li><strong>Subject B (White Shirt, Black Pants):</strong> Initially seated, then suddenly stands up.</li><li><strong>Subject C (Red Jacket, Grey Pants):</strong> Seen interacting with Subject B before the event.</li></ul>",
-        "start_time": "01:15:10",
-        "end_time": "01:20:45",
-        "level": 2,
-        "brief": "Normal fight occured",
-        "serial_no": 12,
-        "images": [
-          "https://via.placeholder.com/150/0000FF",
-          "https://via.placeholder.com/150/FF0000"
-        ]
-      }
-    ],
-    "video_id": "camera_7_ab12cd34"
-  };
-   
+  const alerts = [
+    {
+      time: "12:45:32 PM",
+      title: "Unauthorized Access Detected",
+      description:
+        "Individual attempting to access restricted area through south entrance.",
+      severity: "CRITICAL",
+      zone: "Zone B-4",
+      bgColor: "bg-red-100", // Background color
+      borderColor: "border-l-red-500", // Left border color
+      severityBg: "bg-red-500", // Background color for severity label
+      severityText: "text-white",
+    },
+    {
+      time: "12:43:18 PM",
+      title: "Suspicious Movement",
+      description:
+        "Repeated movement pattern detected near secure storage facilities.",
+      severity: "HIGH",
+      zone: "Zone A-2",
+      bgColor: "bg-red-50",
+      borderColor: "border-l-red-400",
+      severityBg: "bg-orange-500",
+      severityText: "text-white",
+    },
+    {
+      time: "12:38:55 PM",
+      title: "Unattended Object",
+      description:
+        "Package left unattended in main corridor for over 5 minutes.",
+      severity: "MEDIUM",
+      zone: "Zone C-1",
+      bgColor: "bg-yellow-50",
+      borderColor: "border-l-yellow-500",
+      severityBg: "bg-yellow-500",
+      severityText: "text-black",
+    },
+    {
+      time: "12:32:07 PM",
+      title: "Unusual Traffic Pattern",
+      description:
+        "Higher than normal foot traffic in east wing during off-hours.",
+      severity: "LOW",
+      zone: "Zone D-3",
+      bgColor: "bg-green-50",
+      borderColor: "border-l-green-500",
+      severityBg: "bg-green-500",
+      severityText: "text-white",
+    },
+  ];
+
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  return new Response(JSON.stringify(videoAnalysisData), {
+  return new Response(JSON.stringify(alerts), {
     headers: { "Content-Type": "application/json" },
     status: 200,
   });
