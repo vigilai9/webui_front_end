@@ -1,13 +1,14 @@
 // components/Navbar.js
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { signOut } = useAuth();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +21,7 @@ export default function Navbar() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      router.push('/login');
+      router.push("/home");
     } catch (error) {
       console.error("Failed to sign out:", error);
     }
@@ -44,12 +45,14 @@ export default function Navbar() {
             </a>
           </div>
 
-          <button
-            onClick={handleSignOut}
-            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition-all duration-200 shadow-md hover:shadow-lg"
-          >
-            Sign Out
-          </button>
+          {pathName === "/" && (
+            <button
+              onClick={handleSignOut}
+              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition-all duration-200 shadow-md hover:shadow-lg"
+            >
+              Sign Out
+            </button>
+          )}
         </div>
       </div>
     </nav>
