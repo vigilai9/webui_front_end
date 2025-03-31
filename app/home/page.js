@@ -21,14 +21,14 @@ export default function Homepage() {
       <div className="w-[70%] mx-auto">
         <div className="flex flex-col justify-center items-center mt-30">
           <h1 className="text-7xl font-semibold">
-            Think <span className="text-amber-400">Smarter,</span>{" "}
+            Under <span className="text-amber-400">30-Sec,</span>{" "}
           </h1>
-          <h1 className="text-7xl font-semibold">Not Harder</h1>
+          <h1 className="text-7xl font-semibold">Human Level Reporting</h1>
         </div>
 
         <p className="my-20 text-gray-400 text-3xl block px-30 mx-auto text-center">
-          The ultimate tool for understanding the information that matters most
-          to you, built with Gemini 2.0
+          Protect and stay ahead of risks, with the ultimate tool for anomaly
+          detection. Upgrade today for peace of mind
         </p>
         <button
           className="bg-black text-white px-10 py-4 rounded-lg text-xl block mx-auto"
@@ -45,10 +45,10 @@ export default function Homepage() {
           <div className="flex justify-between mt-20 gap-16">
             <div className="py-10">
               <img src="/fast.png" width={50} />
-              <p className="font-medium text-2xl">Listen and learn on the go</p>
+              <p className="font-medium text-2xl">Connect our free hardware</p>
               <p className="text-xl text-gray-500 mt-5">
-                Our new Audio Overview feature can turn your sources into
-                engaging “Deep Dive” discussions with one click.
+                We'll ship free hardware. Connect it to the same private network
+                as your NVR and login to Vigil AI's web portal.
               </p>
             </div>
             <video
@@ -67,10 +67,56 @@ export default function Homepage() {
           <div className="flex justify-between mt-20 gap-16">
             <div>
               <img src="/fast.png" width={50} />
-              <p className="font-medium text-2xl">Listen and learn on the go</p>
+              <p className="font-medium text-2xl">Setup in 10 min</p>
               <p className="text-xl text-gray-500 mt-5">
-                Our new Audio Overview feature can turn your sources into
-                engaging “Deep Dive” discussions with one click.
+                Setup the different cameras and camera location detail along
+                with deployment presets or customized settings.
+              </p>
+            </div>
+            <video
+              className="rounded-xl"
+              src="/upload_your_sources.mp4"
+              width={700}
+              height={600}
+              autoPlay
+              loop
+              muted
+              onEnded={(e) => e.target.play()}
+              playsInline
+            />
+          </div>
+          <div className="flex justify-between mt-20 gap-16">
+            <div>
+              <img src="/fast.png" width={50} />
+              <p className="font-medium text-2xl">Experience Live Witness</p>
+              <p className="text-xl text-gray-500 mt-5">
+                Vigil AI's gen AI powered surveillance system will give under 30
+                sec analysis on simple and complex anomalies such as theft,
+                organised crime, violent crimes and more.
+              </p>
+            </div>
+            <video
+              className="rounded-xl"
+              src="/upload_your_sources.mp4"
+              width={700}
+              height={600}
+              autoPlay
+              loop
+              muted
+              onEnded={(e) => e.target.play()}
+              playsInline
+            />
+          </div>
+
+          <div className="flex justify-between mt-20 gap-16">
+            <div>
+              <img src="/fast.png" width={50} />
+              <p className="font-medium text-2xl">
+                See the source, not just analysis
+              </p>
+              <p className="text-xl text-gray-500 mt-5">
+                Our timestamp and source cited analysis gives easy access and
+                navigation to the original material for maximum credibility.
               </p>
             </div>
             <video
@@ -91,12 +137,11 @@ export default function Homepage() {
       </div>
       <div className="bg-gray-100 py-30 text-center mt-30">
         <p className="text-4xl px-80">
-          We value your privacy and do not use your personal data to train
-          VigilAI.
+        We value your privacy and do not use your personal data to train Vigil AI.
+
         </p>
         <p className="mt-10 text-xl px-80 text-gray-600">
-          VigilAI does not use your personal data, including your source
-          uploads, queries, and the responses from the model for training.
+        Not only that, the facial data of individuals in the video is jumbled at the start and is not part of the decision making process.
         </p>
         <div className="relative">
           <img
@@ -109,9 +154,12 @@ export default function Homepage() {
           </div>
         </div>
       </div>
+
+
       {/* how people use vgilai */}
       <div className="my-30">
-        <p className="text-5xl text-center">How people are using VigilAI</p>
+        <p className="text-5xl text-center">Why to add Vigil AI to your security needs.
+        </p>
         <div className="flex w-[70%] mx-auto mt-30 gap-8">
           <div>
             <img src="/lock.png" width={40} className="py-5" />
