@@ -32,9 +32,9 @@ export default function Homepage() {
         </p>
         <button
           className="bg-black text-white px-10 py-4 rounded-lg text-xl block mx-auto"
-          //onClick={() => handleTryVigil()}
+          onClick={() => handleTryVigil()}
         >
-           Coming Soon!
+           Try VigilAI!
         </button>
         <div className="flex justify-center mt-36">
           <p className="text-4xl">Your Personalized AI Research Assistant</p>
@@ -142,7 +142,7 @@ export default function Homepage() {
 
         </p>
         <p className="mt-10 text-xl px-80 text-gray-600">
-        Not only that, the facial data of individuals in the img is jumbled at the start and is not part of the decision making process.
+        Not only that, the facial data of individuals in the video is jumbled at the start and is not part of the decision making process.
         </p>
         <div className="relative">
           <img
@@ -207,12 +207,12 @@ export default function Homepage() {
 
           <div>
             <img src="/chat_icon.png" width={40} className="py-5" />
-            <p className="text-2xl mb-5">Chat with your img feeds</p>
+            <p className="text-2xl mb-5">Chat with your video feeds</p>
             <p className="text-xl text-gray-500">
-            Interact with your img footage using AI-powered chat. Search, analyze, and extract insights with simple queries.
+            Interact with your video footage using AI-powered chat. Search, analyze, and extract insights with simple queries.
             </p>
             <p className="mt-10 italic text-xl text-gray-500">
-            Turn img into actionable intelligence.
+            Turn video into actionable intelligence.
             </p>
           </div>
 
@@ -225,7 +225,7 @@ export default function Homepage() {
             <p className="mt-10 italic text-xl text-gray-500">
             Control your system the way you want.
             </p>
-          </div>s
+          </div>
         </div>
       </div>
       <div className="bg-gray-100 py-30 text-center mt-30">

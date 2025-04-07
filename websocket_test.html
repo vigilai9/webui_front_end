@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VigilAI WebSocket Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+      #log {
+        flex: 1;
+        overflow-y: auto;
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+      }
+      .input-container {
+        display: flex;
+      }
+      #message {
+        flex: 1;
+        padding: 8px;
+        margin-right: 8px;
+      }
+      button {
+        padding: 8px 16px;
+        background-color: #0070f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:disabled {
+        background-color: #ccc;
+      }
+      .message {
+        margin-bottom: 8px;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      .user {
+        background-color: #e3f2fd;
+        text-align: right;
+      }
+      .server {
+        background-color: #f1f8e9;
+      }
+      .error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+      .system {
+        background-color: #f5f5f5;
+        font-style: italic;
+      }
+      .settings {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>VigilAI WebSocket Test</h1>
+
+      <div class="settings">
+        <h3>Connection Settings</h3>
+        <div>
+          <label for="wsUrl">WebSocket URL:</label>
+          <input
+            type="text"
+            id="wsUrl"
+            style="width: 400px"
+            placeholder="wss://your-api-id.execute-api.us-east-2.amazonaws.com/dev"
+          />
+        </div>
+        <div style="margin-top: 10px">
+          <label for="token">Firebase Token:</label>
+          <input
+            type="text"
+            id="token"
+            style="width: 400px"
+            placeholder="Firebase ID Token"
+          />
+        </div>
+        <div style="margin-top: 10px">
+          <button id="connectBtn">Connect</button>
+          <button id="disconnectBtn" disabled>Disconnect</button>
+        </div>
+      </div>
+
+      <div id="log"></div>
+
+      <div class="input-container">
+        <input
+          type="text"
+          id="message"
+          placeholder="Type your message"
+          disabled
+        />
+        <button id="sendBtn" disabled>Send</button>
+      </div>
+    </div>
+
+    <script>
+      // DOM Elements
+      const connectBtn = document.getElementById("connectBtn");
+      const disconnectBtn = document.getElementById("disconnectBtn");
+      const sendBtn = document.getElementById("sendBtn");
+      const messageInput = document.getElementById("message");
+      const wsUrlInput = document.getElementById("wsUrl");
+      const tokenInput = document.getElementById("token");
+      const logDiv = document.getElementById("log");
+
+      // WebSocket connection
+      let socket = null;
+      let chatId = null;
+
+      // Log message to the UI
+      function log(message, type = "system") {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = `message ${type}`;
+        msgDiv.textContent = message;
+        logDiv.appendChild(msgDiv);
+        logDiv.scrollTop = logDiv.scrollHeight;
+      }
+
+      // Handle connection button click
+      connectBtn.addEventListener("click", () => {
+        const wsUrl = wsUrlInput.value.trim();
+        const token = tokenInput.value.trim();
+
+        if (!wsUrl) {
+          log("Please enter WebSocket URL", "error");
+          return;
+        }
+
+        if (!token) {
+          log("Please enter Firebase token", "error");
+          return;
+        }
+
+        // Close existing connection if any
+        if (socket) {
+          socket.close();
+        }
+
+        try {
+          // Create WebSocket connection with token
+          log(`Connecting to ${wsUrl}...`);
+          socket = new WebSocket(`${wsUrl}?token=${token}`);
+
+          // Connection opened
+          socket.addEventListener("open", (event) => {
+            log("Connection established!");
+
+            // Update UI state
+            connectBtn.disabled = true;
+            disconnectBtn.disabled = false;
+            sendBtn.disabled = false;
+            messageInput.disabled = false;
+
+            // Create a chat ID if needed
+            if (!chatId) {
+              chatId = `chat_test_${Date.now()}`;
+              log(`Generated chat ID: ${chatId}`);
+            }
+          });
+
+          // Listen for messages
+          socket.addEventListener("message", (event) => {
+            try {
+              const data = JSON.parse(event.data);
+              log(`Received: ${JSON.stringify(data, null, 2)}`, "server");
+            } catch (e) {
+              log(`Received (raw): ${event.data}`, "server");
+            }
+          });
+
+          // Connection closed
+          socket.addEventListener("close", (event) => {
+            log(
+              `Connection closed. Code: ${event.code}, Reason: ${
+                event.reason || "N/A"
+              }`
+            );
+
+            // Update UI state
+            connectBtn.disabled = false;
+            disconnectBtn.disabled = true;
+            sendBtn.disabled = true;
+            messageInput.disabled = true;
+
+            socket = null;
+          });
+
+          // Connection error
+          socket.addEventListener("error", (error) => {
+            log(`WebSocket error: ${error}`, "error");
+          });
+        } catch (error) {
+          log(`Error creating connection: ${error.message}`, "error");
+        }
+      });
+
+      // Handle disconnect button click
+      disconnectBtn.addEventListener("click", () => {
+        if (socket) {
+          socket.close();
+          log("Disconnected from server.");
+        }
+      });
+
+      // Handle send button click
+      sendBtn.addEventListener("click", sendMessage);
+
+      // Handle enter key in message input
+      messageInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      // Send message function
+      function sendMessage() {
+        if (!socket || socket.readyState !== WebSocket.OPEN) {
+          log("WebSocket is not connected", "error");
+          return;
+        }
+
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        // Format the message with action for WebSocket API routing
+        const payload = JSON.stringify({
+          action: "send_message",
+          message,
+          chat_id: chatId,
+        });
+
+        // Send the message
+        socket.send(payload);
+        log(`Sent: ${message}`, "user");
+
+        // Clear input
+        messageInput.value = "";
+      }
+    </script>
+  </body>
+</html>

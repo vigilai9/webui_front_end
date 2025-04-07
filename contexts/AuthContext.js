@@ -2,10 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter for navigation
-import { 
-  signInWithPopup, 
-  signOut as firebaseSignOut, 
-  onAuthStateChanged 
+import {
+  signInWithPopup,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth, googleProvider } from "../firebaseconfig"; // Adjust path if needed
 
@@ -41,7 +41,10 @@ export function AuthProvider({ children }) {
 
   async function signInWithGoogle() {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      // Get and store token in localStorage for testing
+      const token = await result.user.getIdToken();
+      localStorage.setItem("firebase_auth_token", token);
       router.push("/"); // Redirect after login
     } catch (error) {
       console.error("Error signing in with Google:", error);
