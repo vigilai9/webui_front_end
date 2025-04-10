@@ -48,7 +48,7 @@ const ChatBot = () => {
     };
 
     const handleMessage = (data) => {
-      console.log("Received message:", data);
+      console.log("Received message KKUUMER:", data);
       if (data.type === "response") {
         setMessages((prev) => [
           ...prev,
@@ -117,7 +117,7 @@ const ChatBot = () => {
 
       // Note: We don't add a bot response here - it will come from the WebSocket message handler
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Error sending message :", error);
       setLoading(false);
       setMessages((prev) => [
         ...prev,
@@ -134,6 +134,8 @@ const ChatBot = () => {
 
   return (
     <div className="chatbot bg-white border rounded-xl shadow-lg w-full h-[500px] flex flex-col overflow-hidden">
+     
+      {/* Header connected/disconnected */}
       <div className="chat-header bg-gray-50 p-4 border-b">
         <h3 className="text-lg font-medium text-gray-800 flex items-center">
           <span
@@ -144,8 +146,9 @@ const ChatBot = () => {
           VigilAI Assistant {connected ? "(Connected)" : "(Disconnected)"}
         </h3>
       </div>
-
+     
       <div className="chat-messages flex-1 p-4 overflow-y-auto bg-gray-50">
+        {/*  Ask me anything about your video!/messages section */}
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-gray-400 text-center">
             <div>
@@ -171,7 +174,7 @@ const ChatBot = () => {
             <div
               key={index}
               className={`message flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
+                message.sender == "user" ? "justify-end" : "justify-start"
               } mb-3`}
             >
               <div
@@ -186,6 +189,7 @@ const ChatBot = () => {
             </div>
           ))
         )}
+        {/* chat bot is thinking for response */}
         {loading && (
           <div className="flex justify-start mb-3">
             <div className="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-tl-none flex items-center">
@@ -209,6 +213,7 @@ const ChatBot = () => {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Chat messages input box  */}
       <div className="input-area p-4 border-t">
         <div className="flex items-center bg-gray-50 rounded-full border overflow-hidden pl-4 pr-1 py-1">
           <input
@@ -220,8 +225,7 @@ const ChatBot = () => {
             placeholder="Ask me something..."
             disabled={!connected}
           />
-          <button
-            onClick={handleSend}
+          <button onClick={handleSend}
             disabled={loading || input.trim() === "" || !connected}
             className={`ml-2 p-2 rounded-full ${
               loading || input.trim() === "" || !connected

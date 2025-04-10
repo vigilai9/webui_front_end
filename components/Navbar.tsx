@@ -1,24 +1,15 @@
 // components/Navbar.js
-import { useState, useEffect } from "react";
+"use client"
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { signOut } = useAuth();
   const router = useRouter();
   const pathName = usePathname();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleSignOut = async () => {
+  const handleSignOut = async (): Promise<void> => {
     try {
       await signOut();
       router.push("/home");
@@ -28,23 +19,42 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md" : "bg-white"
-      }`}
-    >
-      <div className="px-6">
-        <div className="flex justify-between items-center h-16">
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          type: 'spring',
+          damping: 10,
+          stiffness: 100,
+        }}
+        className="fixed top-0 z-[999] w-full shadow-md bg-white"
+      >
+        <div className="wrapper flex w-full items-center justify-between p-3">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            // variants={navItemVariants}
+            custom={0}
+            className="flex items-center gap-4"
+          >
           <div className="flex items-center gap-2">
             <img className="w-10 h-10" src="/vai.png" alt="VigilAI Logo" />
             <a
               href="/"
               className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent"
             >
-              VigilAI
+                 VigilAI
             </a>
           </div>
-
+          </motion.div>
+          <motion.div
+            className="flex items-center gap-4"
+            initial="hidden"
+            animate="visible"
+            // variants={navItemVariants}
+            custom={1}
+          >
           {pathName === "/" && (
             <button
               onClick={handleSignOut}
@@ -53,8 +63,8 @@ export default function Navbar() {
               Sign Out
             </button>
           )}
+          </motion.div>
         </div>
-      </div>
-    </nav>
+      </motion.nav>
   );
 }
