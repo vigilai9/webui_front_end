@@ -48,7 +48,7 @@ export default function Home() {
   };
   return (
     <>
-      <div>
+      <div className="mt-16">
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="relative bg-white w-4/5 h-4/5 rounded-lg shadow-lg">
@@ -65,13 +65,12 @@ export default function Home() {
             </div>
           </div>
         )}
-        <Navbar />
-        <div className={`bg-white flex p-4 gap-8 `}>
+        <div className={`bg-white flex p-4 gap-8`}>
           <div className="w-[25%]">
             <Controls />
           </div>
           <div
-            className={` bg-gray-100 ${
+            className={` bg-gray-100  ${
               showAnalysisBar ? "w-[75%]" : "w-[60%]"
             } p-8 rounded-lg mx-auto`}
           >

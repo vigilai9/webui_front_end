@@ -1,7 +1,7 @@
 import Card from "./Card";
 import { useState } from "react";
 
-const Analyze = ({ data, loading, toggleAnalysisBar }) => {
+const Analyze = ({ data, loading, toggleAnalysisBar }:{data:any, loading:any, toggleAnalysisBar:any}) => {
   const safeData = Array.isArray(data) ? data : [];
   const [value, setValue] = useState(50);
 
@@ -10,7 +10,8 @@ const Analyze = ({ data, loading, toggleAnalysisBar }) => {
       {loading ? (
         <div className="grid grid-cols-1 gap-6">
           {Array.from({ length: 3 }).map((_, index) => (
-            <Card key={index} loading={true} />
+            //-v added null to remove ts error
+            <Card key={index} loading={true} data={null}/>
           ))}
         </div>
       ) : (
