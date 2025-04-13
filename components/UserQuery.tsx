@@ -3,6 +3,8 @@ import { Button } from './ui/button';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { motion } from 'framer-motion';
+import { fadeIn } from "@/lib/variants";
 import axios from 'axios';
 
 interface IUserQuery{
@@ -19,7 +21,7 @@ const initialFormData: IUserQuery = {
     phone: '',
     designation: '',
     query: '',
-  };
+};
 
 const UserQuery = () => {
     // state to store user query
@@ -56,9 +58,8 @@ const UserQuery = () => {
         }
     }
 
-   
   return (
-    <div className="flex max-w-5xl w-full flex-col items-center justify-center gap-2 rounded bg-gray-100 py-8 md:py-8 lg:py-12 mt-30">
+    <div className="flex max-w-5xl w-full flex-col items-center justify-center gap-2 rounded bg-gray-100 py-8 md:py-8 lg:py-12 mt-30 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-semibold leading-snug mb-6">
           Let Us Know About Yourself
@@ -69,7 +70,14 @@ const UserQuery = () => {
         </p>
       </div>
 
-      <form onSubmit={submitQuery} className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full">
+      <motion.form   
+             variants={fadeIn('up', 0.2)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }} 
+              onSubmit={submitQuery} 
+              className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
+        >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div className="grid w-full items-center gap-1">
             <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
@@ -154,7 +162,7 @@ const UserQuery = () => {
             {loading ? 'Submitting...' : 'Submit Inquiry'}
           </Button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };
