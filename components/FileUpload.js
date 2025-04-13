@@ -120,7 +120,7 @@ export default function FileUpload({
             controls
             className="rounded-lg w-[50%] h-full object-cover"
           />
-          <div className="flex mt-4 gap-4">
+          <div className="flex mt-4 gap-4 border border-">
             <button
               className="bg-blue-500 rounded-lg text-white px-4 py-2 text-xl"
               onClick={handleUpload}

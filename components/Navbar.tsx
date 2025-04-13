@@ -3,6 +3,8 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function Navbar() {
   const { signOut } = useAuth();
@@ -49,21 +51,31 @@ export default function Navbar() {
           </div>
           </motion.div>
           <motion.div
-            className="flex items-center gap-4"
             initial="hidden"
             animate="visible"
             // variants={navItemVariants}
             custom={1}
+            className="flex items-center gap-4"
           >
           {pathName === "/" && (
-            <button
-              onClick={handleSignOut}
-              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              Sign Out
-            </button>
+            <motion.div className="flex items-center justify-center">
+            <Button onClick={handleSignOut} size={'sm'} variant={'default'} className="rounded cursor-pointer">
+                Logout
+            </Button>
+          </motion.div>
+          )}
+
+          {pathName === "/home" && (
+            <motion.div className="flex items-center justify-center">
+              <Button  size={'sm'} asChild variant={'default'} className="rounded">
+                <Link href={'/login'}>
+                  Login
+                </Link>
+              </Button>
+            </motion.div>
           )}
           </motion.div>
+
         </div>
       </motion.nav>
   );

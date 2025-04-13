@@ -63,7 +63,7 @@ function Features() {
    ]
 
   return (
-    <div className="max-w-5xl rounded bg-gray-100 py-12 mt-12 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-5xl rounded bg-gray-100 mt-12 px-4 sm:px-6 lg:px-8  py-8 md:py-8 lg:py-12">
       <div className="max-w-7xl mx-auto">
         <p className="text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-4 mx-auto">
           Why add Vigil AI to your security needs.

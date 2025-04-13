@@ -268,3 +268,18 @@
     @apply flex items-center justify-between;
   }
 }
+
+.uploadslider::-webkit-scrollbar{
+  display: block;
+  height: 5px;
+}
+
+.uploadslider::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgb(102, 101, 100);
+}
+
+.uploadslider::-webkit-scrollbar-track{
+  border-radius: 10px;
+  background-color: rgb(227, 224, 224);
+}

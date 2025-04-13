@@ -2,12 +2,13 @@
 
 import Analyze from "@/components/Analyze";
 import ChatBot from "@/components/Chatbot";
-import FileUpload from "@/components/FileUpload";
+// import FileUpload from "@/components/FileUpload";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Controls from "@/components/Controls";
+import { FileUpload } from "@/components/ui/FileUpload";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -49,10 +50,10 @@ export default function Home() {
   return (
     <>
       <div className="mt-16">
-        {showModal && (
+        
+        {/* {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="relative bg-white w-4/5 h-4/5 rounded-lg shadow-lg">
-              {/* Close Button */}
               <button
                 onClick={() => setShowModal(false)}
                 className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl"
@@ -60,31 +61,30 @@ export default function Home() {
                 ✖
               </button>
 
-              {/* Embedded PDF */}
               <iframe src="/dr.pdf" className="w-full h-full rounded-b-lg" />
             </div>
           </div>
-        )}
+        )} */}
+
         <div className={`bg-white flex p-4 gap-8`}>
-          <div className="w-[25%]">
+          {/* <div className="w-[25%]">
             <Controls />
-          </div>
+          </div> */}
           <div
-            className={` bg-gray-100  ${
-              showAnalysisBar ? "w-[75%]" : "w-[60%]"
-            } p-8 rounded-lg mx-auto`}
+            className={`  p-4 w-full rounded-lg mx-auto `}
           >
-            <FileUpload
+            {/* <FileUpload
               toggleAnalysisBar={changeAnalysisBarState}
               analysisResponse={setAnalysisData}
               toggleLoading={changeLoadingState}
               analysisState={showAnalysisBar}
-            />
-            <div className="mt-12">
+            /> */}
+            <FileUpload/>
+            {/* <div className="mt-12">
               <ChatBot />
-            </div>
+            </div> */}
           </div>
-          {showAnalysisBar && (
+          {/* {showAnalysisBar && (
             <div className=" w-[25%] p-6 rounded-lg min-h-screen flex flex-col">
               <Analyze
                 loading={loading}
@@ -104,7 +104,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>
