@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 export default function FileUpload({
   toggleAnalysisBar,
   analysisResponse,
-  toggleLoading,
+  toggleLoading
 }) {
   const [videoPlayBackUrl, setVideoPlayBackUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,7 +16,7 @@ export default function FileUpload({
   const { getRootProps, getInputProps } = useDropzone({
     accept: "video/*",
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
+      console.log("KK",acceptedFiles);
       setSelectedFile(acceptedFiles[0]);
       setVideoPlayBackUrl(URL.createObjectURL(acceptedFiles[0]));
       setButtonText("Upload");
@@ -47,7 +47,6 @@ export default function FileUpload({
         const data = await res.json();
         analysisResponse(data[0]?.data?.scene_analysis);
         updateState("Hide Analysis", false);
-
         toggleLoading(false);
       } catch (error) {
         updateState("Retry", false);
@@ -70,6 +69,7 @@ export default function FileUpload({
             }),
           }
         );
+        console.log("response after uploading video to sc bucket",res);
         if (res.ok) {
           updateState("Analyze", false);
         } else {
@@ -120,7 +120,7 @@ export default function FileUpload({
             controls
             className="rounded-lg w-[50%] h-full object-cover"
           />
-          <div className="flex mt-4 gap-4">
+          <div className="flex mt-4 gap-4 border border-green-600">
             <button
               className="bg-blue-500 rounded-lg text-white px-4 py-2 text-xl"
               onClick={handleUpload}
