@@ -4,7 +4,6 @@ import { useState } from "react";
 const Analyze = ({ data, loading, toggleAnalysisBar }:{data:any, loading:any, toggleAnalysisBar:any}) => {
   const safeData = Array.isArray(data) ? data : [];
   const [value, setValue] = useState(50);
-
   return (
     <div>
       {loading ? (
@@ -19,7 +18,7 @@ const Analyze = ({ data, loading, toggleAnalysisBar }:{data:any, loading:any, to
           <p className="font-bold text-2xl mb-4">Event Details: </p>
           <div className="flex flex-col gap-8">
             {safeData.map((item) => (
-              <Card loading={false} data={item} />
+              <Card key={item?.scene_number} loading={false} data={item} />
             ))}
           </div>
         </div>

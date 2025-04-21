@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
 /* ========= Animatio on logos ========== */
 
 @keyframes loop-scroll {
@@ -34,7 +33,6 @@
   pointer-events: none;
   z-index: 10;
 }
-
 
 .scroll-gradient-right {
   position: absolute;
@@ -70,8 +68,6 @@
     justify-content: center;
   }
 }
-
-
 
 /* ============================= */
 
@@ -218,8 +214,6 @@
     @apply bg-background text-foreground;
     }
 }
- 
-
 
 /* grid background */
 
@@ -228,8 +222,6 @@
     linear-gradient(to bottom, #d4cdcd 0.5px, transparent 1px);
   background-size: 65px 65px;
 }
-
-
 
 .blur-overlay {
   position: absolute;
@@ -252,8 +244,6 @@
     rgba(255, 255, 255, 0) 100%
   );
 }
-
-
 
 @layer utilities {
   .wrapper {
@@ -280,6 +270,56 @@
 }
 
 .uploadslider::-webkit-scrollbar-track{
-  border-radius: 10px;
   background-color: rgb(227, 224, 224);
+}
+
+.cardsSlider::-webkit-scrollbar{
+  display: block;
+  width: 5px;
+  height: 5px;
+}
+
+.cardsSlider::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: rgb(153, 152, 150);
+}
+
+.cardsSlider::-webkit-scrollbar-track{
+  width: 10px;
+  background-color: rgb(227, 224, 224);
+}
+
+
+.chatsSlider::-webkit-scrollbar{
+  display: none;
+}
+
+
+
+
+
+
+
+@layer base {
+  :root {
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 }

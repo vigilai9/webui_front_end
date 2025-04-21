@@ -1,14 +1,15 @@
 "use client";
 
 import Analyze from "@/components/Analyze";
-import ChatBot from "@/components/Chatbot";
+import ChatBot from "@/components/ChatBot";
 // import FileUpload from "@/components/FileUpload";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Controls from "@/components/Controls";
-import { FileUpload } from "@/components/ui/FileUpload";
+import { FileUpload } from "@/components/FileUpload";
+import { VideoFile } from "@/components/FileUpload";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -16,6 +17,8 @@ export default function Home() {
   const [showAnalysisBar, setShowAnalysisBar] = useState(false);
   const { currentUser, loading: authLoading } = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const [files, setFiles] = useState<VideoFile[]>([]);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -36,20 +39,20 @@ export default function Home() {
     return null;
   }
 
-  const changeAnalysisBarState = (value) => {
+  const changeAnalysisBarState = (value:boolean) => {
     setShowAnalysisBar(value);
   };
 
-  const changeLoadingState = (loading) => {
+  const changeLoadingState = (loading:boolean) => {
     setLoading(loading);
   };
 
-  const setAnalysisData = (data) => {
+  const setAnalysisData = (data:any) => {
     setData(data);
   };
   return (
     <>
-      <div className="mt-16">
+      <div className="">
         
         {/* {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
@@ -66,12 +69,12 @@ export default function Home() {
           </div>
         )} */}
 
-        <div className={`bg-white flex p-4 gap-8`}>
+        <div className={`bg-white flex gap-8`}>
           {/* <div className="w-[25%]">
             <Controls />
           </div> */}
           <div
-            className={`  p-4 w-full rounded-lg mx-auto `}
+            className={`w-full mx-auto`}
           >
             {/* <FileUpload
               toggleAnalysisBar={changeAnalysisBarState}
@@ -79,10 +82,20 @@ export default function Home() {
               toggleLoading={changeLoadingState}
               analysisState={showAnalysisBar}
             /> */}
-            <FileUpload/>
-            {/* <div className="mt-12">
-              <ChatBot />
-            </div> */}
+            {
+              data.length==0 &&
+              <FileUpload 
+              toggleAnalysisBar={changeAnalysisBarState}
+              analysisResponse={setAnalysisData}
+              toggleLoading={changeLoadingState}
+              files={files}
+              setFiles={setFiles}
+            />
+           }
+            <div>
+              { data.length>0 && <ChatBot data={data} files={files}/> } 
+              {/* { data.length === 0 && <ChatBot data={data} files={files} /> } */}
+            </div>
           </div>
           {/* {showAnalysisBar && (
             <div className=" w-[25%] p-6 rounded-lg min-h-screen flex flex-col">
