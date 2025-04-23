@@ -157,7 +157,7 @@ export const FileUpload = ({
   };
 
   return (
-    <div className="mt-6 md:mt-8 lg:mt-12 p-2 bg-gray-50 max-w-5xl mx-auto">
+    <div className="mt-6 md:mt-8 lg:mt-12 p-2 bg-gray-50 max-w-5xl mx-auto pt-12">
       <main className=" bg-white rounded-lg shadow-sm max-w-5xl mx-auto">
           <div className="border-b border-gray-200 p-4">
           <h2 className="text-xl font-semibold text-gray-800">Upload Videos</h2>

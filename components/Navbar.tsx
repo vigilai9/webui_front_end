@@ -30,7 +30,7 @@ export default function Navbar() {
           damping: 10,
           stiffness: 100,
         }}
-        className="fixed top-0 z-[999] w-full bg-white"
+        className="fixed top-0 z-[999] w-full bg-white shadow"
       >
         <div className="wrapper flex w-full items-center justify-between p-3">
           <motion.div
