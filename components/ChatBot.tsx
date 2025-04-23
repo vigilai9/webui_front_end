@@ -20,8 +20,27 @@ const history = [
   "Our app talks JSON",
   "New features drop soon",
   "Logs tell the truth",
+  "Data flows strong",
+  "She refactors code",
+  "I test edge cases",
+  "He builds UI",
+  "The server restarts",
+  "Our app talks JSON",
+  "New features drop soon",
+  "Logs tell the truth",
+  "Data flows strong",
+  "Our app talks JSON",
+  "New features drop soon",
+  "Logs tell the truth",
+  "Data flows strong",
+  "She refactors code",
+  "I test edge cases",
+  "He builds UI",
+  "The server restarts",
+  "Our app talks JSON",
+  "New features drop soon",
+  "Logs tell the truth",
   "Data flows strong"
-
 ]
 
 const Chats: React.FC<any> = ({ data, files }) => {
@@ -210,7 +229,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
       {/* Left Hamburger Menu Button */}
       <button
         onClick={toggleLeftSidebar}
-        className="fixed top-4 left-4 z-50  cursor-pointer rounded-md text-gray-500 hover:text-gray-600 focus:outline-none"
+        className="fixed top-4 left-4 z-50 flex items-center cursor-pointer rounded-md text-gray-500 hover:text-gray-600 focus:outline-none"
       >
         <Menu className='text-sm h-4 w-4' />
       </button>
@@ -241,7 +260,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
                   <div
                     onClick={() => setCurrentChat(index)}
                     key={index}
-                    className={`relative flex items-center px-2 py-1 cursor-pointer rounded hover:bg-gray-200 ${index == currentChat ? "bg-gray-300" : ""}`}
+                    className={`relative flex items-center px-2 py-1 cursor-pointer rounded hover:bg-gray-100 ${index == currentChat ? "bg-gray-200" : ""}`}
                   >
                     {history}
                   </div>
@@ -391,7 +410,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Type your message..."
-                    className="w-full px-8 py-6 pr-16 rounded-xl bg-gray-200 text-gray-600 focus:outline-none focus:border-gray-400"
+                    className="w-full px-6 py-6 pr-16 rounded-xl bg-gray-200 text-gray-600 focus:outline-none border focus:border-gray-300"
                   />
                 </div>
               </form>
@@ -435,12 +454,12 @@ const Chats: React.FC<any> = ({ data, files }) => {
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <button
                   type="submit"
-                  className="text-gray-500 hover:text-gray-700 bg-white rounded-full p-1 transition-all duration-500 border border-gray-300"
+                  className="text-gray-500 hover:text-gray-700 bg-white rounded-full p-1 transition-all duration-500 border border-indigo-300"
                 >
                   {
                     isLoading ?
                       <div onClick={handleStop} className="relative w-5 h-5 flex items-center justify-center cursor-pointer">
-                        <div className="absolute rounded bg-gray-700 p-2" />
+                        <div className="absolute rounded bg-indigo-500 p-2" />
                       </div>
                       :
                       <ArrowUp className={`${inputValue ? "text-indigo-500" : ""} `} />
