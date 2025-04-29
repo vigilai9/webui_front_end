@@ -27,14 +27,6 @@ export default function Home() {
     }
   }, [currentUser, router, authLoading]);
 
-  if (authLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
   if (!currentUser) {
     return null;
   }
@@ -83,7 +75,9 @@ export default function Home() {
               analysisState={showAnalysisBar}
             /> */}
             {
-              data.length==0 &&
+              data.length==0 && 
+              <>
+              <Navbar />
               <FileUpload 
               toggleAnalysisBar={changeAnalysisBarState}
               analysisResponse={setAnalysisData}
@@ -91,9 +85,10 @@ export default function Home() {
               files={files}
               setFiles={setFiles}
             />
+              </>
            }
             <div>
-              { data.length>0 && <ChatBot data={data} files={files}/> } 
+              { data.length>0 && <ChatBot data={data} files={files} setFiles={setFiles}/> } 
               {/* { data.length === 0 && <ChatBot data={data} files={files} /> } */}
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PanelRight, Film, X, Timer, ArrowUp, Menu} from 'lucide-react';
+import { PanelRight, Film, X, Timer, ArrowUp, Menu, Plus} from 'lucide-react';
 import webSocketService from "@/services/websocket_service";
 import { useAuth } from "@/contexts/AuthContext";
 import { VideoFile } from './FileUpload';
@@ -43,7 +43,7 @@ const history = [
   "Data flows strong"
 ]
 
-const Chats: React.FC<any> = ({ data, files }) => {
+const Chats: React.FC<any> = ({ data, files, setFiles }) => {
   console.log("data and files", data, files);
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string, isUser: boolean }>>([]);
@@ -51,6 +51,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
@@ -62,12 +63,12 @@ const Chats: React.FC<any> = ({ data, files }) => {
 
   const [connected, setConnected] = useState(false);
   const stopRef = useRef(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
 
   const [searchHistory, setSearchHistory] = useState<string[]>(history);
   const [filterHistory, setFilterHistory] = useState<string[]>(history);
   const [searchText, setSearchText] = useState("");
-
 
   const { currentUser } = useAuth();
   console.log("stop", stop);
@@ -149,7 +150,6 @@ const Chats: React.FC<any> = ({ data, files }) => {
   };
 
   const xx = "Just say the word if you want me to actually write that 1000-line story—or help with anything else! Just say the word if you want me to actually write that 1000-line story—or help with anything else! Just say the word if you want me to actually write that 1000-line story—or help with anything else! Just say the word if you want me to actually write that 1000-line story—or help with anything else! Just say the word if you want me to actually write that 1000-line story—or help with anything else!Just say the word if you want me to actually write that 1000-line story—or help with anything else!"
-  // const xx = "Just say the word if you want me to";
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -224,6 +224,39 @@ const Chats: React.FC<any> = ({ data, files }) => {
 
   }, [searchText]);
 
+
+  const adjustHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight) || 20;
+      textarea.style.height = 'auto';
+      const maxHeight = lineHeight * 6;
+      const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+      textarea.style.height = `${newHeight}px`;
+      textarea.style.overflowY = textarea.scrollHeight > maxHeight ? 'auto' : 'hidden';
+    }
+  };
+  
+  // Run the adjustHeight function whenever message changes
+  useEffect(() => {
+    adjustHeight();
+  }, [inputValue]);
+
+  const handleFileChange=(event: any)=>{
+    const files = Array.from(event.target.files || []) as File[];
+    const newVideos = files.map((file: File) => {
+      const videoFile = file as VideoFile;
+      videoFile.preview = URL.createObjectURL(file);
+      return videoFile;
+    });
+
+    setFiles((prev: VideoFile[]) => [...prev, ...newVideos]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
+
   return (
     <div className="min-h-screen w-full flex flex-col bg-white relative">
       {/* Left Hamburger Menu Button */}
@@ -250,7 +283,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
         <div className="p-4">
         </div>
         <div className='px-4 pt-2'>
-          <input type="text" onChange={(e)=>setSearchText(e.target.value)} placeholder='search...' className='border border-gray-200 px-2 py-1 focus:outline-none text-gray-600  rounded' />
+          <input type="text" onChange={(e)=>setSearchText(e.target.value)} placeholder='search...' className='border w-full border-gray-300 text-xs px-2 py-2 focus:outline-none text-gray-600  rounded' />
         </div>
         <nav className="mt-4 border-t h-[calc(100vh-50px)] cardsSlider overflow-y-auto">
           <div className='flex flex-col gap-1 py px-2'>
@@ -260,7 +293,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
                   <div
                     onClick={() => setCurrentChat(index)}
                     key={index}
-                    className={`relative flex items-center px-2 py-1 cursor-pointer rounded hover:bg-gray-100 ${index == currentChat ? "bg-gray-200" : ""}`}
+                    className={`relative flex items-center text-xs font-normal px-2 py-1 cursor-pointer rounded hover:bg-gray-100 ${index == currentChat ? "bg-gray-200" : ""}`}
                   >
                     {history}
                   </div>
@@ -352,16 +385,16 @@ const Chats: React.FC<any> = ({ data, files }) => {
                     <div key={index} className="bg-white rounded overflow-hidden border border-gray-200">
                       <div className="p-2">
                         <div className="flex justify-between items-start">
-                          <h3 className="text-sm font-semibold text-gray-800">{event.video_embedding.actions.slice(0, 35)}...</h3>
+                          <h3 className="text-sm font-med text-gray-800">{event.video_embedding.actions.slice(0, 35)}...</h3>
                         </div>
                         <p className="text-xs text-gray-600 mt-2">{event.video_embedding.actions.length > 160 ? `${event.video_embedding.actions.slice(0, 160)}.....` : event.video_embedding.actions}</p>
                       </div>
-                      <div className="flex items-center justify-between gap-2 bg-gray-50 px-4 py-1 border-t border-gray-200">
+                      <div className="flex items-center justify-between gap-2 px-4 py-1 border-gray-100 border-t">
                         <div className='flex items-center gap-1'>
-                          <Timer className='text-gray-500 h-4 w-4' />
-                          <span className="text-sm text-gray-500">{event.scene_timestamp}</span>
+                          <Timer className='text-gray-500 h-3 w-3' />
+                          <span className="text-xs text-gray-500">{event.scene_timestamp}</span>
                         </div>
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${event.video_embedding.severity_rating >= 7 ? "bg-red-100 text-red-800" :
+                        <span className={`px-1 py-1 rounded text-xs font-normal ${event.video_embedding.severity_rating >= 7 ? "bg-red-100 text-red-800" :
                             event.video_embedding.severity_rating >= 5 ? "bg-yellow-100 text-yellow-800" :
                               "bg-green-100 text-green-800"
                           }`}>
@@ -396,7 +429,7 @@ const Chats: React.FC<any> = ({ data, files }) => {
         className={`w-full ${messages.length === 0 ? 'flex items-center justify-center' : ''}`}
         style={{ maxHeight: 'calc(100vh - 100px)' }}
       >
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-2xl mx-auto px-2">
           {messages.length === 0 ? (
             <div className="text-center px-4 py-8 pt-[35vh]">
               <h1 className="text-2xl font-semibold text-gray-700 mb-6">Welcome to VigilAI!</h1>
@@ -416,16 +449,16 @@ const Chats: React.FC<any> = ({ data, files }) => {
               </form>
             </div>
           ) : (
-            <div className="flex flex-col gap-4 p-4 pb-32">
+            <div className="flex flex-col gap-4 pb-32">
               {messages.map((message, index) => (
                 <div
                   key={index}
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded py-2 ${message.isUser
+                    className={`max-w-[80%] rounded-lg py-2 ${message.isUser
                         ? 'text-black px-4 my-2 shadow-sm'
-                        : ' text-black px-4 my-2 shadow-sm'
+                        : ' text-black px-4 my-2'
                       }`}
                   >
                     <p className="text-sm leading-relaxed">{message.text}</p>
@@ -440,34 +473,50 @@ const Chats: React.FC<any> = ({ data, files }) => {
 
       {/* Bottom input */}
       {messages.length > 0 && (
-        <div className="fixed bottom-0 bg-white inset-x-0 pb-4 pt-2">
-          <form onSubmit={handleSendMessage} className="w-full max-w-2xl mx-auto px-4">
-            <div className="relative">
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Type your message..."
-                className="w-full px-8 py-6 pr-16 rounded-xl bg-gray-200 text-gray-600 focus:outline-none focus:border-gray-400"
+     <div className="fixed bottom-0 bg-white inset-x-0 pb-4">
+      <form onSubmit={handleSendMessage} className="w-full max-w-2xl mx-auto rounded-xl px-2 bg-gray-100 border border-gray-300">
+        <div className="relative h-full pt-1">
+          <textarea
+            ref={textareaRef}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e)=>{
+              if(e.key === 'Enter' && !e.shiftKey){
+                handleSendMessage(e);
+              }
+            }}
+            placeholder="Type your message..."
+            className="w-full py-2 px-4 bg-gray-100 text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm"
+            rows={1}
+          />
+          <div className="flex justify-between items-center px-4 pb-1"> 
+           
+            <div className=' px-4 py-1 rounded-full cursor-pointer border border-gray-300 text-gray-500'>
+              <label htmlFor="fileupload"><Plus className={`text-indigo h-4 w-4 cursor-pointer`}/> </label>
+              <input 
+                 ref={fileInputRef}
+                 onChange={handleFileChange}
+                 type="file" 
+                 id='fileupload' 
+                 multiple
+                 className='hidden'
               />
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <button
-                  type="submit"
-                  className="text-gray-500 hover:text-gray-700 bg-white rounded-full p-1 transition-all duration-500 border border-indigo-300"
-                >
-                  {
-                    isLoading ?
-                      <div onClick={handleStop} className="relative w-5 h-5 flex items-center justify-center cursor-pointer">
-                        <div className="absolute rounded bg-indigo-500 p-2" />
-                      </div>
-                      :
-                      <ArrowUp className={`${inputValue ? "text-indigo-500" : ""} `} />
-                  }
-                </button>
-              </div>
             </div>
-          </form>
+            <button
+              type="submit"
+              className={`text-gray-500 hover:text-gray-700 ${inputValue ? "bg-indigo-500" : "bg-white"} rounded-full p-1 transition-all duration-200`}
+            >
+              { isLoading ? 
+                <div onClick={handleStop} className="relative w-4 h-4 flex items-center justify-center cursor-pointer">
+                  <div className="absolute rounded bg-indigo-500 p-2" />
+                </div> : 
+                <ArrowUp className={`w-4 h-4 ${inputValue ? "text-white " : ""} `} size={20} /> 
+              }
+            </button>
+          </div>
+        </div>
+      </form>
+
         </div>
       )}
     </div>
