@@ -32,7 +32,7 @@ export default function Navbar() {
         }}
         className="fixed top-0 z-[999] w-full bg-white shadow"
       >
-        <div className="wrapper flex w-full items-center justify-between p-3">
+        <div className="wrapper flex w-full items-center justify-between p-2">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -59,7 +59,7 @@ export default function Navbar() {
           >
           {pathName === "/" && (
             <motion.div className="flex items-center justify-center">
-            <Button onClick={handleSignOut} size={'sm'} variant={'default'} className="rounded cursor-pointer">
+            <Button onClick={handleSignOut} size={'sm'} variant={'outline'} className="rounded cursor-pointer">
                 Logout
             </Button>
           </motion.div>
@@ -67,7 +67,7 @@ export default function Navbar() {
 
           {pathName === "/home" && (
             <motion.div className="flex items-center justify-center">
-              <Button  size={'sm'} asChild variant={'default'} className="rounded">
+              <Button size={'sm'} variant={'outline'} asChild className="rounded">
                 <Link href={'/login'}>
                   Login
                 </Link>
