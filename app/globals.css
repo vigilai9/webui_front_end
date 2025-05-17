@@ -29,7 +29,7 @@
   left: 0;
   height: 100%;
   width: 160px;
-  background: linear-gradient(to right, #eaeaed, #edeef0, transparent);
+  background: linear-gradient(to right, #ffffff, #ffffff, transparent);
   pointer-events: none;
   z-index: 10;
 }
@@ -40,7 +40,7 @@
   right: 0;
   height: 100%;
   width: 160px;
-  background: linear-gradient(to left, #eaeaed , #edeef0, transparent);
+  background: linear-gradient(to left, #ffffff, #ffffff, transparent);
   pointer-events: none;
   z-index: 10;
 }
@@ -70,6 +70,76 @@
 }
 
 /* ============================= */
+
+/*  animation effect on the navbar menus */
+
+.hover-underline {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.hover-underline:hover {
+  color: #1b3b5f;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4;
+  left: 0;
+  background-color: #1b3b5f;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+
+/*  animation effect on the  features card */
+
+.hover-underline-feature {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding-left: 12px; /* Add some padding to prevent text overlap */
+}
+
+.hover-underline-feature:hover {
+  color: #1b3b5f;
+}
+
+.hover-underline-feature::after {
+  content: '';
+  position: absolute;
+  width: 2px; /* Make it vertical instead of horizontal */
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #1b3b5f;
+  transform: scaleY(0); /* Scale vertically instead of horizontally */
+  transform-origin: top center;
+  transition: transform 0.3s ease-out;
+}
+
+.hover-underline-feature:hover::after {
+  transform: scaleY(1);
+  transform-origin: center center;
+}
+
+
+/* ------------------------ */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -321,5 +391,87 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+
+
+
+
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  .rotate-x-180 {
+    transform: rotateX(180deg);
+  }
+  
+  .rotate-x-90 {
+    transform: rotateX(90deg);
+  }
+
+  .rotate-x-\[-90deg\] {
+    transform: rotateX(-90deg);
+  }
+  
+  .rotate-x-45 {
+    transform: rotateX(45deg);
+  }
+  
+  .rotate-y-45 {
+    transform: rotateY(45deg);
+  }
+
+  .rotate-y-\[60deg\] {
+    transform: rotateY(60deg);
+  }
+  
+  .rotate-y-\[720deg\] {
+    transform: rotateY(720deg);
+  }
+  
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+
+  .origin-bottom {
+    transform-origin: bottom;
+  }
+
+  .origin-top {
+    transform-origin: top;
+  }
+
+  .origin-left {
+    transform-origin: left;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

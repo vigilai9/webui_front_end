@@ -59,25 +59,10 @@ const UserQuery = () => {
     }
 
   return (
-    <div className="flex max-w-5xl w-full flex-col items-center justify-center gap-2 rounded bg-gray-100 py-8 md:py-8 lg:py-12 mt-30 px-4">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-semibold leading-snug mb-6">
-          Let Us Know About Yourself
-        </h2>
-        <p className="my-4 md:my-6 text-gray-500 text-center text-base md:text-lg tracking-tight px-4 md:px-8 lg:px-44 mx-auto">
-          Interested in learning more or discussing your specific needs? Fill out the form below,
-          and one of our specialists will get in touch.
-        </p>
-      </div>
-
-      <motion.form   
-             variants={fadeIn('up', 0.2)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.3 }} 
-              onSubmit={submitQuery} 
-              className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
-        >
+    <div className="flex max-w-4xl w-full flex-col items-center justify-center gap-2 rounded py-8 md:py-8 lg:py-12 px-4">
+      <form   
+       className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div className="grid w-full items-center gap-1">
             <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
@@ -162,7 +147,7 @@ const UserQuery = () => {
             {loading ? 'Submitting...' : 'Submit Inquiry'}
           </Button>
         </div>
-      </motion.form>
+      </form>
     </div>
   );
 };

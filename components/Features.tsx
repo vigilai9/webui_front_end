@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, Search, Cctv, Lock, MessageSquare, Sliders, LucideIcon } from 'lucide-react';
+import { GlobeLock, SlidersHorizontal, Cpu, Lock, MessageSquare, EarthLock, LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fadeIn } from "@/lib/variants";
 
@@ -8,95 +8,84 @@ interface IFeature {
   icon: LucideIcon;
   title: string;
   description: string;
-  caption: string;
+  className?: string;
+  
 };
 
 const features: IFeature[] = [
   {
-    icon: Database,
-    title: "Store month of events in under 2GB storage",
-    description: "Efficiently store a month's worth of event data without exceeding 2GB. Our smart compression and indexing ensure seamless access to historical records without compromising quality.",
-    caption: "Save space without losing critical insights.",
+    icon: GlobeLock,
+    title: "End-to-End Encrypted",
+    description: "The data at all times travel through encryped channels, inaccessible to anyone unwanted.",
   },
   {
-    icon: Search,
-    title: "Track severe events",
-    description: "Get real-time alerts and insights on severe events. Our AI-powered detection system ensures you stay informed about critical situations as they unfold.",
-    caption: "Never miss an important moment.",
+    icon: SlidersHorizontal,
+    title: "Multitier Access Control",
+    description: "In many situations you want to allow only certain sections of your taskforce to access certain video feeds or evidence.",
   },
   {
-    icon: Cctv,
-    title: "Deploy on any IP camera",
-    description: "Seamlessly integrate with any IP camera setup. No additional hardware required—just plug into your existing infrastructure and start monitoring immediately.",
-    caption: "Compatible with your current setup.",
+    icon: Cpu,
+    title: "In House Processing",
+    description: "None of the video feeds goes to any third party organization. We deploy best industry standards while dealing with it.",
   },
   {
     icon: Lock,
-    title: "Safe & Secure",
-    description: "Your data is protected with enterprise-grade encryption, ensuring privacy and security from capture to storage.",
-    caption: "Security you can trust.",
+    title: "Encrypt Facial Data.",
+    description: "Organizations will have option to encrypt the facial data at start and decrypt it only in specific situations when deploying at certain scenarios.",
   },
   {
     icon: MessageSquare,
-    title: "Chat with your video feeds",
-    description: "Interact with your video footage using AI-powered chat. Search, analyze, and extract insights with simple queries.",
-    caption: "Turn video into actionable intelligence.",
+    title: "Immutable Chats",
+    description: "Organziations can choose to keep the chat's immutable. This can be done to maintain vigilance over other members in the team to ensure the system is not being abused for wrongful purposes.",
   },
   {
-    icon: Sliders,
-    title: "Set custom instructions",
-    description: "Define specific rules and alerts tailored to your needs. Automate responses, notifications, and data filtering based on your unique requirements.",
-    caption: "Control your system the way you want.",
+    icon: EarthLock,
+    title: "Your data is Yours",
+    description: "We don't use your video feed data to improve our system without your permission. We understand the data we are dealing with might be extremely sensitive.",
   },
 ]
 
-const  FeatureCard: React.FC<IFeature> =({ icon: Icon, title, description, caption }) => {
+const  FeatureCard: React.FC<IFeature> =({ icon: Icon, title, description, className }) => {
   return (
-    <motion.div
-        whileHover={{ scale: 1.03 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 15 }} 
-        className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
-      >
-      <div className="mb-4">
-        <Icon className="w-8 h-8 text-black" strokeWidth={1.5} />
+    <div className={`bg-white rounded-lg option hover-underline-feature group ${className}`}>
+     <div className='cursor-pointer text-sm  p-4 rounded-md'>
+     <div className='flex gap-2 pb-4 items-center'>
+        <div className="p-1 w-fit rounded bg-gray-300 group-hover:bg-[#1b3b5f]  flex border">
+          <Icon className="w-4 h-4 text-black group-hover:text-white" strokeWidth={1.5} />
+        </div>
+        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm leading-relaxed mb-3">{description}</p>
-      <p className="text-gray-500 text-sm italic">{caption}</p>
-    </motion.div>
+      <p className="text-gray-600 text-sm leading-relaxed flex-grow">{description}</p>
+     </div>
+    </div>
   );
 }
 
 const Features: React.FC = () => {
   return (
     <section
-      aria-labelledby="features-heading"
-      className="max-w-5xl rounded bg-gray-100 mt-12 px-4 sm:px-6 lg:px-8 py-8 md:py-8 lg:py-12 mx-auto"
-    >
-      <div className="max-w-7xl mx-auto">
-        <h2
-          id="features-heading"
-          className="text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-4"
-        >
-          Why add Vigil AI to your security needs.
-        </h2>
-
+  aria-labelledby="features-heading"
+  className="max-w-6xl rounded-lg bg-gray-100 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 mx-auto"
+>
+  <div className="mx-auto w-full">
+    {/* Responsive grid - 1 column on mobile, 2 on tablet, 3 on desktop */}
+    <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {features.map((feature) => (
         <motion.div
-          variants={fadeIn('up', 0.2)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
+          key={feature.title}
+          whileHover={{ y: -5 }}
+          transition={{ duration: 0.2 }}
+          className="h-full" // Add h-full here to ensure motion div takes full height
         >
-          {features.map((feature) => (
-            <FeatureCard
-              key={feature.title}
-              {...feature}
-            />
-          ))}
+          <FeatureCard
+            {...feature}
+            className="h-full transition-all duration-300 hover:shadow-md flex flex-col" // Add flex flex-col
+          />
         </motion.div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 

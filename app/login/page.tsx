@@ -28,11 +28,12 @@
  
 //  export default Login;
 
-
+"use client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import "../../app/globals.css";
 import AuthForm from "./AuthForm";
+import { useAuth } from '@/contexts/AuthContext';
 
 interface IAuth {
   component: string;
@@ -49,6 +50,9 @@ const Login = ({
   userAuthOption,
   userAuthAction,
 }: IAuth) => {
+
+  const { signInWithGoogle } = useAuth();
+
   return (
     <div className="bg-white h-[100vh] w-[100vw] overflow-x-hidden">
       <div className="h-full w-full flex items-center justify-center">
@@ -74,7 +78,9 @@ const Login = ({
                 </div>
               </div>
               <div className="grid grid-cols-2 pt-2 gap-2">
-                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded-md transition-colors">
+                <button
+                 onClick={signInWithGoogle}
+                 className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded cursor-pointer transition-all duration-300">
                   <img
                     src="https://www.google.com/favicon.ico"
                     alt=""
@@ -83,7 +89,7 @@ const Login = ({
                   <span className="font-medium">Google</span>
                 </button>
 
-                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded-md transition-colors">
+                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded cursor-pointer transition-all duration-300">
                   <img
                     src="https://github.com/favicon.ico"
                     alt=""
@@ -92,7 +98,7 @@ const Login = ({
                   <span className="font-medium">GitHub</span>
                 </button>
 
-                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded-md transition-colors">
+                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded cursor-pointer transition-all duration-300">
                   <img
                     src="https://www.apple.com/favicon.ico"
                     alt="Apple Logo"
@@ -100,7 +106,7 @@ const Login = ({
                   />
                   <span className="font-medium">Apple</span>
                 </button>
-                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded-md transition-colors">
+                <button className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-2 rounded cursor-pointer transition-all duration-300">
                   <img
                     src="https://img.icons8.com/color/48/discord-logo.png"
                     alt="Discord Logo"
