@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -59,25 +59,31 @@ const UserQuery = () => {
     }
 
   return (
-    <div className="flex max-w-5xl w-full flex-col items-center justify-center gap-2 rounded bg-gray-100 py-8 md:py-8 lg:py-12 mt-30 px-4">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-semibold leading-snug mb-6">
-          Let Us Know About Yourself
-        </h2>
-        <p className="my-4 md:my-6 text-gray-500 text-center text-base md:text-lg tracking-tight px-4 md:px-8 lg:px-44 mx-auto">
-          Interested in learning more or discussing your specific needs? Fill out the form below,
-          and one of our specialists will get in touch.
+    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12 md:py-16"
+    >
+      <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
+        <span className="text-blue-800">•</span>
+        <span className="text-blue-800 font-semibold">Get Started</span>
+      </div>
+      <div className="flex flex-col items-center text-center gap-4 w-full">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight px-2 sm:px-0">
+          Ready to <span className="text-[#1b3b5f]">Upgrade</span> Your Security?
+        </h1>
+        <p className="max-w-2xl text-gray-600 text-sm sm:text-base px-4 sm:px-0">
+          Fill out the form below and our team will get in touch to schedule a personalized demo of our video surveillance solution.
         </p>
       </div>
 
-      <motion.form   
-             variants={fadeIn('up', 0.2)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.3 }} 
-              onSubmit={submitQuery} 
-              className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
-        >
+      <div className="w-full max-w-2xl mt-6 sm:mt-8 px-2 sm:px-0">
+      <div className="flex max-w-4xl w-full flex-col items-center justify-center gap-2 rounded py-8 md:py-8 lg:py-12 px-4">
+      <form   
+       className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div className="grid w-full items-center gap-1">
             <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
@@ -162,8 +168,11 @@ const UserQuery = () => {
             {loading ? 'Submitting...' : 'Submit Inquiry'}
           </Button>
         </div>
-      </motion.form>
+      </form>
     </div>
+      </div>
+    </motion.div>
+  </div>
   );
 };
 

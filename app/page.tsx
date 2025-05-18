@@ -31,21 +31,21 @@ export default function Home() {
     return null;
   }
 
-  const changeAnalysisBarState = (value:boolean) => {
+  const changeAnalysisBarState = (value: boolean) => {
     setShowAnalysisBar(value);
   };
 
-  const changeLoadingState = (loading:boolean) => {
+  const changeLoadingState = (loading: boolean) => {
     setLoading(loading);
   };
 
-  const setAnalysisData = (data:any) => {
+  const setAnalysisData = (data: any) => {
     setData(data);
   };
   return (
     <>
       <div className="">
-        
+
         {/* {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="relative bg-white w-4/5 h-4/5 rounded-lg shadow-lg">
@@ -75,20 +75,19 @@ export default function Home() {
               analysisState={showAnalysisBar}
             /> */}
             {
-              data.length==0 && 
+              data.length == 0 &&
               <>
-              <Navbar />
-              <FileUpload 
-              toggleAnalysisBar={changeAnalysisBarState}
-              analysisResponse={setAnalysisData}
-              toggleLoading={changeLoadingState}
-              files={files}
-              setFiles={setFiles}
-            />
+                <FileUpload
+                  toggleAnalysisBar={changeAnalysisBarState}
+                  analysisResponse={setAnalysisData}
+                  toggleLoading={changeLoadingState}
+                  files={files}
+                  setFiles={setFiles}
+                />
               </>
-           }
+            }
             <div>
-              { data.length>0 && <ChatBot data={data} files={files} setFiles={setFiles}/> } 
+              {data.length > 0 && <ChatBot data={data} files={files} setFiles={setFiles} />}
               {/* { data.length === 0 && <ChatBot data={data} files={files} /> } */}
             </div>
           </div>

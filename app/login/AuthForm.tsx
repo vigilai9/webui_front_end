@@ -1,10 +1,5 @@
 "use client";
 import { useState } from "react";
-// import { Spin } from "antd";
-// import { LoadingOutlined } from "@ant-design/icons";
-// import { signInAction, signUpAction } from "./authActions";
-// import { userSchema, authSchema } from "@repo/common/types";
-// import { ToastContainer, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 
 const AuthForm = ({ component }: { component: string }) => {
@@ -18,12 +13,6 @@ const AuthForm = ({ component }: { component: string }) => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    // const zodRes = authSchema.safeParse(data);
-    // if (!zodRes.success) {
-    //   toast.error("Please check credential");
-    //   setLoading(false);
-    //   return;
-    // }
     signIn("credentials", data);
   }
 
@@ -78,7 +67,7 @@ const AuthForm = ({ component }: { component: string }) => {
         <button
           type="submit"
           disabled={loading}
-          className=" text-white bg-indigo-500 py-1 rounded mt-6"
+          className=" text-white bg-indigo-500 py-1 rounded mt-6 cursor-pointer"
         >
           Continue
         </button>
