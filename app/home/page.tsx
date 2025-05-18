@@ -7,12 +7,12 @@ import { motion } from 'framer-motion';
 import { fadeIn } from "@/lib/variants";
 import { ChangeEvent, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
-import Footer from "@/components/Footer";
-import TrustedBy from "@/components/TrustedBy";
-import UserQuery from "@/components/UserQuery";
-import Features from "@/components/Features";
+import Footer from "@/components/landing/Footer";
+import TrustedBy from "@/components/landing/TrustedBy";
+import UserQuery from "@/components/landing/UserQuery";
+import Features from "@/components/landing/Features";
 import Navbar from "@/components/Navbar";
-import Landing from "@/components/Landing";
+import Landing from "@/components/landing/Landing";
 
 
 export default function Homepage() {

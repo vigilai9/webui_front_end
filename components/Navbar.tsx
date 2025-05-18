@@ -122,7 +122,7 @@ export default function Navbar() {
 
         {pathName === "/home" && (
           <motion.div className="flex items-center justify-center gap-2">
-            <Button size={'sm'} variant={'outline'} asChild className="rounded hover:translate-y-0.5 transition-all duration-300">
+            <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300">
               <Link href={'/login'}>
                 Sign in
               </Link>

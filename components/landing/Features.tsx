@@ -63,7 +63,28 @@ const  FeatureCard: React.FC<IFeature> =({ icon: Icon, title, description, class
 
 const Features: React.FC = () => {
   return (
-    <section
+       <div className="w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12 md:py-16"
+          >
+            <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
+              <span className="text-blue-800">•</span>
+              <span className="text-blue-800 font-semibold">Key Benefits</span>
+            </div>
+           <div className="flex flex-col items-center text-center gap-4 w-full">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight px-2 sm:px-0">
+                 Privacy and Security at Heart.
+              </h1>
+              <p className="max-w-2xl text-gray-600 text-sm sm:text-base px-4 sm:px-0">
+                Trust stands supreme in the security domain. We know it and commit to the highest standards.
+              </p>
+            </div>
+
+            <div className="w-full mt-3 sm:mt-6">
+            <section
   aria-labelledby="features-heading"
   className="max-w-6xl rounded-lg bg-gray-100 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 mx-auto"
 >
@@ -86,6 +107,9 @@ const Features: React.FC = () => {
     </div>
   </div>
 </section>
+            </div>
+          </motion.div>
+        </div>
   );
 };
 

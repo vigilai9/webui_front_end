@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -59,7 +59,28 @@ const UserQuery = () => {
     }
 
   return (
-    <div className="flex max-w-4xl w-full flex-col items-center justify-center gap-2 rounded py-8 md:py-8 lg:py-12 px-4">
+    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12 md:py-16"
+    >
+      <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
+        <span className="text-blue-800">•</span>
+        <span className="text-blue-800 font-semibold">Get Started</span>
+      </div>
+      <div className="flex flex-col items-center text-center gap-4 w-full">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight px-2 sm:px-0">
+          Ready to <span className="text-[#1b3b5f]">Upgrade</span> Your Security?
+        </h1>
+        <p className="max-w-2xl text-gray-600 text-sm sm:text-base px-4 sm:px-0">
+          Fill out the form below and our team will get in touch to schedule a personalized demo of our video surveillance solution.
+        </p>
+      </div>
+
+      <div className="w-full max-w-2xl mt-6 sm:mt-8 px-2 sm:px-0">
+      <div className="flex max-w-4xl w-full flex-col items-center justify-center gap-2 rounded py-8 md:py-8 lg:py-12 px-4">
       <form   
        className="bg-white rounded-2xl shadow-xl max-w-4xl mx-auto p-6 sm:p-10 w-full"
       >
@@ -149,6 +170,9 @@ const UserQuery = () => {
         </div>
       </form>
     </div>
+      </div>
+    </motion.div>
+  </div>
   );
 };
 

@@ -26,7 +26,7 @@ const OfflineNotification = () =>{
     if(!isOffline) return null;
 
       return (
-        <div className="fixed inset-0 flex flex-col items-center justify-center space-y-4 bg-white dark:bg-[#020817] z-50">
+        <div className="fixed inset-0 flex flex-col items-center justify-center space-y-4 bg-white dark:bg-[#020817] z-1000">
             <div className="flex flex-col items-center space-y-4 p-6 rounded-lg">
                 <div className="flex items-center gap-2">
                     <a

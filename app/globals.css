@@ -1,75 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* ========= Animatio on logos ========== */
 
-@keyframes loop-scroll {
-  from {
-    transform: translateX(10%);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* 2. Create the animation class */
-.animate-loop-scroll {
-  animation: loop-scroll 20s linear infinite;
-}
-
-/* 3. Add pause on hover */
-.group:hover .animate-loop-scroll {
-  animation-play-state: paused;
-}
-
-/* 4. Your existing gradient styles */
-.scroll-gradient-left {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 160px;
-  background: linear-gradient(to right, #ffffff, #ffffff, transparent);
-  pointer-events: none;
-  z-index: 10;
-}
-
-.scroll-gradient-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 160px;
-  background: linear-gradient(to left, #ffffff, #ffffff, transparent);
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* 5. Container styles */
-.scroll-container {
-  margin: 0 auto;
-  max-width: 72rem;
-  padding: 2rem 0;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.scroll-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .scroll-content {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
-/* ============================= */
 
 /*  animation effect on the navbar menus */
 
@@ -364,12 +296,6 @@
   display: none;
 }
 
-
-
-
-
-
-
 @layer base {
   :root {
     --sidebar-background: 0 0% 98%;
@@ -398,17 +324,10 @@
 
 
 
-
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer utilities {
-  .perspective-1000 {
+  /* .perspective-1000 {
     perspective: 1000px;
-  }
+  } */
   
   .transform-style-3d {
     transform-style: preserve-3d;
@@ -417,16 +336,16 @@
   .backface-hidden {
     backface-visibility: hidden;
   }
-  
+/*   
   .rotate-y-180 {
     transform: rotateY(180deg);
-  }
+  } */
   
-  .rotate-x-180 {
+  /* .rotate-x-180 {
     transform: rotateX(180deg);
-  }
+  } */
   
-  .rotate-x-90 {
+  /* .rotate-x-90 {
     transform: rotateX(90deg);
   }
 
@@ -464,7 +383,7 @@
 
   .origin-left {
     transform-origin: left;
-  }
+  } */
 }
 
 @keyframes spin {
