@@ -11,8 +11,7 @@ const Footer = () => {
            <div className='pt-4 flex flex-col gap-4 items-center mx-auto'>
              <h1 className='text-4xl font-bold'>Try <span className='text-[#1b3b5f]'>VigilAI</span> today</h1>
              <div className='flex flex-col'>
-               <p className='text-center'>No download, noinstall, no waiting.</p>
-               <p className='text-center'>Start creating instantly</p>
+               <p className='text-center'>Under 30 Sec, Human Level Reporting</p>
              </div>
              <Button>Get started for Free</Button>
            </div>
@@ -37,14 +36,6 @@ const Footer = () => {
               </ul>
             </div>
       
-            {/* Resources column */}
-            <div className="md:pl-4">
-              <h2 className="text-lg font-semibold mb-4">Contact Us</h2>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+1 (312) 539-4410</a></li>
-                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+1 (312) 619-0735</a></li>
-              </ul>
-            </div>
           </div>
       
           {/* Footer bottom */}

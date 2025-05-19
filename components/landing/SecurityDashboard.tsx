@@ -35,7 +35,7 @@ const SecurityDashboard = () =>{
                       : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
                     }`}
                 >
-                  Live Monetring
+                  Live Monitoring
                 </button>
                 <button
                   onClick={() => setActiveSection("Analytics")}

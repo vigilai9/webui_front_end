@@ -47,7 +47,7 @@ export default function Navbar() {
 >
   <div className={`transition-all duration-300 ${
     hasScrolled 
-      ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg  backdrop-blur-xs px-4 py-3' 
+      ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg  backdrop-blur-xs px-4 py-1' 
       : 'w-full max-w-6xl mx-auto px-4 py-3 shadow-none bg-transparent'
   }`}>
     <div className="flex w-full items-center justify-between">
@@ -59,14 +59,8 @@ export default function Navbar() {
         custom={0}
         className="flex items-center gap-4"
       >
-        <div className="flex items-center gap-2">
-          <img className="w-6 h-6" src="/vai.png" alt="VigilAI Logo" />
-          <a
-            href="/"
-            className="font-bold bg-gradient-to-r from-[#1b3b5f] to-[#1b3b5f] bg-clip-text text-transparent"
-          >
-            VigilAI
-          </a>
+        <div className="flex items-center">
+          <img width={70} src="/secura_logo.png" alt="VigilAI Logo" />
         </div>
       </motion.div>
 

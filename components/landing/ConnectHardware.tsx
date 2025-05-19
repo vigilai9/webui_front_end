@@ -98,6 +98,7 @@ const ConnectHardware = () => {
                                         <motion.div
                                             key={content.id}
                                             whileHover={{ y: -2 }}
+                                            onClick={()=>setCurrentIndex(content.id)}
                                             className={` flex items-start gap-4 shadow-md rounded-lg px-4 py-3 border border-gray-200 ${currentIndex === content.id ? "bg-gray-200" : "bg-white" } cursor-pointer hover:translate-y-1 hover:shadow-lg transition-all duration-300 group`}
                                         >
                                             <div className="p-2 bg-gray-200 rounded-full group-hover:bg-[#1b3b5f] group-hover:text-white transition-all duration-300 mt-1">
