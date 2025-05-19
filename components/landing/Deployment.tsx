@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { Box, Calendar, Cctv, MonitorCog } from "lucide-react";
-import { RotateCw } from 'lucide-react';
 
 const images = [
     {
@@ -53,23 +52,23 @@ const cards = [
     }
 ]
 
-
 const Deployment = () => {
-
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 2000);
-        return () => {
-            clearInterval(timer);
-        }
-    }, [])
+    const [isHovered, setIsHovered] = useState(false);
 
+    useEffect(() => {
+        if (!isHovered) {
+            const timer = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+            }, 4000);
+            return () => {
+                clearInterval(timer);
+            }
+        }
+    }, [isHovered])
 
     return (
-
         <div className="w-full">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -95,11 +94,13 @@ const Deployment = () => {
 
                 {/* Image and content container */}
                 <div className="flex flex-col lg:flex-row w-full gap-8 py-12">
-                    {/* Image Container - full width on mobile, 50% on desktop (on top for mobile) */}
-
+                    {/* Image Container */}
                     <div className="rounded-lg overflow-hidden w-full max-w-xl mx-auto">
                         <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
-                            <div className="relative w-full h-full overflow-hidden">
+                            <div className="relative w-full h-full overflow-hidden"
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                            >
                                 {images.map((image) => {
                                     let positionClass = '';
                                     if (image.id === currentIndex) {
@@ -138,75 +139,55 @@ const Deployment = () => {
                             </div>
                         </div>
                     </div>
-                    {/* Content Container - full width on mobile, 50% on desktop */}
+                    
+                    {/* Cards Container */}
                     <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6">
-                        <div className="grid justify-between items-center  grid-cols-1 sm:grid-cols-2 gap-4">
-                            {
-                                cards.map((card)=>{
-                                    return(
+                        <div className="grid justify-between items-center grid-cols-1 sm:grid-cols-2 gap-4">
+                            {cards.map((card) => (
+                                <motion.div
+                                    key={card.id}
+                                    className="min-h-36 perspective-1000"
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.2 }}
+                                >
                                     <motion.div
-                                        key={card.id}
-                                        className="min-h-36 flex justify-center items-center flex-col shadow-md rounded-lg px-4 py-3 border border-gray-200 bg-white cursor-pointer"
+                                        className={`min-h-36 flex justify-center items-center flex-col shadow-md rounded-lg px-4 py-3 border border-gray-200 ${currentIndex== card.id?  "bg-gray-200" : "bg-white" } cursor-pointer`}
+                                        whileHover={{ rotateY: 180 }}
+                                        transition={{ duration: 0.5 }}
+                                        style={{
+                                            transformStyle: 'preserve-3d',
+                                        }}
                                     >
-                                        <div className="flex mx-auto items-center gap-2 mb-2 ">
-                                            {card.icon}
-                                            <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
+                                        {/* Front of Card */}
+                                        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden"
+                                            style={{ backfaceVisibility: 'hidden' }}
+                                        >
+                                            <div className="flex items-center gap-2 mb-2">
+                                                {card.icon}
+                                                <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
+                                            </div>
                                         </div>
-                                        {/* <p className="text-gray-500 text-xs sm:text-sm">
-                                            {card.description}
-                                        </p> */}
+                                        
+                                        {/* Back of Card */}
+                                        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden"
+                                            style={{ 
+                                                backfaceVisibility: 'hidden',
+                                                transform: 'rotateY(180deg)'
+                                            }}
+                                        >
+                                            <p className="text-gray-500 text-xs text-center">
+                                                {card.description}
+                                            </p>
+                                        </div>
                                     </motion.div>
-                                    )
-                                })
-                            }
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
                 </div>
             </motion.div>
         </div>
-
     )
 }
 
 export default Deployment;
-
-interface HorizontalFlipCardProps {
-    title: string;
-    content: string;
-    gradient: string;
-    backGradient: string;
-    icon: string;
-}
-  
-const HorizontalFlipCard: React.FC<HorizontalFlipCardProps> = ({
-    title,
-    content,
-    gradient,
-    backGradient,
-    icon
-  }) => {
-    return (
-      <div className="flip-card h-72 perspective-1000 w-full">
-        <div className="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-3d hover:rotate-y-180">
-          {/* Front of card */}
-          <div className={`flip-card-front absolute w-full h-full backface-hidden rounded-xl p-6 flex flex-col justify-between bg-gradient-to-br ${gradient} shadow-lg`}>
-            <div className="flex justify-between items-start">
-              <h3 className="text-xl font-bold">{title}</h3>
-              <RotateCw className="text-white/70 h-6 w-6" />
-            </div>
-            <div className="mt-4">
-              <p className="text-sm text-white/80">Hover to see effect</p>
-            </div>
-          </div>
-          
-          {/* Back of card */}
-          <div className={`flip-card-back absolute w-full h-full backface-hidden rounded-xl p-6 bg-gradient-to-br ${backGradient} rotate-y-180 shadow-lg`}>
-            <h3 className="text-xl font-bold mb-4">{title}</h3>
-            <p className="text-white/90">{content}</p>
-          </div>
-        </div>
-      </div>
-    );
-};
-  
-  
