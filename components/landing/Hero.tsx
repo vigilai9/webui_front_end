@@ -171,3 +171,6 @@ const Hero = () => {
 }
 
 export default Hero;
+
+
+// onclick gray and pause

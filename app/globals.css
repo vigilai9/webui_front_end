@@ -394,3 +394,31 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/* // flip animation of the card */
+
+
+/* Enables 3D perspective on parent */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Required for children to rotate in 3D space */
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Hides the back side of the element */
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Rotates the card 180deg on Y axis */
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+

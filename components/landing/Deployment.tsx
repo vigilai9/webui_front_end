@@ -85,7 +85,7 @@ const Deployment = () => {
                 {/* Heading section */}
                 <div className="flex gap-4 flex-col items-center text-center">
                     <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-                        We understand your need
+                        We Understand Your Need
                     </h1>
                     <p className="max-w-2xl text-gray-600 text-sm">
                         Leverage Generative AI, to ask anything to your cameras. It has seen all, it remembers all. Imagine a Live Witness!
@@ -144,43 +144,34 @@ const Deployment = () => {
                     <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6">
                         <div className="grid justify-between items-center grid-cols-1 sm:grid-cols-2 gap-4">
                             {cards.map((card) => (
-                                <motion.div
-                                    key={card.id}
-                                    className="min-h-36 perspective-1000"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <motion.div
-                                        className={`min-h-36 flex justify-center items-center flex-col shadow-md rounded-lg px-4 py-3 border border-gray-200 ${currentIndex== card.id?  "bg-gray-200" : "bg-white" } cursor-pointer`}
-                                        whileHover={{ rotateY: 180 }}
-                                        transition={{ duration: 0.5 }}
-                                        style={{
-                                            transformStyle: 'preserve-3d',
-                                        }}
-                                    >
-                                        {/* Front of Card */}
-                                        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden"
-                                            style={{ backfaceVisibility: 'hidden' }}
-                                        >
-                                            <div className="flex items-center gap-2 mb-2">
-                                                {card.icon}
-                                                <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Back of Card */}
-                                        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden"
-                                            style={{ 
-                                                backfaceVisibility: 'hidden',
-                                                transform: 'rotateY(180deg)'
-                                            }}
-                                        >
-                                            <p className="text-gray-500 text-xs text-center">
-                                                {card.description}
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                </motion.div>
+                             <motion.div
+                             key={card.id}
+                             className="min-h-36 perspective-1000"
+                             whileHover={{ scale: 1.02 }}
+                             transition={{ duration: 0.2 }}
+                             onClick={()=>setCurrentIndex(card.id)}
+                           >
+                             <div className="relative w-full h-full min-h-36 transition-transform duration-500 transform-style-3d group hover:rotate-y-180">
+                               {/* Front Side */}
+                               <div
+                                 className={`absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden rounded-lg shadow-md border border-gray-200 ${currentIndex == card.id ?  "bg-gray-200" : "bg-white"}`}
+                               >
+                                 <div className="flex items-center gap-2 mb-2">
+                                   {card.icon}
+                                   <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
+                                 </div>
+                               </div>
+                           
+                               {/* Back Side */}
+                               <div
+                                 className={`absolute inset-0 flex flex-col justify-center items-center p-4 rounded-lg shadow-md border border-gray-200 bg-gray-100 rotate-y-180 backface-hidden  ${currentIndex == card.id ?  "bg-gray-200" : "bg-white"}`}
+                               >
+                                 <p className="text-gray-500 text-xs text-center">
+                                   {card.description}
+                                 </p>
+                               </div>
+                             </div>
+                           </motion.div>                                         
                             ))}
                         </div>
                     </div>
