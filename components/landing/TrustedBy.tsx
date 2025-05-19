@@ -14,7 +14,7 @@ const TrustedBy = () => {
       <div className="container mx-auto text-center rounded py-12">
         <div className="flex mx-auto items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm border">
           <span className="text-blue-800">•</span>
-          <span className="text-blue-800 font-semibold">We Are Working With</span>
+          <span className="text-blue-800 font-semibold">We are Working With</span>
         </div>
         
         <div className="relative mt-8 overflow-hidden">
