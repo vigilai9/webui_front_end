@@ -62,14 +62,19 @@ const Hero = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2000);
-    return () => {
-      clearInterval(timer);
-    }
-  }, [])
+
+     const [isHovered, setIsHovered] = useState(false);
+
+    useEffect(() => {
+        if (!isHovered) {
+            const timer = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+            }, 4000);
+            return () => {
+                clearInterval(timer);
+            }
+        }
+    }, [isHovered])
 
   return (
     <motion.div
@@ -117,7 +122,10 @@ const Hero = () => {
 
         <div className="rounded-lg overflow-hidden w-full sm:w-[80%] md:w-[60%] lg:w-[40%] max-w-xl mx-auto">
           <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
-            <div className="relative w-full h-full overflow-hidden">
+            <div className="relative w-full h-full overflow-hidden"
+                 onMouseEnter={() => setIsHovered(true)}
+                 onMouseLeave={() => setIsHovered(false)}
+            >
               {images.map((image) => {
                 let positionClass = '';
                 if (image.id === currentIndex) {

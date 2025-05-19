@@ -8,7 +8,6 @@ import Features from "@/components/landing/Features";
 import { Activity, Bell, Box, Calendar, Cctv, Check, Clock5, Columns2, File, Lock, MonitorCog, Users } from "lucide-react";
 import Hero from "./Hero";
 
-import { RotateCw } from 'lucide-react';
 import SmartMonetring from "./SmartMonetring";
 import ConnectHardware from "./ConnectHardware";
 import Deployment from "./Deployment";

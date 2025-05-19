@@ -49,11 +49,11 @@ const SecurityDashboard = () =>{
               </div>
             </div>
 
-           <div className="w-full max-w-5xl px-0 sm:px-4">
+           <div className="w-full max-w-3xl px-0 sm:px-4">
               <div className="w-full bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:translate-y-0.5 transition-all duration-300">
                 <img
                   className="w-full h-auto object-contain"
-                  src="https://media.istockphoto.com/id/1387900612/photo/automation-data-analytic-with-robot-and-digital-visualization-for-big-data-scientist.jpg?s=1024x1024&w=is&k=20&c=BdevKMKtOgXoPwbZE9v_PU_q94-G5LgboedYsvyKP-g="
+                  src="./dashboard_live_feed.png"
                   alt="Security dashboard interface"
                 />
               </div>
