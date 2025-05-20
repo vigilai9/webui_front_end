@@ -45,7 +45,7 @@ const UserQuery = () => {
         setLoading(true);
         
         try {
-            await axios.post(
+            const x = await axios.post(
               'https://90p4290to5.execute-api.us-east-2.amazonaws.com/new_stage/query',
               userQuery
             );
@@ -157,7 +157,7 @@ const UserQuery = () => {
           <p className="text-red-600 text-center mb-4">{errorMessage}</p>
         )}
 
-        <div className="flex items-center justify-center mt-6">
+        <div onClick={submitQuery} className="flex items-center justify-center mt-6">
           <Button
             type="submit"
             size="lg"
