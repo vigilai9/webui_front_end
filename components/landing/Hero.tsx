@@ -164,6 +164,12 @@ const Hero = () => {
               ))}
             </div>
           </div>
+          
+          <div className='flex justify-between shadow-md rounded-lg  items-center py-2 gap-4'>
+            <button className='w-full rounded py-2 bg-gray-200'>Without VigilAI</button>
+            <button className='w-full rounded py-2 bg-gray-200'>With VigilAI</button>
+          </div>
+
         </div>
 
       </div>

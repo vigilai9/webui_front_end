@@ -45,8 +45,8 @@ export default function Navbar() {
         }`}
     >
       <div className={`transition-all duration-300 ${hasScrolled
-          ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg  backdrop-blur-xs px-4 py-1'
-          : 'w-full max-w-7xl mx-auto px-4 py-3 shadow-none bg-transparent'
+          ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg  backdrop-blur-xs px-4 py-4'
+          : 'w-full max-w-7xl mx-auto px-4 py-6 shadow-none bg-transparent'
         }`}>
         <div className="flex w-full items-center justify-between">
           {/* Rest of your navbar content remains exactly the same */}
@@ -58,7 +58,7 @@ export default function Navbar() {
             className="flex items-center gap-4"
           >
             <div className="flex items-center">
-              <img width={70} src="/secura_logo.png" alt="VigilAI Logo" />
+              <img width={100} src="/secura_logo.png" alt="VigilAI Logo" />
             </div>
           </motion.div>
 
@@ -75,7 +75,7 @@ export default function Navbar() {
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
-                How it Works
+                How It Works
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
@@ -87,7 +87,7 @@ export default function Navbar() {
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
-                Contact us
+                Contact Us
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
             </ul>
@@ -128,12 +128,12 @@ export default function Navbar() {
 
             {pathName === "/home" && (
               <motion.div className="flex items-center justify-center gap-2">
-                <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300">
+                <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300 py-4">
                   <Link href={'/login'}>
-                    Sign in
+                    Sign In
                   </Link>
                 </Button>
-                <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white">
+                <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white py-4">
                   <Link href={'/login'}>
                     Get Started
                   </Link>
@@ -153,7 +153,7 @@ export default function Navbar() {
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
-                How it Works
+                How It Works
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
@@ -165,7 +165,7 @@ export default function Navbar() {
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
               <li className="cursor-pointer text-sm option hover-underline">
-                Contact us
+                Contact Us
                 <div className={`h-[2px] bg-gray-500 hidden`}></div>
               </li>
             </ul>
@@ -191,7 +191,7 @@ export default function Navbar() {
                     className="w-full rounded hover:translate-y-0.5 transition-all duration-300"
                   >
                     <Link href={'/login'}>
-                      Sign in
+                      Sign In
                     </Link>
                   </Button>
                   <Button

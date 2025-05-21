@@ -37,7 +37,7 @@ const Footer = () => {
             </div>
 
             <div className="md:pl-4">
-              <h2 className="text-lg font-semibold mb-4"></h2>
+              <h2 className="text-lg font-semibold mb-4 invisible">.</h2>
               <ul className="space-y-3 text-sm">
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+1 (312) 539-4410</a></li>
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+91 7880935110</a></li>
