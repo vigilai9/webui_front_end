@@ -70,7 +70,7 @@ const ConnectHardware = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 w-full py-12"
+                className="flex flex-col justify-center max-w-7xl mx-auto items-center gap-6 px-4 w-full py-12"
             >
                 {/* Main container - column on mobile (image forced to bottom), row on md+ */}
 
@@ -98,11 +98,11 @@ const ConnectHardware = () => {
                                         <motion.div
                                             key={content.id}
                                             whileHover={{ y: -2 }}
-                                            onClick={()=>setCurrentIndex(content.id)}
-                                            className={` flex items-start gap-4 shadow-md rounded-lg px-4 py-3 border border-gray-200 ${currentIndex === content.id ? "bg-gray-200" : "bg-white" } cursor-pointer hover:translate-y-1 hover:shadow-lg transition-all duration-300 group`}
+                                            onClick={() => setCurrentIndex(content.id)}
+                                            className={` flex items-start gap-4 shadow-md rounded-lg px-4 py-3 border border-gray-200 ${currentIndex === content.id ? "bg-gray-200" : "bg-white"} cursor-pointer hover:translate-y-1 hover:shadow-lg transition-all duration-300 group`}
                                         >
                                             <div className="p-2 bg-gray-200 rounded-full group-hover:bg-[#1b3b5f] group-hover:text-white transition-all duration-300 mt-1">
-                                                <span className="flex items-center justify-center text-xs h-5 w-5 font-semibold">{content.id+1}</span>
+                                                <span className="flex items-center justify-center text-xs h-5 w-5 font-semibold">{content.id + 1}</span>
                                             </div>
                                             <div>
                                                 <h2 className="text-gray-800 font-semibold text-sm">{content.title}</h2>
@@ -121,7 +121,7 @@ const ConnectHardware = () => {
                     <div className="w-full md:w-1/2 flex items-center justify-center">
                         <div className="rounded-lg overflow-hidden w-full max-w-xl">
                             <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
-                                <div 
+                                <div
                                     className="relative w-full h-full overflow-hidden"
                                     onMouseEnter={() => setIsHovered(true)}
                                     onMouseLeave={() => setIsHovered(false)}
