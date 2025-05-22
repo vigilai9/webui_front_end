@@ -1,8 +1,6 @@
 import React from 'react';
 import { GlobeLock, SlidersHorizontal, Cpu, Lock, MessageSquare, EarthLock, LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { fadeIn } from "@/lib/variants";
-
 
 interface IFeature {
   icon: LucideIcon;
@@ -26,7 +24,7 @@ const features: IFeature[] = [
   {
     icon: Cpu,
     title: "In House Processing",
-    description: "None of the video feeds goes to any third party organization. We deploy best industry standards while dealing with it.",
+    description: "No video feeds ever go to third parties, and we follow industry-best standards at all times.",
   },
   {
     icon: Lock,
@@ -36,12 +34,12 @@ const features: IFeature[] = [
   {
     icon: MessageSquare,
     title: "Immutable Chats",
-    description: "Organziations can choose to keep the chat's immutable. This can be done to maintain vigilance over other members in the team to ensure the system is not being abused for wrongful purposes.",
+    description: "Keep chats immutable so the team can monitor them and prevent misuse.",
   },
   {
     icon: EarthLock,
     title: "Your data is Yours",
-    description: "We don't use your video feed data to improve our system without your permission. We understand the data we are dealing with might be extremely sensitive.",
+    description: "We never use your video feeds to improve our system without your permission, and we handle your sensitive data with utmost care.",
   },
 ]
 
@@ -63,12 +61,12 @@ const  FeatureCard: React.FC<IFeature> =({ icon: Icon, title, description, class
 
 const Features: React.FC = () => {
   return (
-       <div className="w-full">
+       <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12 md:py-16"
+            className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
           >
             <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
               <span className="text-blue-800">•</span>

@@ -22,7 +22,7 @@ const images = [
 ]
 const words = ["Multi-Camera Tracking", "Timestamped Reporting", "Video Forensics", "Camera Scaling"];
 
-const Hero = () => { 
+const Hero = () => {
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [visibleLetters, setVisibleLetters] = useState(0);
@@ -63,20 +63,21 @@ const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
 
-     const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-    useEffect(() => {
-        if (!isHovered) {
-            const timer = setInterval(() => {
-                setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-            }, 4000);
-            return () => {
-                clearInterval(timer);
-            }
-        }
-    }, [isHovered])
+  useEffect(() => {
+    if (!isHovered) {
+      const timer = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 4000);
+      return () => {
+        clearInterval(timer);
+      }
+    }
+  }, [isHovered])
 
   return (
+   <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -87,29 +88,30 @@ const Hero = () => {
         damping: 10,
         stiffness: 100,
       }}
-      className="flex flex-col justify-between max-w-6xl items-center gap-6 px-4 w-full py-2 pt-20 md:pt-28 pb-12 mx-auto"
+      className="flex flex-col justify-center mx-auto items-center gap-6 pt-20 md:pt-28 pb-12"
     >
-      <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-4 py-1 mb-4 text-sm self-start lg:self-center">
-        <span className="text-blue-800">•</span>
-        <span className="text-blue-800 font-semibold">AI-Powered Video Surveillance</span>
-      </div>
+        <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-4 py-1 mb-4 text-sm self-start lg:self-center">
+          <span className="text-blue-800">•</span>
+           <span className="text-blue-800 font-semibold">AI-Powered Video Surveillance</span>
+        </div>
 
-      <div className="flex flex-col lg:flex-row justify-between gap-8 w-full py-2">
+        <div className="flex flex-col lg:flex-row justify-between gap-8 w-full py-2">
         <div className="flex-1 space-y-6 text-left w-full">
           <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold text-gray-900 leading-tight">
             Intelligent <br />
             <span className="text-[#1b3b5f] text-3xl sm:text-4xl md:text-4xl">{visibleText}</span>
-            <span className="inline-block w-1 h-12 bg-[#1b3b5f] ml-1 animate-pulse"></span>
+            {/* <span className="inline-block w-1 h-12 bg-[#1b3b5f] ml-1 animate-pulse"></span> */}
+            <span className="inline-block w-1 h-6 bg-[#1b3b5f] ml-1 align-middle animate-pulse" />
           </h1>
 
           <p className="text-gray-500 text-sm max-w-xl">
-            Detect incidents in under 30 seconds with gen AI powered video surveillance that transforms how you monitor and secure your environment. Get Instant alerts and comprehensive anlaytics for complete security awareness.
+           Detect incidents in under 30 seconds with Gen AI-powered video surveillance. Receive instant alerts and comprehensive analytics for total security awareness.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-4">
             <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white">
               <Link href={'/login'}>
-                Try VigilAI Free
+                Coming Soon
               </Link>
             </Button>
             <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300">
@@ -123,8 +125,8 @@ const Hero = () => {
         <div className="rounded-lg overflow-hidden w-full sm:w-[80%] md:w-[60%] lg:w-[40%] max-w-xl mx-auto">
           <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
             <div className="relative w-full h-full overflow-hidden"
-                 onMouseEnter={() => setIsHovered(true)}
-                 onMouseLeave={() => setIsHovered(false)}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
               {images.map((image) => {
                 let positionClass = '';
@@ -163,14 +165,22 @@ const Hero = () => {
               ))}
             </div>
           </div>
+          
+          <div className='flex justify-between items-center py-2'>
+            <div className='flex justify-center w-full py-1 px-2'>
+               <div className='shadow-lg px-2 py-1 border border-gray-200 rounded'>Without VigilAI</div>
+            </div>
+             <div className='flex justify-center w-full py-1 px-2'>
+               <div className='shadow-lg px-2 py-1 border border-gray-200 rounded'>VigilAI</div>
+            </div>
+          </div>
+
         </div>
 
-      </div>
-    </motion.div>
+         </div>
+       </motion.div>
+  </div>
   )
 }
 
 export default Hero;
-
-
-// onclick gray and pause

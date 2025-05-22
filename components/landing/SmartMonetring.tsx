@@ -20,13 +20,13 @@ const contents = [
         id: 0,
         icon: <Check className="h-4 w-4 " />,
         title: "Under 30 Sec, Human Level Reporting",
-        description: "Receive alerts within 30 sec of any common and custom incidents. Theft, Regulation Compliance, Tracking People/Vehicles among others."
+        description: "Get alerts within 30 sec for common & custom incidents—theft, regulatory compliance, people/vehicle tracking, and more."
     },
     {
         id: 1,
         icon: <Clock5 className="h-4 w-4 " />,
         title: "Timestamped Threat Reports",
-        description: "Easily jump to the part of the footage, mentioned in the alert and see the incident for yourself!"
+        description: "Instantly jump to the alerted segment and review the incident yourself!"
     }
 ]
 
@@ -48,12 +48,12 @@ const SmartMonetring = () => {
 
 
     return (
-        <div className="w-full">
+         <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 w-full py-12 "
+                className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
             >
                 {/* Tagline */}
                 <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
@@ -70,10 +70,10 @@ const SmartMonetring = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row w-full gap-8 py-12">
+                <div className="flex flex-col md:flex-row w-full gap-8">
 
                      {/* Image Container - centered on y-axis and matching height */}
-                     <div className="w-full md:w-1/2 flex items-center justify-center">
+                     <div className="w-full md:w-1/2 flex items-start justify-start">
                         <div className="rounded-lg overflow-hidden w-full max-w-xl">
                             <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
                                 <div 

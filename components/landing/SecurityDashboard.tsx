@@ -5,12 +5,12 @@ const SecurityDashboard = () =>{
     
   const [activeSection, setActiveSection] = useState("Overview");
    return (
-    <div className="w-full">
+     <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12"
+            className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
           >
            
             <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
@@ -49,13 +49,23 @@ const SecurityDashboard = () =>{
               </div>
             </div>
 
-           <div className="w-full max-w-3xl px-0 sm:px-4">
+           <div className="w-full max-w-3xl px-0 sm:px-2">
               <div className="w-full bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:translate-y-0.5 transition-all duration-300">
-                <img
+             {
+               activeSection=="Overview"  && <img
                   className="w-full h-auto object-contain"
-                  src="./dashboard_live_feed.png"
+                  src="./live_monitoring_dashboard.png"
                   alt="Security dashboard interface"
                 />
+             }
+             {
+              activeSection=="Analytics"  && 
+                 <img
+                  className="w-full h-auto object-contain"
+                  src="./forensics.png"
+                  alt="Security dashboard interface"
+                />
+             }
               </div>
             </div>
           </motion.div>

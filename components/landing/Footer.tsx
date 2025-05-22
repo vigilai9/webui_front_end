@@ -6,17 +6,17 @@ const Footer = () => {
     return (
         <footer className="w-full text-gray-800 bg-gray-200">
 
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2 mx-auto">
           {/* Main footer content */}
            <div className='pt-4 flex flex-col gap-4 items-center mx-auto'>
-             <h1 className='text-4xl font-bold'>Try <span className='text-[#1b3b5f]'>VigilAI</span> today</h1>
+             <h1 className='text-4xl font-bold'>Try <span className='text-[#1b3b5f]'>VigilAI</span> Today</h1>
              <div className='flex flex-col'>
                <p className='text-center'>Under 30 Sec, Human Level Reporting</p>
              </div>
              <Button>Get started for Free</Button>
            </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-8">
             {/* Brand column - full width on mobile, spans all columns */}
             <div className="md:col-span-1">
@@ -33,6 +33,14 @@ const Footer = () => {
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">utkarsh@s3cura.ai</a></li>
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">utsav@s3cura.ai</a></li>
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">gaurav@s3cura.ai</a></li>
+              </ul>
+            </div>
+
+            <div className="md:pl-4">
+              <h2 className="text-lg font-semibold mb-4 invisible">.</h2>
+              <ul className="space-y-3 text-sm">
+                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+1 (312) 539-4410</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+91 7880935110</a></li>
               </ul>
             </div>
       

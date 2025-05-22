@@ -38,7 +38,7 @@ const Landing = () => {
         <ConnectHardware/>
         <SecurityDashboard/>
         <Features/>
-        <UserQuery/>
+        <UserQuery />
         <Footer />
       </main>
     </div>

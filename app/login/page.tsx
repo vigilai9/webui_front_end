@@ -1,33 +1,3 @@
-// "use client";
-//  import React from 'react';
-//  import { useAuth } from '@/contexts/AuthContext';
-//  import { LogIn } from 'lucide-react';
- 
-//  const Login = () => {
-//    const { signInWithGoogle } = useAuth();
- 
-//    return (
-//      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-//        <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
-//          <div className="text-center">
-//            <h2 className="text-4xl font-bold text-gray-900 mb-2">Welcome</h2>
-//            <p className="text-gray-600">Sign in to access your account</p>
-//          </div>
-         
-//          <button
-//            onClick={signInWithGoogle}
-//            className="w-full flex items-center justify-center gap-3 px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-//          >
-//            <LogIn className="w-5 h-5" />
-//            <span>Sign in with Google</span>
-//          </button>
-//        </div>
-//      </div>
-//    );
-//  };
- 
-//  export default Login;
-
 "use client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -57,13 +27,6 @@ const Login = ({
     <div className="bg-white h-[100vh] w-[100vw] overflow-x-hidden">
       <div className="h-full w-full flex items-center justify-center">
         <div className=" bg-gray-100 border border-gray-300 p-6 rounded-lg">
-          {/* <div className="relative top-4 left-4">
-            <Link href={"/"}>
-              <button className="border border-gray-400 hover:bg-[#222222] flex justify-center items-center py-1 px-2 gap-1 text-sm font-medium rounded transition-all duration-500">
-                <ArrowLeft className="h-5 w-5 font-light text-base" /> Home
-              </button>
-            </Link>
-          </div> */}
 
           <div className="flex flex-col items-center">
             <div className="">

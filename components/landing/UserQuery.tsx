@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { motion } from 'framer-motion';
-import { fadeIn } from "@/lib/variants";
 import axios from 'axios';
 
 interface IUserQuery{
@@ -59,12 +58,12 @@ const UserQuery = () => {
     }
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 sm:px-6 w-full py-12 md:py-16"
+      className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
     >
       <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
         <span className="text-blue-800">•</span>

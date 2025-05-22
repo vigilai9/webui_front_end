@@ -11,42 +11,42 @@ const images = [
     {
         id: 1,
         image: "./deploy2.png",
-        alt:  "deploy2"
-    }, 
+        alt: "deploy2"
+    },
     {
         id: 2,
         image: "./deploy3.png",
-        alt:   "deploy3"
+        alt: "deploy3"
     },
     {
         id: 3,
         image: "./deploy4.png",
-        name:  "deploy4"
+        name: "deploy4"
     },
 ]
 
 const cards = [
     {
         id: 0,
-        icon: <MonitorCog className="h-4 w-4"/>,
+        icon: <MonitorCog className="h-4 w-4" />,
         title: "Easy Deployment",
         description: "Vigil AI deploys on any existing CCTV infrastructure within 15 mins, using our free hardware."
     },
     {
         id: 1,
-        icon: <Cctv className="h-4 w-4"/>,
+        icon: <Cctv className="h-4 w-4" />,
         title: "Multi Camera Understanding",
         description: "All the cameras that you want, speak to each other live. Each camera know what others have seen."
     },
     {
         id: 2,
-        icon: <Calendar className="h-4 w-4"/>,
+        icon: <Calendar className="h-4 w-4" />,
         title: "Always Up To Date",
         description: "You'll always have the latest version of our system at your service no matter when your purchased it, at no additional cost."
     },
     {
         id: 3,
-        icon: <Box className="h-4 w-4"/>,
+        icon: <Box className="h-4 w-4" />,
         title: "Understand Subtle Nuance",
         description: "Vigil AI is specially designed to understand extreme nuances in movements, actions and incidents."
     }
@@ -54,8 +54,8 @@ const cards = [
 
 const Deployment = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-
     const [isHovered, setIsHovered] = useState(false);
+    const [flippedCard, setFlippedCard] = useState(null);
 
     useEffect(() => {
         if (!isHovered) {
@@ -69,12 +69,12 @@ const Deployment = () => {
     }, [isHovered])
 
     return (
-        <div className="w-full">
+         <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center max-w-6xl mx-auto items-center gap-6 px-4 w-full py-12"
+                className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
             >
                 {/* Tagline */}
                 <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
@@ -88,18 +88,18 @@ const Deployment = () => {
                         We Understand Your Need
                     </h1>
                     <p className="max-w-2xl text-gray-600 text-sm">
-                        Leverage Generative AI, to ask anything to your cameras. It has seen all, it remembers all. Imagine a Live Witness!
+                        Query your cameras with Generative AI—it’s seen all, remembers all, and serves as your Live Witness.
                     </p>
                 </div>
 
                 {/* Image and content container */}
-                <div className="flex flex-col lg:flex-row w-full gap-8 py-12">
+                <div className="flex flex-col lg:flex-row w-full gap-8">
                     {/* Image Container */}
-                    <div className="rounded-lg overflow-hidden w-full max-w-xl mx-auto">
+                    <div className="rounded-lg overflow-hidden w-full max-w-xl">
                         <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
                             <div className="relative w-full h-full overflow-hidden"
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
                             >
                                 {images.map((image) => {
                                     let positionClass = '';
@@ -139,39 +139,41 @@ const Deployment = () => {
                             </div>
                         </div>
                     </div>
-                    
-                    {/* Cards Container */}
+
+
                     <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6">
                         <div className="grid justify-between items-center grid-cols-1 sm:grid-cols-2 gap-4">
                             {cards.map((card) => (
-                             <motion.div
-                             key={card.id}
-                             className="min-h-36 perspective-1000"
-                             whileHover={{ scale: 1.02 }}
-                             transition={{ duration: 0.2 }}
-                             onClick={()=>setCurrentIndex(card.id)}
-                           >
-                             <div className="relative w-full h-full min-h-36 transition-transform duration-500 transform-style-3d group hover:rotate-y-180">
-                               {/* Front Side */}
-                               <div
-                                 className={`absolute inset-0 flex flex-col justify-center items-center p-4 backface-hidden rounded-lg shadow-md border border-gray-200 ${currentIndex == card.id ?  "bg-gray-200" : "bg-white"}`}
-                               >
-                                 <div className="flex items-center gap-2 mb-2">
-                                   {card.icon}
-                                   <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
-                                 </div>
-                               </div>
-                           
-                               {/* Back Side */}
-                               <div
-                                 className={`absolute inset-0 flex flex-col justify-center items-center p-4 rounded-lg shadow-md border border-gray-200 bg-gray-100 rotate-y-180 backface-hidden  ${currentIndex == card.id ?  "bg-gray-200" : "bg-white"}`}
-                               >
-                                 <p className="text-gray-500 text-xs text-center">
-                                   {card.description}
-                                 </p>
-                               </div>
-                             </div>
-                           </motion.div>                                         
+                                <motion.div
+                                    key={card.id}
+                                    className="min-h-36 h-36" // Added h-36 here
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.2 }}
+                                    onClick={() => setCurrentIndex(card.id)}
+                                >
+                                    <div className="relative w-full h-full group perspective-1000"> {/* Removed redundant h-36 and min-h-36 */}
+                                        <div className="relative w-full h-full transition-transform duration-500 transform-style-3d group-hover:rotate-y-180">
+                                            {/* Front Side */}
+                                            <div
+                                                className={`absolute h-full w-full inset-0 flex flex-col justify-center items-center p-4 shadow-md border border-gray-100 rounded-lg backface-hidden ${currentIndex == card.id ? "bg-gray-200" : "bg-white"}`}
+                                            >
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    {card.icon}
+                                                    <h2 className="text-gray-800 font-semibold text-sm">{card.title}</h2>
+                                                </div>
+                                            </div>
+
+                                            {/* Back Side */}
+                                            <div
+                                                className={`absolute h-full w-full inset-0 flex flex-col justify-center items-center p-4 rounded-lg shadow-md border border-gray-200 backface-hidden rotate-y-180 ${currentIndex == card.id ? "bg-gray-200" : "bg-white"}`}
+                                            >
+                                                <p className="text-gray-500 text-xs text-center">
+                                                    {card.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
