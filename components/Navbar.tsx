@@ -39,14 +39,14 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`z-50 w-full transition-all duration-300 ${hasScrolled
-          ? 'fixed top-2 px-2'
-          : 'fixed top-0 left-0 right-0'
+      className={`z-50 w-full transition-all duration-500 ${hasScrolled
+        ? 'fixed top-2 px-2'
+        : 'fixed top-0 left-0 right-0'
         }`}
     >
-      <div className={`transition-all duration-300 ${hasScrolled
-          ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg  backdrop-blur-xs px-4 py-4'
-          : 'w-full max-w-7xl mx-auto px-4 py-6 shadow-none bg-transparent'
+      <div className={`transition-all duration-500 ${hasScrolled
+         ? 'max-w-4xl mx-auto border border-gray-200 rounded-lg px-4 py-4 backdrop-blur-3xl'
+          : 'w-full max-w-7xl mx-auto px-12 py-6 shadow-none bg-transparent'
         }`}>
         <div className="flex w-full items-center justify-between">
           {/* Rest of your navbar content remains exactly the same */}
@@ -57,7 +57,7 @@ export default function Navbar() {
             custom={0}
             className="flex items-center gap-4"
           >
-            <div className="flex items-center">
+          <div className="flex items-center">
               <img width={100} src="/secura_logo.png" alt="VigilAI Logo" />
             </div>
           </motion.div>

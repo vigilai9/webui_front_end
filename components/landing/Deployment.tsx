@@ -69,12 +69,12 @@ const Deployment = () => {
     }, [isHovered])
 
     return (
-        <div className="w-full">
+         <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center max-w-7xl mx-auto items-center gap-6 px-4 w-full py-12"
+                className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
             >
                 {/* Tagline */}
                 <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
@@ -88,14 +88,14 @@ const Deployment = () => {
                         We Understand Your Need
                     </h1>
                     <p className="max-w-2xl text-gray-600 text-sm">
-                        Leverage Generative AI, to ask anything to your cameras. It has seen all, it remembers all. Imagine a Live Witness!
+                        Query your cameras with Generative AI—it’s seen all, remembers all, and serves as your Live Witness.
                     </p>
                 </div>
 
                 {/* Image and content container */}
-                <div className="flex flex-col lg:flex-row w-full gap-8 py-12">
+                <div className="flex flex-col lg:flex-row w-full gap-8">
                     {/* Image Container */}
-                    <div className="rounded-lg overflow-hidden w-full max-w-xl mx-auto">
+                    <div className="rounded-lg overflow-hidden w-full max-w-xl">
                         <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
                             <div className="relative w-full h-full overflow-hidden"
                                 onMouseEnter={() => setIsHovered(true)}

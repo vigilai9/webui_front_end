@@ -440,8 +440,8 @@ useEffect(() => {
                   </p>
                   <p className="text-center text-gray-500 text-sm">or</p>
 
-                  <Button onClick={handleClick} size={'sm'} variant={'outline'} className="my-2 text-indigo-500 font-normal text-sm hover:bg-gray-50 hover:text-indigo-400">
-                    browse your files
+                  <Button onClick={handleClick} size={'sm'} variant={'outline'} className="my-2 text-indigo-500 font-normal text-sm bg-white hover:bg-gray-50 hover:text-indigo-500">
+                    Browse Your Files
                   </Button>
 
                   <input
@@ -470,7 +470,7 @@ useEffect(() => {
                 </button>
               </div>
               <div className="flex items-center justify-end gap-4">
-                <Button onClick={() => setFiles([])} size={'sm'} variant={'outline'}>
+                <Button onClick={() => setFiles([])} size={'sm'} variant={'outline'} className="my-2 text-indigo-500 font-normal text-sm bg-white hover:bg-gray-50 hover:text-indigo-500">
                   Canel
                 </Button>
                 <Button onClick={handleUploadVideo} size={'sm'} variant={'primary'}>

@@ -3,20 +3,20 @@ import { Button } from '../ui/button';
 import { Instagram, Linkedin, Twitter, X } from 'lucide-react';
 
 const Footer = () => {
-  return (
-    <footer className="w-full text-gray-800 bg-gray-200">
+    return (
+        <footer className="w-full text-gray-800 bg-gray-200">
 
-      <div className="max-w-7xl mx-auto">
-        {/* Main footer content */}
-        <div className='pt-4 flex flex-col gap-4 items-center mx-auto'>
-          <h1 className='text-4xl font-bold'>Try <span className='text-[#1b3b5f]'>VigilAI</span> Today</h1>
-          <div className='flex flex-col'>
-            <p className='text-center'>Under 30 Sec, Human Level Reporting</p>
-          </div>
-          <Button>Get started for Free</Button>
-        </div>
+        <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2 mx-auto">
+          {/* Main footer content */}
+           <div className='pt-4 flex flex-col gap-4 items-center mx-auto'>
+             <h1 className='text-4xl font-bold'>Try <span className='text-[#1b3b5f]'>VigilAI</span> Today</h1>
+             <div className='flex flex-col'>
+               <p className='text-center'>Under 30 Sec, Human Level Reporting</p>
+             </div>
+             <Button>Get started for Free</Button>
+           </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-8">
             {/* Brand column - full width on mobile, spans all columns */}
             <div className="md:col-span-1">
@@ -25,7 +25,7 @@ const Footer = () => {
                 Advanced AI-premises video surveillance for modern security operations. Stay ahead of threats with our cutting-edge technology.
               </p>
             </div>
-
+      
             {/* Product column */}
             <div className="md:pl-4">
               <h2 className="text-lg font-semibold mb-4">Contact Us</h2>
@@ -43,9 +43,9 @@ const Footer = () => {
                 <li><a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-200">+91 7880935110</a></li>
               </ul>
             </div>
-
+      
           </div>
-
+      
           {/* Footer bottom */}
           <div className="border-t border-gray-300 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
@@ -53,7 +53,7 @@ const Footer = () => {
               <div className="flex items-center space-x-6">
                 <a href="#" className="text-gray-500 hover:text-gray-900">
                   <span className="sr-only">Facebook</span>
-                  <Instagram className='h-4 w-4' />
+                  <Instagram className='h-4 w-4'/>
                 </a>
                 <a href="#" className="text-gray-500 hover:text-gray-900">
                   <span className="sr-only">Twitter</span>
@@ -63,15 +63,15 @@ const Footer = () => {
                 </a>
                 <a href="#" className="text-gray-500 hover:text-gray-900">
                   <span className="sr-only">LinkedIn</span>
-                  <Linkedin className='h-4 w-4' />
+                  <Linkedin  className='h-4 w-4'/>
                 </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
-  );
+       </div>
+      </footer>
+    );
 };
 
 export default Footer;

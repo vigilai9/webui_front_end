@@ -77,6 +77,7 @@ const Hero = () => {
   }, [isHovered])
 
   return (
+   <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -87,14 +88,14 @@ const Hero = () => {
         damping: 10,
         stiffness: 100,
       }}
-      className="flex flex-col justify-between max-w-7xl items-center gap-6 px-4 w-full py-2 pt-20 md:pt-28 pb-12 mx-auto"
+      className="flex flex-col justify-center mx-auto items-center gap-6 pt-20 md:pt-28 pb-12"
     >
-      <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-4 py-1 mb-4 text-sm self-start lg:self-center">
-        <span className="text-blue-800">•</span>
-        <span className="text-blue-800 font-semibold">AI-Powered Video Surveillance</span>
-      </div>
+        <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-4 py-1 mb-4 text-sm self-start lg:self-center">
+          <span className="text-blue-800">•</span>
+           <span className="text-blue-800 font-semibold">AI-Powered Video Surveillance</span>
+        </div>
 
-      <div className="flex flex-col lg:flex-row justify-between gap-8 w-full py-2">
+        <div className="flex flex-col lg:flex-row justify-between gap-8 w-full py-2">
         <div className="flex-1 space-y-6 text-left w-full">
           <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold text-gray-900 leading-tight">
             Intelligent <br />
@@ -104,7 +105,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-gray-500 text-sm max-w-xl">
-            Detect incidents in under 30 seconds with gen AI powered video surveillance that transforms how you monitor and secure your environment. Get Instant alerts and comprehensive anlaytics for complete security awareness.
+           Detect incidents in under 30 seconds with Gen AI-powered video surveillance. Receive instant alerts and comprehensive analytics for total security awareness.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-4">
@@ -165,15 +166,20 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className='flex justify-between shadow-md rounded-lg  items-center py-2 gap-4'>
-            <button className='w-full rounded py-2 bg-gray-200'>Without VigilAI</button>
-            <button className='w-full rounded py-2 bg-gray-200'>With VigilAI</button>
+          <div className='flex justify-between items-center py-2'>
+            <div className='flex justify-center w-full py-1 px-2'>
+               <div className='shadow-lg px-2 py-1 border border-gray-200 rounded'>Without VigilAI</div>
+            </div>
+             <div className='flex justify-center w-full py-1 px-2'>
+               <div className='shadow-lg px-2 py-1 border border-gray-200 rounded'>VigilAI</div>
+            </div>
           </div>
 
         </div>
 
-      </div>
-    </motion.div>
+         </div>
+       </motion.div>
+  </div>
   )
 }
 
