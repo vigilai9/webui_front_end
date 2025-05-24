@@ -105,16 +105,16 @@ const Hero = () => {
           </h1>
 
           <p className="text-gray-500 text-sm max-w-xl">
-           Detect incidents in under 30 seconds with Gen AI-powered video surveillance. Receive instant alerts and comprehensive analytics for total security awareness.
+           Detect incidents in under 30 seconds with GenAI powered video surveillance. Receive instant alerts and comprehensive analytics for total security awareness.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-4">
-            <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white">
+            <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white py-4">
               <Link href={'/login'}>
                 Coming Soon
               </Link>
             </Button>
-            <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300">
+            <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300 py-4">
               <Link href={'/login'}>
                 Watch Demo
               </Link>
