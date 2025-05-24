@@ -22,7 +22,7 @@ const initialFormData: IUserQuery = {
     query: '',
 };
 
-const UserQuery = () => {
+const UserQuery = ({id}:{id:string}) => {
     // state to store user query
     const [userQuery, setUserQuery] = useState<IUserQuery>(initialFormData);
     const [loading, setLoading] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const UserQuery = () => {
     }
 
   return (
-    <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
+    <div id={id} className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
