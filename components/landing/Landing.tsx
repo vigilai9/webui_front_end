@@ -1,6 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/landing/Footer";
 import TrustedBy from "@/components/landing/TrustedBy";
 import UserQuery from "@/components/landing/UserQuery";
@@ -18,18 +17,6 @@ import { useRef } from 'react';
 
 
 const Landing = () => {
-
-  const { currentUser, loading: authLoading } = useAuth();
-  const router = useRouter();
-  const handleTryVigil = (): void => {
-    if (!authLoading && !currentUser) {
-      router.push("/login");
-      return;
-    }
-    router.push("/");
-    return;
-  };
-
 
   return (
     <div className="flex min-h-screen flex-col">

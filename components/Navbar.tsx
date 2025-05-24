@@ -1,5 +1,4 @@
 "use client"
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "./ui/button";
@@ -7,18 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { signOut } = useAuth();
-  const router = useRouter();
   const pathName = usePathname();
-
-  const handleSignOut = async (): Promise<void> => {
-    try {
-      await signOut();
-      router.push("/home");
-    } catch (error) {
-      console.error("Failed to sign out:", error);
-    }
-  };
 
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -158,8 +146,8 @@ export default function Navbar() {
           >
             {pathName === "/" && (
               <motion.div className="flex items-center justify-center">
-                <Button onClick={handleSignOut} size={'sm'} variant={'outline'} className="rounded cursor-pointer py-4">
-                  Logout
+                <Button size={'sm'} variant={'outline'} className="rounded cursor-pointer py-4 bg-white">
+                  Get Started
                 </Button>
               </motion.div>
             )}
@@ -167,12 +155,12 @@ export default function Navbar() {
             {pathName === "/home" && (
               <motion.div className="flex items-center justify-center gap-2">
                 <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300 py-4">
-                  <Link href={'/login'}>
+                  <Link href={'/'}>
                     Sign In
                   </Link>
                 </Button>
                 <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white py-4">
-                  <Link href={'/login'}>
+                  <Link href={'/'}>
                     Get Started
                   </Link>
                 </Button>
@@ -232,7 +220,6 @@ export default function Navbar() {
             className="w-full"
           >
             <Button
-              onClick={handleSignOut}
               size={'sm'}
               variant={'outline'}
               className="w-full rounded cursor-pointer"

@@ -110,12 +110,12 @@ const Hero = () => {
 
           <div className="flex flex-wrap gap-4 pt-4">
             <Button size={'sm'} variant={'outline'} asChild className="rounded bg-[#1b3b5f] hover:bg-[#1b3b5f] hover:text-white hover:translate-y-0.5 transition-all duration-300 text-white py-4">
-              <Link href={'/login'}>
+              <Link href={'/'}>
                 Coming Soon
               </Link>
             </Button>
             <Button size={'sm'} variant={'outline'} asChild className="rounded bg-white hover:translate-y-0.5 transition-all duration-300 py-4">
-              <Link href={'/login'}>
+              <Link href={'/'}>
                 Watch Demo
               </Link>
             </Button>
