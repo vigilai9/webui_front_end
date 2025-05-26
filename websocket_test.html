@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -117,146 +117,146 @@
 
     <script>
       // DOM Elements
-      const connectBtn = document.getElementById("connectBtn");
-      const disconnectBtn = document.getElementById("disconnectBtn");
-      const sendBtn = document.getElementById("sendBtn");
-      const messageInput = document.getElementById("message");
-      const wsUrlInput = document.getElementById("wsUrl");
-      const tokenInput = document.getElementById("token");
-      const logDiv = document.getElementById("log");
+      const connectBtn = document.getElementById('connectBtn')
+      const disconnectBtn = document.getElementById('disconnectBtn')
+      const sendBtn = document.getElementById('sendBtn')
+      const messageInput = document.getElementById('message')
+      const wsUrlInput = document.getElementById('wsUrl')
+      const tokenInput = document.getElementById('token')
+      const logDiv = document.getElementById('log')
 
       // WebSocket connection
-      let socket = null;
-      let chatId = null;
+      let socket = null
+      let chatId = null
 
       // Log message to the UI
-      function log(message, type = "system") {
-        const msgDiv = document.createElement("div");
-        msgDiv.className = `message ${type}`;
-        msgDiv.textContent = message;
-        logDiv.appendChild(msgDiv);
-        logDiv.scrollTop = logDiv.scrollHeight;
+      function log(message, type = 'system') {
+        const msgDiv = document.createElement('div')
+        msgDiv.className = `message ${type}`
+        msgDiv.textContent = message
+        logDiv.appendChild(msgDiv)
+        logDiv.scrollTop = logDiv.scrollHeight
       }
 
       // Handle connection button click
-      connectBtn.addEventListener("click", () => {
-        const wsUrl = wsUrlInput.value.trim();
-        const token = tokenInput.value.trim();
+      connectBtn.addEventListener('click', () => {
+        const wsUrl = wsUrlInput.value.trim()
+        const token = tokenInput.value.trim()
 
         if (!wsUrl) {
-          log("Please enter WebSocket URL", "error");
-          return;
+          log('Please enter WebSocket URL', 'error')
+          return
         }
 
         if (!token) {
-          log("Please enter Firebase token", "error");
-          return;
+          log('Please enter Firebase token', 'error')
+          return
         }
 
         // Close existing connection if any
         if (socket) {
-          socket.close();
+          socket.close()
         }
 
         try {
           // Create WebSocket connection with token
-          log(`Connecting to ${wsUrl}...`);
-          socket = new WebSocket(`${wsUrl}?token=${token}`);
+          log(`Connecting to ${wsUrl}...`)
+          socket = new WebSocket(`${wsUrl}?token=${token}`)
 
           // Connection opened
-          socket.addEventListener("open", (event) => {
-            log("Connection established!");
+          socket.addEventListener('open', (event) => {
+            log('Connection established!')
 
             // Update UI state
-            connectBtn.disabled = true;
-            disconnectBtn.disabled = false;
-            sendBtn.disabled = false;
-            messageInput.disabled = false;
+            connectBtn.disabled = true
+            disconnectBtn.disabled = false
+            sendBtn.disabled = false
+            messageInput.disabled = false
 
             // Create a chat ID if needed
             if (!chatId) {
-              chatId = `chat_test_${Date.now()}`;
-              log(`Generated chat ID: ${chatId}`);
+              chatId = `chat_test_${Date.now()}`
+              log(`Generated chat ID: ${chatId}`)
             }
-          });
+          })
 
           // Listen for messages
-          socket.addEventListener("message", (event) => {
+          socket.addEventListener('message', (event) => {
             try {
-              const data = JSON.parse(event.data);
-              log(`Received: ${JSON.stringify(data, null, 2)}`, "server");
+              const data = JSON.parse(event.data)
+              log(`Received: ${JSON.stringify(data, null, 2)}`, 'server')
             } catch (e) {
-              log(`Received (raw): ${event.data}`, "server");
+              log(`Received (raw): ${event.data}`, 'server')
             }
-          });
+          })
 
           // Connection closed
-          socket.addEventListener("close", (event) => {
+          socket.addEventListener('close', (event) => {
             log(
               `Connection closed. Code: ${event.code}, Reason: ${
-                event.reason || "N/A"
+                event.reason || 'N/A'
               }`
-            );
+            )
 
             // Update UI state
-            connectBtn.disabled = false;
-            disconnectBtn.disabled = true;
-            sendBtn.disabled = true;
-            messageInput.disabled = true;
+            connectBtn.disabled = false
+            disconnectBtn.disabled = true
+            sendBtn.disabled = true
+            messageInput.disabled = true
 
-            socket = null;
-          });
+            socket = null
+          })
 
           // Connection error
-          socket.addEventListener("error", (error) => {
-            log(`WebSocket error: ${error}`, "error");
-          });
+          socket.addEventListener('error', (error) => {
+            log(`WebSocket error: ${error}`, 'error')
+          })
         } catch (error) {
-          log(`Error creating connection: ${error.message}`, "error");
+          log(`Error creating connection: ${error.message}`, 'error')
         }
-      });
+      })
 
       // Handle disconnect button click
-      disconnectBtn.addEventListener("click", () => {
+      disconnectBtn.addEventListener('click', () => {
         if (socket) {
-          socket.close();
-          log("Disconnected from server.");
+          socket.close()
+          log('Disconnected from server.')
         }
-      });
+      })
 
       // Handle send button click
-      sendBtn.addEventListener("click", sendMessage);
+      sendBtn.addEventListener('click', sendMessage)
 
       // Handle enter key in message input
-      messageInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-          sendMessage();
+      messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          sendMessage()
         }
-      });
+      })
 
       // Send message function
       function sendMessage() {
         if (!socket || socket.readyState !== WebSocket.OPEN) {
-          log("WebSocket is not connected", "error");
-          return;
+          log('WebSocket is not connected', 'error')
+          return
         }
 
-        const message = messageInput.value.trim();
-        if (!message) return;
+        const message = messageInput.value.trim()
+        if (!message) return
 
         // Format the message with action for WebSocket API routing
         const payload = JSON.stringify({
-          action: "send_message",
+          action: 'send_message',
           message,
           chat_id: chatId,
-        });
+        })
 
         // Send the message
-        socket.send(payload);
-        log(`Sent: ${message}`, "user");
+        socket.send(payload)
+        log(`Sent: ${message}`, 'user')
 
         // Clear input
-        messageInput.value = "";
+        messageInput.value = ''
       }
     </script>
   </body>

@@ -1,18 +1,18 @@
-"use client"
-import "./globals.css";
-import OfflineNotification from "@/components/OfflineNavigator";
+'use client'
+import './globals.css'
+import OfflineNotification from '@/components/OfflineNavigator'
 
-export default function RootLayout({ 
-  children 
+export default function RootLayout({
+  children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
-          <OfflineNotification/>
-          {children}
+        <OfflineNotification />
+        {children}
       </body>
     </html>
-  );
+  )
 }

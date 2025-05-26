@@ -1,15 +1,12 @@
-"use client";
-import Navbar from "@/components/Navbar";
-import Landing from "@/components/landing/Landing";
-
+'use client'
+import Navbar from '@/components/Navbar'
+import Landing from '@/components/landing/Landing'
 
 export default function Homepage() {
-
-
   return (
     <main>
-       <Navbar/>
-       <Landing/>
+      <Navbar />
+      <Landing />
     </main>
-  );
+  )
 }

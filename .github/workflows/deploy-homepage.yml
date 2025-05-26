@@ -1,0 +1,24 @@
+name: Deploy Homepage to GoDaddy
+
+on:
+  push:
+    branches:
+      - home_page # Trigger only on pushes to this branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload files via SFTP/FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.GODADDY_SFTP_HOST }}
+          username: ${{ secrets.GODADDY_SFTP_USERNAME }}
+          password: ${{ secrets.GODADDY_SFTP_PASSWORD }}
+          port: ${{ secrets.GODADDY_SFTP_PORT || '22' }}
+          local-dir: ./
+          server-dir: /public_html/
