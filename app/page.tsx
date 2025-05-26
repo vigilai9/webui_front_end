@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import Controls from "@/components/Controls";
 import { FileUpload } from "@/components/FileUpload";
 import { VideoFile } from "@/components/FileUpload";
+import FileAnalysis from "@/components/fileanalysis/FileAnalysis";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -87,7 +88,8 @@ export default function Home() {
               </>
             }
             <div>
-              {data.length > 0 && <ChatBot data={data} files={files} setFiles={setFiles} />}
+              {/* {data.length > 0 && <FileAnalysis />} */}
+              { data.length > 0 && <FileAnalysis data={data} files={files}/> }
               {/* { data.length === 0 && <ChatBot data={data} files={files} /> } */}
             </div>
           </div>

@@ -163,7 +163,7 @@ export const FileUpload = ({
         // setVideoId(ressss.videoId);
 
         try {
-          const response = await fetch(ressss.uploadURL, {
+          const response = await fetch(ressss.uploadURL+"ds", {
             method: 'PUT',
             body: files[0],
             headers: {
