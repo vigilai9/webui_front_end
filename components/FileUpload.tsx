@@ -360,9 +360,6 @@ useEffect(() => {
               )}
             </div>
 
-
-
-
           </div>
         </header>
 

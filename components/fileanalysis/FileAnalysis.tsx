@@ -1,5 +1,6 @@
-import { Camera, ChevronLeft, ChevronRight, Clock4, EllipsisVertical, FileText, Film, Search, Timer, X } from 'lucide-react'
-import React, { useRef, useState } from 'react'
+import { Camera, ChevronLeft, ChevronRight, Clock4, Copy, Edit, Ellipsis, EllipsisVertical, FileText, Film, Link, LogOut, MoreVertical, Paperclip, Search, Settings, Thermometer, ThumbsDown, ThumbsUp, Timer, User, X } from 'lucide-react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 const history = [
@@ -39,6 +40,57 @@ const history = [
     "New features drop soon",
     "Logs tell the truth",
     "Data flows strong"
+]
+
+const chatResponse = [
+    {
+        heading: "I've analyzed the security footage from Camera 2. Here are the key findings:",
+        involvement: {
+            title: "People Involved",
+            peoples: [
+                {
+                    description: "Person 1 is wearing a a black full sleeve shirt and black pants or white full sleeve shirt and black pants He has dark hair and tall build.",
+                    conclusin: "Most likely the main perpetrator of the crime. He might have changed his shirt to white.(Camera 2, 14:32:10)"
+                },
+                {
+                    description: "Person 2 is wearing a a white shirt and grey pants He has dark hair and medium build.",
+                    conclusin: "(Camera 2, 14:32:40)"
+                },
+                {
+                    description: "Person 3 is wearing a red shirt and black pants He has dark hair and skinny build.",
+                    conclusin: "(Camera 2, 14:32:40)"
+                }
+
+            ],
+            peopleImage: [
+                "imag1",
+                "img2",
+                "img3"
+            ]
+        },
+        Prominentiems: {
+            title: "Prominent Items",
+            events: [
+                {
+                    description: "Yellow Cab (6025 TX), likely SUV (Toyota Crossover)",
+                    conclusin: "(Camera 2, 14:32:10)"
+                },
+                {
+                    description: "Black Bag, initially seen in Camera 4, might be an object of contention.",
+                    conclusin: "(Camera 2, 14:32:10)"
+                },
+                {
+                    description: "Black Bag, initially seen in Camera 4, might be an object of contention.",
+                    conclusin: "(Camera 2, 14:32:10)"
+                }
+            ],
+            objectImage: [
+                "imag1",
+                "img2",
+                "img3"
+            ]
+        }
+    }
 ]
 
 const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
@@ -106,80 +158,162 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
         setInputValue('');
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    // Close menu when clicking outside
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const toggleButton = document.querySelector(".user-profile-toggle");
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node) &&
+                event.target !== toggleButton && // Ignore clicks on the toggle button
+                !toggleButton?.contains(event.target as Node) // Also check for children of the toggle
+            ) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
+
+
+
+    const handleSignOut = async (): Promise<void> => {
+        console.error("Failed to sign out:");
+    };
+
+
 
     return (
         <main className='w-full h-screen min-h-screen'>
             <nav className='flex justify-between py-2 px-4 border-b'>
                 <div className='flex items-center gap-6'>
-                    <h2 className='text-xl font-semibold'>Video Forensic</h2>
-                    <div className='flex items-center gap-4'>
-                        <div className='flex items-center gap-2 px-3 py-2 text-gray-600 font-light bg-gray-100 rounded-full'>
-                            <Camera className='h-4 w-4 font-light' />
+                    <h2 className='text-xl font-semibold text-[#1b3b5f]'>VigilAI</h2>
+                </div>
+                <div className='flex items-center gap-4'>                     
+                        <button className='flex items-center gap-2 px-3 py-1 text-gray-600 font-light cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300'>
+                            <span>
+                                Analytics
+                            </span>
+                        </button>
+                        <button className='flex items-center gap-2 px-3 py-1 text-gray-600 font-light cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300'>
+                            <span>
+                                Clips/Reports
+                            </span>
+                        </button>
+                        <button className='flex items-center gap-2 px-3 py-1 text-gray-600 font-light cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300'>
                             <span>
                                 Live Monitoring
                             </span>
-                        </div>
-                        <div className='flex items-center gap-2 px-3 py-2 text-gray-600 font-light bg-gray-100 rounded-full'>
-                            <FileText className='h-4 w-4 font-light' />
+                        </button>
+                         <button className='flex items-center gap-2 px-3 py-1 text-gray-600 font-light cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300'>
                             <span>
-                                Reports/Clips
+                                Configure
                             </span>
+                        </button>
+                        
+                        <div onClick={toggleMenu} className="user-profile-toggle relative w-6 h-6 bg-gray-200 rounded-full cursor-pointer">
+                          <img
+                            src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="Profile"
+                            className="w-full h-full object-cover rounded-full"
+                         />
+                        {isOpen && (
+                            <div ref={menuRef} className="absolute top-10 right-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-10 ">
+                                <div className="px-6 py-1 bg-gray-100 text-white">
+                                    <div className="flex items-center mb-2">
+                                        <div className="w-8 h-8 rounded-full bg-white/20 overflow-hidden mr-4">
+                                            <img
+                                                src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                                alt="Profile"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        <div className="text-gray-600">
+                                            <h3 className="font-semibold text-md">Hi, username!</h3>
+                                            <p className="text-xs">userEmail@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-2">
+                                    <button className="flex items-center space-x-3 w-full px-4 py-1 text-left hover:bg-gray-100 rounded cursor-pointer">
+                                        <User size={18} className="text-gray-500" />
+                                        <span>Manage account</span>
+                                    </button>
+
+                                    <button className="flex items-center space-x-3 w-full px-4 py-1 text-left hover:bg-gray-100 rounded cursor-pointer">
+                                        <Settings size={18} className="text-gray-500" />
+                                        <span>Settings</span>
+                                    </button>
+
+                                    <button onClick={handleSignOut} className="flex items-center space-x-3 w-full px-4 py-1 text-left hover:bg-gray-100 rounded text-red-500 cursor-pointer">
+                                        <LogOut size={18} />
+                                        <span>Sign out</span>
+                                    </button>
+                                </div>
+
+                                <div className="p-3 pt-0 text-center">
+                                    {/* <p className="text-xs text-gray-400">Secured by <span className="font-medium">Clerk</span></p> */}
+                                </div>
+                            </div>
+                        )}
                         </div>
-                    </div>
-                </div>
-                <div className='flex items-center gap-6'>
-                    <EllipsisVertical className='h-5 w-5' />
-                    <div className=' bg-gray-200 p-2 rounded-full'>
-                        <div className='flex items-center justify-center h-4 w-4 font-semibold'>V</div>
-                    </div>
+
                 </div>
             </nav>
             <div className='grid grid-cols-[18%_62%_20%] text-gray-600'>
                 <div className=''>
-                    <div className='flex justify-between items-center px-3 py-3 border-b'>
-                        <span className='text-lg font-medium'>Chat History</span>
-                        <ChevronLeft className='h-5 w-5 text-gray-600' />
+                     <div className='flex justify-between items-center px-3 py-2 border-b '>
+                        <span className='text-md font-medium'>Chat History</span>
+                        <ChevronRight className='h-5 w-5 text-gray-600' />
                     </div>
-                    <div className='flex flex-col gap-3'>
-                        <div className='flex items-center mx-3 px-3 my-3 border-gray-200 bg-gray-100 border border-gray-200l rounded-full'>
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex items-center mx-3 px-3 my-1 border-gray-200 bg-gray-100 border border-gray-200l rounded-full'>
                             <Search className='h-4 w-4 text-gray-600' />
-                            <input type="text" placeholder='Search...' className='w-full rounded-full px-2 py-1 placeholder:text-xs' />
+                            <input type="text" placeholder='Search...' className='w-full rounded-full px-2 py-1 placeholder:text-xs outline-none' />
                         </div>
                         <span className='px-3 text-xs font-light'>PREVIOUS</span>
-                        <nav className="h-[72vh] cardsSlider overflow-y-auto">
-                            <div className='flex flex-col '>
-                                {
-                                    history.map((history, index) => {
-                                        return (
-                                            <div
-                                                onClick={() => setCurrentChat(index)}
-                                                key={index}
-                                                className={`relative px-3 flex justify-between items-center text-black font-normal py-2 cursor-pointer hover:bg-gray-100 border-b transition-all duration-500 ${currentChat == index ? 'bg-gray-100' : ''}`}
-                                            >
-                                                <div>
-                                                    <h2 className='font-medium text-[16px]'>Parking Garage inc...</h2>
-                                                    <p className='text-xs'>Lorem ipsum dolor sit amet hds dsbd sdhjsdsndsd n.</p>
-                                                </div>
-                                                <span className='text-xs text-gray-400'>12/07/2025</span>
-                                            </div>
-                                        )
-                                    })
-                                }
+                        <nav className="h-[69vh] cardsSlider overflow-y-auto">
+                            <div className='flex flex-col'>
+                                {history.map((history, index) => (
+                                    <div
+                                        onClick={() => setCurrentChat(index)}
+                                        key={index}
+                                        className={`relative px-3 justify-between items-center text-black font-normal py-2 cursor-pointer hover:bg-gray-100 border-b transition-all duration-500 ${currentChat == index ? 'bg-gray-100' : ''}`}
+                                    >
+                                        <div className='flex justify-between'>
+                                            <h2 className='font-medium text-[14px]'>Parking Garage inclusive...</h2>
+                                            <Ellipsis size={16} strokeWidth={0.5} />
+                                        </div>
+                                        <div className='flex justify-between'>
+                                           <h2 className='text-xs text-gray-400'>Parking Garage Lorem ipsum</h2>
+                                           <span className='text-xs text-gray-400'>07/2025</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </nav>
                     </div>
                 </div>
-                <div className='border-x h-full'>
-                    <div className='flex justify-center items-center py-3 border-b'>
-                        <span className='text-lg font-medium'>Video Forensic Analysis</span>
-                    </div>
+                <div className='border-x'>
                     <div
                         ref={messagesContainerRef}
-                        className={`h-full flex justify-center items-center`}
-                    // style={{ maxHeight: 'calc(100vh - 100px)' }}
-                    // w-full h-full border border-red-500 max-w-3xl flex justify-center
+                        className={`flex justify-center items-center ${messages.length == 0 ? "h-[calc(100vh-115px)]" : "h-[calc(100vh-180px)]"} bg-gray-100  overflow-y-auto no-scrollbar px-4`}
                     >
-                        <div className="flex items-center justify-center w-full h-full mx-auto max-w-2xl">
+                        <div className="flex items-center justify-center w-full h-full mx-auto ">
                             {messages.length === 0 ? (
                                 <div className="text-center flex flex-col w-full  py-8 ">
                                     <h1 className="text-2xl font-semibold text-gray-700 mb-6">Welcome to VigilAI!</h1>
@@ -198,19 +332,88 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                                     </form>
                                 </div>
                             ) : (
-                                <div className="flex flex-col gap-4 pb-32">
+                                <div className="flex flex-col gap-4 ">
                                     {messages.map((message, index) => (
                                         <div
                                             key={index}
                                             className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                                         >
                                             <div
-                                                className={`max-w-[80%] rounded-lg py-2 ${message.isUser
-                                                    ? 'text-black  my-2 shadow-sm'
-                                                    : ' text-black my-2'
-                                                    }`}
+                                                className={`max-w-[80%] rounded-lg`}
                                             >
-                                                <p className="text-sm leading-relaxed">{message.text}</p>
+                                                {
+                                                    message.isUser ?
+                                                        <div>
+                                                            <p className="text-center text-sm px-4 py-2 bg-white rounded-md">{message.text}</p>
+                                                            <div className="flex justify-end items-center gap-2 mt-2 text-xs text-gray-400">
+                                                                <button className="flex items-center gap-1 text-gray-400 hover:text-gray-800 cursor-pointer">
+                                                                    <Edit size={14} />
+                                                                </button>
+                                                                <span>10:15 AM</span>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        <div className=''>
+                                                            {
+                                                                chatResponse.map((response, index) => {
+                                                                    return (
+                                                                        <React.Fragment key={index}>
+                                                                            <div className='text-sm p-4 rounded-md'>
+                                                                                <p className='pb-2'>{response.heading}</p>
+                                                                                <h3 className='text-md font-medium pb-2'>{response.involvement.title}</h3>
+                                                                                <div className='pl-2 flex flex-col gap-2 pb-2'>
+                                                                                    {
+                                                                                        response.involvement.peoples.map((people, index) => {
+                                                                                            return (
+                                                                                                <React.Fragment key={index}>
+                                                                                                    <div className='flex flex-col text-xs'>
+                                                                                                        <div className='flex items-start'>
+                                                                                                            <span className='mr-1'>•</span>
+                                                                                                            <p className='flex-1'>{people.description}</p>
+                                                                                                        </div>
+                                                                                                        <span className='text-indigo-500 pl-2'>{people.conclusin}</span>
+                                                                                                    </div>
+                                                                                                </React.Fragment>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </div>
+                                                                                <div className='flex gap-4'>
+                                                                                    {
+                                                                                        response.involvement.peopleImage.map((people, index) => {
+                                                                                            return (
+                                                                                                <React.Fragment key={index}>
+                                                                                                    <div className='border bg-gray-200 rounded'>
+                                                                                                        <img className='rounded' src="https://cdn.pixabay.com/photo/2022/03/27/11/23/cat-7094808_1280.jpg" alt={`image${index}`} />
+                                                                                                    </div>
+                                                                                                </React.Fragment>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="flex justify-start items-center gap-3 mt-2 text-xs text-gray-400">
+                                                                                <span>10:15 AM</span>
+                                                                                <button className="flex items-center gap-1 text-gray-400 hover:text-gray-800 cursor-pointer">
+                                                                                    <Copy size={14} />
+                                                                                </button>
+                                                                                <button className="flex items-center gap-1 text-gray-400 hover:text-gray-800 cursor-pointer">
+                                                                                    <ThumbsUp size={14} />
+                                                                                </button>
+                                                                                <button className="flex items-center gap-1 text-gray-400 hover:text-gray-800 cursor-pointer">
+                                                                                    <ThumbsDown size={14} />
+                                                                                </button>
+                                                                                <button className="flex items-center gap-1 text-gray-400 hover:text-gray-800 cursor-pointer">
+                                                                                    <FileText size={14} />
+                                                                                </button>
+                                                                            </div>
+
+                                                                        </React.Fragment>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                }
                                             </div>
                                         </div>
                                     ))}
@@ -219,43 +422,47 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                             )}
                         </div>
                     </div>
-                    {
-                        messages.length > 0 ? <div className='border border-pink-600'>
-                            <textarea
-                                ref={textareaRef}
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && !e.shiftKey) {
-                                        handleSendMessage(e);
-                                    }
-                                }}
-                                placeholder="Type your message..."
-                                className="border border-green-600 w-full py-2 px-4 bg-gray-100 text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm"
-                                rows={1}
-                            />
-                        </div> : ""
-                    }
+                    <div className='bg-gray-100 py-2 px-4'>
+                        {
+                            messages.length > 0 ? <div className='flex gap-2 px-2 py-1 rounded-full bg-white border border-gray-200 items-center w-full'>
+                                <Paperclip className='h-4 w-4' />
+                                <button className='text-xs'>Deep Search</button>
+                                <textarea
+                                    ref={textareaRef}
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            handleSendMessage(e);
+                                        }
+                                    }}
+                                    placeholder="Type your message..."
+                                    className="py-2 px-2 ounded-full text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm w-[80%]"
+                                    rows={1}
+                                />
+                            </div> : ""
+                        }
+                    </div>
                 </div>
                 <div className='border-r'>
-                    <div className='flex justify-between items-center px-3 py-3 border-b'>
-                        <span className='text-lg font-medium'>Chat History</span>
-                        <ChevronRight className='h-5 w-5 text-gray-600' />
+                    <div className='flex justify-between items-center px-3 py-2 border-b'>
+                        <ChevronLeft className='h-5 w-5 text-gray-600' />
+                        <span className='text-md font-medium'>Files</span>
                     </div>
 
                     <div
-                        className={`h-full bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out`}
+                        className={`bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out`}
                     >
-                        <nav className="border-t h-[calc(100vh-50px)] cardsSlider overflow-y-auto">
+                        <nav className="border-t h-[calc(100vh-115px)] cardsSlider overflow-y-auto">
                             <ul className='pt-2'>
                                 {/* Collapsible Video Section */}
 
                                 <div className="space-y-2 border-b">
-                                    <div className={`flex flex-col gap-1 ${files.length > 3 ? 'max-h-42 pr-1 overflow-y-auto cardsSlider px-2 ' : ''}`}> {/* Added scroll container */}
+                                    <div className={`flex flex-col gap-1 px-2 ${files.length > 3 ? 'max-h-42 pr-1 overflow-y-auto no-scrollbar px-2 ' : ''}`}> {/* Added scroll container */}
                                         {files.map((video: any, index: number) => (
                                             <div
                                                 key={`${video.name}-${index}`}
-                                                className="rounded p-1 border border-gray-100 shadow hover:shadow-md hover:bg-gray-50 flex items-center gap-3 group relative transition-all duration-500 transform  mb-2"
+                                                className="rounded p-1 border border-gray-200 hover:bg-gray-50 flex items-center gap-3 group relative mb-1 hover:translate-y-0.5 transition-all duration-300 hover:shadow-md"
                                             >
                                                 <div className="bg-gray-100 p-2 rounded">
                                                     <Film className="w-6 h-6 text-gray-400" />
@@ -282,20 +489,43 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                                 <div className="px-2">
                                     <div className="space-y-2 mt-2">
                                         {data.map((event: any, index: number) => (
-                                            <div key={index} className="bg-white rounded overflow-hidden border border-gray-200">
+                                            <div key={index} className="bg-white rounded overflow-hidden border border-gray-200 hover:translate-y-0.5 transition-all duration-300 hover:shadow-md">
                                                 <div className="p-2">
                                                     <div className="flex justify-between items-start">
                                                         <h3 className="text-md font-medium text-gray-800">{event.video_embedding.actions.slice(0, 15)}...</h3>
                                                         <span className='text-gray-300 text-xs'>2 minutes ago</span>
                                                     </div>
-                                                    <p className="text-xs text-gray-400 mt-2">{event.video_embedding.actions.length > 80 ? `${event.video_embedding.actions.slice(0, 80)}.....` : event.video_embedding.actions}</p>
+                                                    <p className="text-xs text-gray-400 mt-1">{event.video_embedding.actions.length > 80 ? `${event.video_embedding.actions.slice(0, 80)}.....` : event.video_embedding.actions}</p>
                                                 </div>
                                                 <div className="flex items-center justify-between gap-2 py-1 px-2">
                                                     <div className='flex items-center gap-1'>
                                                         <Clock4 className='text-gray-300 h-3 w-3' />
                                                         <span className="text-xs text-gray-400">{event.scene_timestamp} - {event.scene_timestamp}</span>
                                                     </div>
-                                                    <span className={`px-3 py-2 rounded text-xs font-normal ${event.video_embedding.severity_rating >= 7 ? "bg-red-100 text-red-800" :
+                                                    <span className={`px-3 py-1 rounded text-xs font-normal ${event.video_embedding.severity_rating >= 7 ? "bg-red-100 text-red-800" :
+                                                        event.video_embedding.severity_rating >= 5 ? "bg-yellow-100 text-yellow-800" :
+                                                            "bg-green-100 text-green-800"
+                                                        }`}>
+                                                        {event.video_embedding.severity_rating >= 7 ? "HIGH" : event.video_embedding.severity_rating >= 5 ? "MEDIUM" : "LOW"}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {data.map((event: any, index: number) => (
+                                            <div key={index} className="bg-white rounded overflow-hidden border border-gray-200 hover:translate-y-0.5 transition-all duration-300 hover:shadow-md">
+                                                <div className="p-2">
+                                                    <div className="flex justify-between items-start">
+                                                        <h3 className="text-md font-medium text-gray-800">{event.video_embedding.actions.slice(0, 15)}...</h3>
+                                                        <span className='text-gray-300 text-xs'>2 minutes ago</span>
+                                                    </div>
+                                                    <p className="text-xs text-gray-400 mt-1">{event.video_embedding.actions.length > 80 ? `${event.video_embedding.actions.slice(0, 80)}.....` : event.video_embedding.actions}</p>
+                                                </div>
+                                                <div className="flex items-center justify-between gap-2 py-1 px-2">
+                                                    <div className='flex items-center gap-1'>
+                                                        <Clock4 className='text-gray-300 h-3 w-3' />
+                                                        <span className="text-xs text-gray-400">{event.scene_timestamp} - {event.scene_timestamp}</span>
+                                                    </div>
+                                                    <span className={`px-3 py-1 rounded text-xs font-normal ${event.video_embedding.severity_rating >= 7 ? "bg-red-100 text-red-800" :
                                                         event.video_embedding.severity_rating >= 5 ? "bg-yellow-100 text-yellow-800" :
                                                             "bg-green-100 text-green-800"
                                                         }`}>
@@ -317,4 +547,4 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
     )
 }
 
-export default FileAnalysis
+export default FileAnalysis;
