@@ -1,4 +1,4 @@
-import { Camera, ChevronLeft, ChevronRight, Clock4, Copy, Edit, Ellipsis, EllipsisVertical, FileText, Film, Link, LogOut, MoreVertical, Paperclip, Search, Settings, Thermometer, ThumbsDown, ThumbsUp, Timer, User, X } from 'lucide-react'
+import { Camera, ChevronLeft, ChevronRight, Clock4, Copy, Edit, Ellipsis, EllipsisVertical, FileText, Film, HamIcon, Link, LogOut, MoreVertical, PanelRight, Paperclip, Search, Send, Settings, Thermometer, ThumbsDown, ThumbsUp, Timer, User, X } from 'lucide-react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -186,14 +186,12 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
         };
     }, []);
 
-
-
-
-
     const handleSignOut = async (): Promise<void> => {
         console.error("Failed to sign out:");
     };
 
+    const [leftSidebarActive, setLeftSidebarActive] = useState(true);
+    const [rightSidebarActive, setRightSidebarActive] = useState(true);
 
 
     return (
@@ -274,19 +272,21 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
 
                 </div>
             </nav>
-            <div className='grid grid-cols-[18%_62%_20%] text-gray-600'>
-                <div className=''>
+            <div className={`text-gray-600 grid ${leftSidebarActive && rightSidebarActive ? "grid-cols-[18%_62%_20%]" : leftSidebarActive ? "grid-cols-[18%_82%]" : rightSidebarActive ? "grid-cols-[80%_20%]" : "grid-cols-[100%]" } `}>
+                {
+                  leftSidebarActive && 
+                  <div className='transition-all duration-700'>
                      <div className='flex justify-between items-center px-3 py-2 border-b '>
                         <span className='text-md font-medium'>Chat History</span>
-                        <ChevronRight className='h-5 w-5 text-gray-600' />
+                        <ChevronRight onClick={(prev)=>setLeftSidebarActive(!prev)} className='h-5 w-5 text-gray-600' />
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <div className='flex items-center mx-3 px-3 my-1 border-gray-200 bg-gray-100 border border-gray-200l rounded-full'>
+                        <div className='flex items-center mx-3 px-3 my-1 py-1 border-gray-200 bg-gray-100 border border-gray-200l rounded-full'>
                             <Search className='h-4 w-4 text-gray-600' />
-                            <input type="text" placeholder='Search...' className='w-full rounded-full px-2 py-1 placeholder:text-xs outline-none' />
+                            <input type="text" placeholder='Search...' className='w-full rounded-full px-2 py-1 text-sm placeholder:text-sm outline-none' />
                         </div>
                         <span className='px-3 text-xs font-light'>PREVIOUS</span>
-                        <nav className="h-[69vh] cardsSlider overflow-y-auto">
+                        <nav className="h-[77vh] cardsSlider overflow-y-auto border-y">
                             <div className='flex flex-col'>
                                 {history.map((history, index) => (
                                     <div
@@ -296,7 +296,9 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                                     >
                                         <div className='flex justify-between'>
                                             <h2 className='font-medium text-[14px]'>Parking Garage inclusive...</h2>
-                                            <Ellipsis size={16} strokeWidth={0.5} />
+                                            <div className='p- rounded-full p-1 hover:bg-gray-200'>
+                                                 <Ellipsis size={16} strokeWidth={0.5} />
+                                            </div>
                                         </div>
                                         <div className='flex justify-between'>
                                            <h2 className='text-xs text-gray-400'>Parking Garage Lorem ipsum</h2>
@@ -307,15 +309,32 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                             </div>
                         </nav>
                     </div>
-                </div>
-                <div className='border-x'>
+                  </div> 
+                }
+                <div className=''>
                     <div
                         ref={messagesContainerRef}
-                        className={`flex justify-center items-center ${messages.length == 0 ? "h-[calc(100vh-115px)]" : "h-[calc(100vh-180px)]"} bg-gray-100  overflow-y-auto no-scrollbar px-4`}
+                        className={`flex justify-center items-center ${messages.length == 0 ? "h-[calc(100vh-70px)]" : "h-[calc(100vh-120px)]"} bg-gray-100  overflow-y-auto no-scrollbar px-4`}
                     >
+                        
+                       {
+                        !leftSidebarActive &&
+                        <div onClick={()=>setLeftSidebarActive(true)} className='absolute top-16 left-4 bg-gray-200 p-1 rounded'>
+                            <PanelRight className='h-6 w-6 text-gray-600'/>
+                        </div>
+                       } 
+
+                      {
+                        !rightSidebarActive &&
+                        <div onClick={()=>setRightSidebarActive(true)} className='absolute top-16 right-4 bg-gray-200 p-1 rounded'>
+                            <PanelRight className='h-6 w-6'/>
+                        </div>
+                       } 
+
+
                         <div className="flex items-center justify-center w-full h-full mx-auto ">
                             {messages.length === 0 ? (
-                                <div className="text-center flex flex-col w-full  py-8 ">
+                                <div className="text-center flex flex-col w-full max-w-2xl  py-8 ">
                                     <h1 className="text-2xl font-semibold text-gray-700 mb-6">Welcome to VigilAI!</h1>
                                     <form onSubmit={handleSendMessage} className="w-full">
                                         <div className="relative">
@@ -425,8 +444,10 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                     <div className='bg-gray-100 py-2 px-4'>
                         {
                             messages.length > 0 ? <div className='flex gap-2 px-2 py-1 rounded-full bg-white border border-gray-200 items-center w-full'>
-                                <Paperclip className='h-4 w-4' />
-                                <button className='text-xs'>Deep Search</button>
+                                <div className='p-1 border border-gray-200 hover:bg-gray-100 cursor-pointer rounded-full'>
+                                    <Paperclip className='h-4 w-4' />
+                                </div>
+                                <button className='text-xs px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 cursor-pointer'>Deep Search</button>
                                 <textarea
                                     ref={textareaRef}
                                     value={inputValue}
@@ -436,24 +457,29 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                                             handleSendMessage(e);
                                         }
                                     }}
-                                    placeholder="Type your message..."
+                                    placeholder="Ask your query..."
                                     className="py-2 px-2 ounded-full text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm w-[80%]"
                                     rows={1}
                                 />
+                                <div className='p-1 border border-gray-200 rounded-full bg-gray-100 cursor-pointer'>
+                                    <Send className='h-4 w-4' />
+                                </div>
                             </div> : ""
                         }
                     </div>
                 </div>
-                <div className='border-r'>
+                { 
+                  rightSidebarActive &&
+                  <div className='border-l'>
                     <div className='flex justify-between items-center px-3 py-2 border-b'>
-                        <ChevronLeft className='h-5 w-5 text-gray-600' />
+                        <ChevronLeft onClick={(prev)=>setRightSidebarActive(!prev)} className='h-5 w-5 text-gray-600' />
                         <span className='text-md font-medium'>Files</span>
                     </div>
 
                     <div
                         className={`bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out`}
                     >
-                        <nav className="border-t h-[calc(100vh-115px)] cardsSlider overflow-y-auto">
+                        <nav className="border-t h-[calc(100vh-95px)] cardsSlider overflow-y-auto">
                             <ul className='pt-2'>
                                 {/* Collapsible Video Section */}
 
@@ -541,7 +567,8 @@ const FileAnalysis = ({ data, files }: { data: any, files: any }) => {
                     </div>
 
 
-                </div>
+                  </div>
+                }
             </div>
         </main>
     )
