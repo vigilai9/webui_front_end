@@ -89,7 +89,7 @@ export default function Home() {
             }
             <div>
               {/* {data.length > 0 && <FileAnalysis />} */}
-              { data.length > 0 && <FileAnalysis data={data} files={files}/> }
+              { data.length > 0 && <FileAnalysis data={data} files={files} setFiles={setFiles}/> }
               {/* { data.length === 0 && <ChatBot data={data} files={files} /> } */}
             </div>
           </div>

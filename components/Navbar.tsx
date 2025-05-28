@@ -1,7 +1,7 @@
 "use client"
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
