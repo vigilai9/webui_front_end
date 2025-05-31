@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-const SecurityDashboard = () =>{
+const SecurityDashboard = ({id}:{id:string}) =>{
     
   const [activeSection, setActiveSection] = useState("Overview");
    return (
-     <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
+     <div id={id} className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ const SecurityDashboard = () =>{
                 Intuitive Security <span className="text-[#1b3b5f]">Dashboard</span>
               </h1>
               <p className="max-w-2xl text-gray-600 text-sm sm:text-base px-4 sm:px-0">
-                Monitor your entire security operation from a single, user-friendly interface designed for maximum situational awareness.
+                Monitor your entire security operations from a single, user-friendly interface designed for maximum situational awareness.
               </p>
             </div>
 

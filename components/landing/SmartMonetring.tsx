@@ -26,11 +26,11 @@ const contents = [
         id: 1,
         icon: <Clock5 className="h-4 w-4 " />,
         title: "Timestamped Threat Reports",
-        description: "Instantly jump to the alerted segment and review the incident yourself!"
+        description: "Instantly jump to the alerted segments and review the incident yourself!"
     }
 ]
 
-const SmartMonetring = () => {
+const SmartMonetring = ({id}:{id:string}) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -48,12 +48,12 @@ const SmartMonetring = () => {
 
 
     return (
-         <div className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
+         <div id={id} className="w-full max-w-7xl lg:px-0 md:px-2 sm:px-2 px-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center mx-auto items-center gap-6 py-12"
+                className="flex flex-col justify-center mx-auto items-center gap-6 py-8 md:py-12"
             >
                 {/* Tagline */}
                 <div className="flex items-center space-x-2 bg-gray-200 w-fit rounded px-2 py-1 text-sm">
@@ -61,19 +61,19 @@ const SmartMonetring = () => {
                     <span className="text-blue-800 font-semibold">Smart Monitoring</span>
                 </div>
 
-                <div className="flex gap-4 flex-col items-center text-center">
+                <div className="flex gap-4 flex-col items-center text-center px-2">
                     <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 leading-tight">
                         No Incident Goes Unreported
                     </h1>
-                    <p className="max-w-2xl text-gray-600 text-sm">
-                        Vigil AI deploys 30 layer processing, to ensure no relevant incident goes unreported with unparallelled accuracy and speed.
+                    <p className="max-w-2xl text-gray-600 text-sm md:text-base">
+                        Vigil AI deploys 30 step processing, to ensure no relevant incident goes unreported with unparalleled accuracy and speed.
                     </p>
                 </div>
 
                 <div className="flex flex-col md:flex-row w-full gap-8">
 
-                     {/* Image Container - centered on y-axis and matching height */}
-                     <div className="w-full md:w-1/2 flex items-start justify-start">
+                     {/* Image Container - centered on mobile, justify-start on desktop */}
+                     <div className="w-full md:w-1/2 flex justify-center md:justify-start">
                         <div className="rounded-lg overflow-hidden w-full max-w-xl">
                             <div className="relative flex flex-col items-center justify-center aspect-[4/3] sm:aspect-video">
                                 <div 
@@ -150,8 +150,6 @@ const SmartMonetring = () => {
                             }
                         </div>
                     </div>
-
-                   
                 </div>
             </motion.div>
         </div>

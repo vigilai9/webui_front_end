@@ -473,8 +473,8 @@ const Chats: React.FC<any> = ({ data, files, setFiles }) => {
 
       {/* Bottom input */}
       {messages.length > 0 && (
-     <div className="fixed bottom-0 bg-white inset-x-0 pb-4">
-      <form onSubmit={handleSendMessage} className="w-full max-w-2xl mx-auto rounded-xl px-2 bg-gray-100 border border-gray-300">
+       <div className="fixed bottom-0 bg-white inset-x-0 pb-4">
+       <form onSubmit={handleSendMessage} className="w-full max-w-2xl mx-auto rounded-xl px-2 bg-gray-100 border border-gray-300">
         <div className="relative h-full pt-1">
           <textarea
             ref={textareaRef}
