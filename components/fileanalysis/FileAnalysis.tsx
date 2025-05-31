@@ -1,4 +1,4 @@
-import { Camera, ChevronLeft, ChevronRight, Clock4, Copy, Edit, Ellipsis, EllipsisVertical, FileText, Film, HamIcon, Link, Link2, LinkIcon, LogOut, MoreVertical, PanelRight, Paperclip, Search, Send, Settings, Thermometer, ThumbsDown, ThumbsUp, Timer, User, X } from 'lucide-react'
+import { ArrowDown, ArrowUp, Camera, ChevronLeft, ChevronRight, Clock4, Copy, Edit, Ellipsis, EllipsisVertical, FileText, Film, HamIcon, Link, Link2, LinkIcon, LogOut, MoreVertical, PanelRight, Paperclip, Search, Send, Settings, Thermometer, ThumbsDown, ThumbsUp, Timer, Upload, User, X } from 'lucide-react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
@@ -95,13 +95,13 @@ const chatResponse = [
 ]
 
 export interface VideoFile extends File {
-  preview?: string;
-  estimatedTime?: string;
+    preview?: string;
+    estimatedTime?: string;
 }
 
 const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFiles: any }) => {
 
-    
+
 
     const [currentChat, setCurrentChat] = useState(0);
     const [inputValue, setInputValue] = useState('');
@@ -157,7 +157,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                 if (index === words.length - 1) {
                     setIsLoading(false);
                 }
-            }, index * 60);
+            }, index * 0);
 
             // Save timeout reference
             timeoutsRef.current.push(timeoutId);
@@ -200,44 +200,53 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
 
     const [leftSidebarActive, setLeftSidebarActive] = useState(true);
     const [rightSidebarActive, setRightSidebarActive] = useState(true);
-     const [tFile, setTFile] = useState<any>(null);
+    const [tFile, setTFile] = useState<any>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files;
         console.log("event.target", file?.[0]);
         setTFile(file?.[0]);
-    
+
         const files = Array.from(event.target.files || []);
         const newVideos = files.map((file) => {
-          const videoFile = file as VideoFile;
-          videoFile.preview = URL.createObjectURL(file);
-          videoFile.estimatedTime = calculateEstimatedTime(file.size);
-          return videoFile;
+            const videoFile = file as VideoFile;
+            videoFile.preview = URL.createObjectURL(file);
+            videoFile.estimatedTime = calculateEstimatedTime(file.size);
+            return videoFile;
         });
-    
+
         setFiles((prev: VideoFile[]) => [...prev, ...newVideos]);
         if (fileInputRef.current) {
-          fileInputRef.current.value = "";
+            fileInputRef.current.value = "";
         }
     };
-    
-   const handleClick = () => {
-    fileInputRef.current?.click();
-  };
 
-   const calculateEstimatedTime = (fileSize: number): string => {
-    const uploadSpeedMbps = 1;
-    const fileSizeMB = fileSize / (1024 * 1024);
-    const estimatedSeconds = fileSizeMB / uploadSpeedMbps;
+    const handleClick = () => {
+        fileInputRef.current?.click();
+    };
 
-    if (estimatedSeconds < 60) {
-      return `${Math.ceil(estimatedSeconds)} seconds`;
-    } else if (estimatedSeconds < 3600) {
-      return `${Math.ceil(estimatedSeconds / 60)} minutes`;
-    } else {
-      return `${Math.ceil(estimatedSeconds / 3600)} hours`;
-    }
-  };
+    const calculateEstimatedTime = (fileSize: number): string => {
+        const uploadSpeedMbps = 1;
+        const fileSizeMB = fileSize / (1024 * 1024);
+        const estimatedSeconds = fileSizeMB / uploadSpeedMbps;
+
+        if (estimatedSeconds < 60) {
+            return `${Math.ceil(estimatedSeconds)} seconds`;
+        } else if (estimatedSeconds < 3600) {
+            return `${Math.ceil(estimatedSeconds / 60)} minutes`;
+        } else {
+            return `${Math.ceil(estimatedSeconds / 3600)} hours`;
+        }
+    };
+
+
+    useEffect(() => {
+        // Smooth scroll to bottom when new messages arrive
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]); // This will run every time messages change
+
 
 
     return (
@@ -323,7 +332,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
 
                 </div>
             </nav>
-            <div className={`text-gray-600 grid transition-all duration-300 ease-in-out ${leftSidebarActive && rightSidebarActive ? "grid-cols-[18%_62%_20%]" :
+            <div className={`text-gray-600 grid transition-all duration-1000 ease-in-out ${leftSidebarActive && rightSidebarActive ? "grid-cols-[18%_62%_20%]" :
                 leftSidebarActive ? "grid-cols-[18%_82%]" :
                     rightSidebarActive ? "grid-cols-[80%_20%]" :
                         "grid-cols-[100%]"
@@ -334,10 +343,10 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                         <div className='flex justify-between items-center px-3 py-2 border-b '>
                             <span className='text-md font-medium'>Chat History</span>
                             <div className='p-1 hover:bg-gray-100 cursor-pointer rounded-full transition-all duration-200'>
-                               <ChevronRight
-                                 onClick={() => setLeftSidebarActive(false)}
-                                 className='h-5 w-5 text-gray-600 cursor-pointer hover:bg-gray-100 rounded transition-all duration-200'
-                               />
+                                <ChevronLeft
+                                    onClick={() => setLeftSidebarActive(false)}
+                                    className='h-5 w-5 text-gray-600 cursor-pointer hover:bg-gray-100 rounded transition-all duration-200'
+                                />
                             </div>
                         </div>
                         <div className='flex flex-col gap-2'>
@@ -352,7 +361,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                         <div
                                             onClick={() => setCurrentChat(index)}
                                             key={index}
-                                            className={`relative px-3 justify-between items-center text-black font-normal py-2 cursor-pointer hover:bg-gray-100 border-b transition-all duration-500 ${currentChat == index ? 'bg-gray-100' : ''}`}
+                                            className={`relative px-3 justify-between items-center text-black font-normal py-2 cursor-pointer hover:bg-gray-100 transition-all duration-500 ${currentChat == index ? 'bg-gray-100' : ''}`}
                                         >
                                             <div className='flex justify-between'>
                                                 <h2 className='font-medium text-[14px]'>Parking Garage inclusive...</h2>
@@ -364,7 +373,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                                 {
                                                     ["Front Camera", "Lobby Cam2"].map((cam) => {
                                                         return (
-                                                            <h2 key={cam} className='text-xs text-gray-400'><span className=''>• </span>{cam}</h2>
+                                                            <h2 key={cam} className='text-xs text-gray-400'><span className=''>• </span>{cam}...</h2>
                                                         )
                                                     })
                                                 }
@@ -377,7 +386,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                         </div>
                     </div>
                 }
-                <div className='relative flex flex-col items-center justify-center bg-gray-100'>
+                <div className='relative flex flex-col items-center justify-center bg-gray-100 transition-all duration-1000'>
                     <div className='flex flex-col justify-center w-full max-w-3xl'>
                         <div
                             ref={messagesContainerRef}
@@ -387,7 +396,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                             {!leftSidebarActive && (
                                 <div
                                     onClick={() => setLeftSidebarActive(true)}
-                                    className='absolute top-2 left-2 rounded-full cursor-pointer p-1 hover:bg-gray-200 transition-all duration-200 z-10'
+                                    className='absolute top-2 left-2 rounded-full cursor-pointer p-1 hover:bg-gray-200 transition-all duration-1000 z-10'
                                 >
                                     <PanelRight className='h-5 w-5 text-gray-600' />
                                 </div>
@@ -402,13 +411,11 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                 </div>
                             )}
 
-
-                            <div className="flex items-center justify-center w-full h-full mx-auto ">
+                            <div className="flex items-center justify-center w-full h-full mx-auto">
                                 {messages.length === 0 ? (
                                     <div className="text-center flex flex-col w-full py-8 ">
                                         <h1 className="text-2xl font-semibold text-gray-700 mb-6">Welcome to VigilAI!</h1>
-                                        <form onSubmit={handleSendMessage} className="w-full flex">
-                                           
+                                        {/* <form onSubmit={handleSendMessage} className="w-full flex border  border-red-500">          
                                             <div className='flex flex-col w-full px-4 py-2 bg-gray-200 items-center border border-gray-200 rounded-full'>
                                                 <div className='flex justify-between items-center border w-full rounded-full'>
                                                     <textarea
@@ -426,27 +433,57 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                                    />
                                                 </div>
                                                 <div className='flex gap-2 border w-full  rounded-full'>
-                                                  <div className='p-1 border border-gray-200 bg-gray-50 cursor-pointer rounded-full'>
-                                                     <Paperclip className='h-4 w-4' />
-                                                  </div>
+
+                                                    <div onClick={handleClick} className='p-1 border border-gray-200 bg-gray-50 cursor-pointer rounded-full'>
+                                                       <input
+                                                        ref={fileInputRef}
+                                                        type="file"
+                                                        multiple
+                                                        accept="video/*"
+                                                        onChange={handleFileChange}
+                                                        className="hidden"
+                                                      />
+                                                     <Paperclip  className='h-4 w-4'/>
+                                                    </div>
                                                   <button className='text-xs px-2 py-1 rounded-full border border-gray-200 bg-gray-50 cursor-pointer'>Deep Search</button>
                                                 </div>
                                             </div>
-                                            {/* <div className="relative w-full">
-                                                <input
-                                                    ref={inputRef}
-                                                    type="text"
-                                                    // disabled={!connected}
+                                        </form> */}
+                                        <div className='flex gap-2 px-2 py-1 rounded-full bg-white border border-gray-200 items-center w-full'>
+                                            <div className='flex w-full gap-2 items-center'>
+                                                <div onClick={handleClick} className='p-1 border border-gray-200 hover:bg-gray-100 cursor-pointer rounded-full'>
+                                                    <input
+                                                        ref={fileInputRef}
+                                                        type="file"
+                                                        multiple
+                                                        accept="video/*"
+                                                        onChange={handleFileChange}
+                                                        className="hidden"
+                                                    />
+                                                    <Paperclip className='h-4 w-4' />
+                                                </div>
+                                                <button className='text-xs px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 cursor-pointer'>Deep Search</button>
+                                                <textarea
+                                                    ref={textareaRef}
                                                     value={inputValue}
                                                     onChange={(e) => setInputValue(e.target.value)}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                                            handleSendMessage(e);
+                                                        }
+                                                    }}
                                                     placeholder="Ask your query..."
-                                                    className="w-full px-6 py-6 pr-16 rounded-full  bg-gray-200 text-gray-600 focus:outline-none border focus:border-gray-300"
+                                                    className="py-2 px-2 rounded-full text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm w-[80%]"
+                                                    rows={1}
                                                 />
-                                            </div> */}
-                                        </form>
+                                            </div>
+                                            <div className='p-2 rounded-full bg-[#1b3b5f] text-white cursor-pointer flex justify-end'>
+                                                <ArrowUp className='h-4 w-4' />
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
-                                    <div className="flex flex-col gap-4 ">
+                                    <div className="flex h-full flex-col gap-4">
                                         {messages.map((message, index) => (
                                             <div
                                                 key={index}
@@ -538,48 +575,57 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                         </div>
                         <div className='bg-gray-100 py-2 px-2ß'>
                             {
-                                messages.length > 0 ? <div className='flex gap-2 px-2 py-1 rounded-full bg-white border border-gray-200 items-center w-full'>
-                                    <div className='flex w-full gap-2 items-center'>
-                                        <div className='p-1 border border-gray-200 hover:bg-gray-100 cursor-pointer rounded-full'>
-                                            <Paperclip className='h-4 w-4' />
+                                messages.length > 0 ?
+                                    <div className='flex gap-2 px-2 py-1 rounded-full bg-white border border-gray-200 items-center w-full'>
+                                        <div className='flex w-full gap-2 items-center'>
+                                            <div onClick={handleClick} className='p-1 border border-gray-200 hover:bg-gray-100 cursor-pointer rounded-full'>
+                                                <input
+                                                    ref={fileInputRef}
+                                                    type="file"
+                                                    multiple
+                                                    accept="video/*"
+                                                    onChange={handleFileChange}
+                                                    className="hidden"
+                                                />
+                                                <Paperclip className='h-4 w-4' />
+                                            </div>
+                                            <button className='text-xs px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 cursor-pointer'>Deep Search</button>
+                                            <textarea
+                                                ref={textareaRef}
+                                                value={inputValue}
+                                                onChange={(e) => setInputValue(e.target.value)}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                                        handleSendMessage(e);
+                                                    }
+                                                }}
+                                                placeholder="Ask your query..."
+                                                className="py-2 px-2 rounded-full text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm w-[80%]"
+                                                rows={1}
+                                            />
                                         </div>
-                                        <button className='text-xs px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 cursor-pointer'>Deep Search</button>
-                                        <textarea
-                                            ref={textareaRef}
-                                            value={inputValue}
-                                            onChange={(e) => setInputValue(e.target.value)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === 'Enter' && !e.shiftKey) {
-                                                    handleSendMessage(e);
-                                                }
-                                            }}
-                                            placeholder="Ask your query..."
-                                            className="py-2 px-2 rounded-full text-gray-600 focus:outline-none resize-none overflow-hidden cardsSlider placeholder:text-sm w-[80%]"
-                                            rows={1}
-                                        />
-                                    </div>
-                                    <div className='p-1 border border-gray-200 rounded-full bg-gray-100 cursor-pointerflex justify-end'>
-                                        <Send className='h-4 w-4' />
-                                    </div>
-                                </div> : ""
+                                        <div className='p-2 rounded-full bg-[#1b3b5f] text-white cursor-pointer flex justify-end'>
+                                            <ArrowUp className='h-4 w-4' />
+                                        </div>
+                                    </div> : ""
                             }
                         </div>
                     </div>
                 </div>
                 {
                     rightSidebarActive &&
-                    <div className={`border-l transition-all duration-300 ease-in-out ${rightSidebarActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
+                    <div className={`border-l transition-all duration-1000 ease-in-out ${rightSidebarActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
                         <div className='flex gap-4 items-center justify-between px-3 py-2 border-b'>
-                           <div className='flex gap-4 items-center'>
-                             <div className='p-1 hover:bg-gray-100 cursor-pointer rounded-full transition-all duration-200'>
-                                <ChevronRight
-                                onClick={() => setRightSidebarActive(false)}
-                                className='h-5 w-5 text-gray-600'
-                            />
-                             </div>
-                            <span className='text-md font-medium'>Files</span>
-                           </div>
-                           <div onClick={handleClick} className='p-1 hover:bg-gray-100 cursor-pointer rounded-full transition-all duration-200'>
+                            <div className='flex gap-4 items-center'>
+                                <div className='p-1 hover:bg-gray-100 cursor-pointer rounded-full transition-all duration-200'>
+                                    <ChevronRight
+                                        onClick={() => setRightSidebarActive(false)}
+                                        className='h-5 w-5 text-gray-600'
+                                    />
+                                </div>
+                                <span className='text-md font-medium'>Files</span>
+                            </div>
+                            {/* <div onClick={handleClick} className='p-1 hover:bg-gray-100 cursor-pointer rounded-full transition-all duration-200'>
                              <input
                                ref={fileInputRef}
                                type="file"
@@ -589,43 +635,77 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                className="hidden"
                              />
                             <Paperclip  className='h-4 w-4 text-gray-600'/>
-                           </div>
+                           </div> */}
                         </div>
 
                         <div
                             className={`bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out`}
                         >
                             <nav className="border-t h-[calc(100vh-95px)] cardsSlider overflow-y-auto">
-                                <ul className='pt-2'>
+                                <ul className='pt-1'>
                                     {/* Collapsible Video Section */}
-
-                                    <div className="space-y-2 border-b">
-                                        <div className={`flex flex-col gap-1 px-2 ${files.length > 3 ? 'max-h-42 pr-1 overflow-y-auto no-scrollbar px-2 ' : ''}`}> {/* Added scroll container */}
-                                            {files.map((video: any, index: number) => (
-                                                <div
-                                                    key={`${video.name}-${index}`}
-                                                    className="rounded p-1 border border-gray-200 hover:bg-gray-50 flex items-center gap-3 group relative mb-1 hover:translate-y-0.5 transition-all duration-300 hover:shadow-md"
-                                                >
-                                                    <div className="bg-gray-100 p-2 rounded">
-                                                        <Film className="w-6 h-6 text-gray-400" />
-                                                    </div>
-                                                    <div className="overflow-hidden flex-1">
-                                                        <p className="text-sm font-medium text-gray-700 truncate">
-                                                            {video.name.length > 20 ? `${video.name.slice(0, 20)}...` : video.name}
-                                                        </p>
-                                                        <p className="text-xs text-gray-500">
-                                                            {(video.size / (1024 * 1024)).toFixed(2)} MB
-                                                        </p>
-                                                    </div>
-                                                    <button
-                                                        className="absolute top-2 right-2 p-1 rounded-full text-transparent group-hover:text-gray-400 hover:text-red-500 hover:bg-red-100 cursor-pointer transition-all duration-300"
-                                                    >
-                                                        <X className="w-4 h-4" />
-                                                    </button>
+                                    {
+                                        files.length > 2 ?
+                                            <div className="space-y-2 border-b">
+                                                <div className={`flex flex-col gap-1 px-2 ${files.length > 3 ? 'max-h-42 pr-1 overflow-y-auto no-scrollbar px-2 ' : ''}`}> {/* Added scroll container */}
+                                                    {files.map((video: any, index: number) => (
+                                                        <div
+                                                            key={`${video.name}-${index}`}
+                                                            className="rounded p-1 border border-gray-200 hover:bg-gray-50 flex items-center gap-3 group relative mb-1 hover:translate-y-0.5 transition-all duration-300 hover:shadow-md"
+                                                        >
+                                                            <div className="bg-gray-100 p-2 rounded">
+                                                                <Film className="w-6 h-6 text-gray-400" />
+                                                            </div>
+                                                            <div className="overflow-hidden flex-1">
+                                                                <p className="text-sm font-medium text-gray-700 truncate">
+                                                                    {video.name.length > 20 ? `${video.name.slice(0, 20)}...` : video.name}
+                                                                </p>
+                                                                <p className="text-xs text-gray-500">
+                                                                    {(video.size / (1024 * 1024)).toFixed(2)} MB
+                                                                </p>
+                                                            </div>
+                                                            <button
+                                                                className="absolute top-2 right-2 p-1 rounded-full text-transparent group-hover:text-gray-400 hover:text-red-500 hover:bg-red-100 cursor-pointer transition-all duration-300"
+                                                            >
+                                                                <X className="w-4 h-4" />
+                                                            </button>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                            </div>
+                                            :
+                                            <div className='px-2 w-full max-w-md'>
+                                            <div className="border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center p-2 text-center">
+                                                <input
+                                                   ref={fileInputRef}
+                                                   type="file"
+                                                   multiple
+                                                   accept="video/*"
+                                                   onChange={handleFileChange}
+                                                   className="hidden"
+                                                />
+
+                                                <div className="flex flex-col items-center gap-1">
+                                                    <div onClick={handleClick} className="text-gray-500 ">
+                                                       <Upload className='h-6 w-6'/>
+                                                    </div>
+
+                                                    <div className="flex flex-col items-center text-gray-600 ">
+                                                        <p className='font-bold'>Drop files here</p>
+                                                        <span className="my-1">or click to browse</span>
+                                                        <label
+                                                            // htmlFor={id}
+                                                            onClick={handleClick} 
+                                                            className="bg-[#1b3b5f] text-white px-4 py-1 rounded cursor-pointer hover:bg-[#23466e] transition-colors"
+                                                        >
+                                                            Choose Files
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                    }
+
 
                                     {/* Collapsible Cards Section */}
                                     <div className="px-2">
@@ -680,9 +760,9 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                     </div>
                                 </ul>
                             </nav>
-                             <div className='flex justify-center absolute bottom-2 right-2 w-full'>
-                                <button className='px-6 py-1 bg-indigo-500 text-white rounded-full'>Download Reports</button>
-                             </div>
+                            <div className='flex justify-center absolute bottom-2 right-2 w-full'>
+                                <button className='flex items-center gap-2 px-6 py-1 bg-[#1b3b5f] text-white rounded-md'> <span><ArrowDown className="h-5 w-5 font-bold" /></span>Download Reports</button>
+                            </div>
                         </div>
                     </div>
                 }

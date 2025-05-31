@@ -468,7 +468,7 @@ useEffect(() => {
               </div>
               <div className="flex items-center justify-end gap-4">
                 <Button onClick={() => setFiles([])} size={'sm'} variant={'outline'} className="my-2 text-indigo-500 font-normal text-sm bg-white hover:bg-gray-50 hover:text-indigo-500">
-                  Canel
+                  Cancel
                 </Button>
                 <Button onClick={handleUploadVideo} size={'sm'} variant={'primary'}>
                   {buttonText}
