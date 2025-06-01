@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import emailjs from 'emailjs-com';
 
 interface IUserQuery {
   name: string
@@ -38,18 +39,38 @@ const UserQuery = ({ id }: { id: string }) => {
       return { ...prev, [name]: value.trimStart() }
     })
   }
-  //submit handler for user query
+
   const submitQuery = async (event: any) => {
     event.preventDefault()
     setSuccessMessage('')
     setErrorMessage('')
     setLoading(true)
+    console.log("userQuery", );
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAIL_SERVICE!,
+      process.env.NEXT_PUBLIC_EMAIL_TEMPLATE!,
+      {
+        name: userQuery.name,
+        email: userQuery.email,
+        phone: userQuery.phone,
+        query: userQuery.query,
+        designation: userQuery.designation
+      },
+      process.env.NEXT_PUBLIC_EMAIL_API!
+    );
 
     try {
-      const x = await axios.post(
+      const response = await axios.post(
         'https://90p4290to5.execute-api.us-east-2.amazonaws.com/new_stage/query',
         userQuery
       )
+      if (response.status === 200) {
+        setSuccessMessage('Your inquiry has been submitted successfully!');
+        setUserQuery(initialFormData);
+      } else {
+        throw new Error('Server error');
+      }
+
       setSuccessMessage('Your inquiry has been submitted successfully!')
       setUserQuery(initialFormData)
     } catch (error) {
