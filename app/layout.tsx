@@ -1,23 +1,18 @@
-"use client"
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { AuthProvider } from "@/contexts/AuthContext";
-import Navbar from "@/components/Navbar";
-import OfflineNotification from "@/components/OfflineNavigator";
+'use client'
+import './globals.css'
+import OfflineNotification from '@/components/OfflineNavigator'
 
-export default function RootLayout({ 
-  children 
+export default function RootLayout({
+  children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
-        <AuthProvider>
-          <OfflineNotification/>
-          {children}
-        </AuthProvider>
+        <OfflineNotification />
+        {children}
       </body>
     </html>
-  );
+  )
 }
