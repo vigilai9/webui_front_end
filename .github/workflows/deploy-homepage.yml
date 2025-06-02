@@ -2,7 +2,7 @@ name: Deploy to GoDaddy cPanel
 
 on:
   push:
-    branches: [ main ] # or your production branch
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -15,7 +15,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # or your preferred version
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
@@ -23,30 +23,39 @@ jobs:
     - name: Build project
       run: npm run build
 
+    - name: Install zip and lftp
+      run: sudo apt-get update && sudo apt-get install -y zip lftp
+
     - name: Zip build artifacts
       run: |
         cd out
         zip -r ../build.zip ./*
         cd ..
 
-    - name: Deploy to GoDaddy cPanel
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ 's3cura.com' }}
-        username: ${{ 'iqfu27x9dob7' }}
-        password: ${{ 'Gaurav123#' }}
-        port: ${{ '2222' }}
-        source: "build.zip"
-        target: "/home/username/public_html" # Replace with your cPanel username
+    - name: Deploy via SFTP
+      run: |
+        lftp -e "
+          set ftp:ssl-allow no;
+          open -u $FTP_USERNAME,$FTP_PASSWORD -p 2222 $FTP_HOST;
+          mkdir -p public_html;
+          cd public_html;
+          put build.zip;
+          bye"
+      env:
+        FTP_HOST: s3cura.com
+        FTP_USERNAME: iqfu27x9dob7
+        FTP_PASSWORD: Gaurav123#
 
     - name: Unzip on server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ 's3cura.com' }}
-        username: ${{ 'iqfu27x9dob7' }}
-        password: ${{ 'Gaurav123#' }}
-        port: ${{ '2222' }}
-        script: |
-          cd public_html
-          unzip -o /home/username/public_html/build.zip
-          rm /home/username/public_html/build.zip
+      run: |
+        lftp -e "
+          set ftp:ssl-allow no;
+          open -u $FTP_USERNAME,$FTP_PASSWORD -p 2222 $FTP_HOST;
+          cd public_html;
+          !unzip -o build.zip;
+          !rm build.zip;
+          bye"
+      env:
+        FTP_HOST: s3cura.com
+        FTP_USERNAME: iqfu27x9dob7
+        FTP_PASSWORD: Gaurav123#
