@@ -1,24 +1,52 @@
-name: Deploy Homepage to GoDaddy
+name: Deploy to GoDaddy cPanel
 
 on:
   push:
-    branches:
-      - home_page # Trigger only on pushes to this branch
+    branches: [ main ] # or your production branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Upload files via SFTP/FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
-        with:
-          server: ${{ secrets.GODADDY_SFTP_HOST }}
-          username: ${{ secrets.GODADDY_SFTP_USERNAME }}
-          password: ${{ secrets.GODADDY_SFTP_PASSWORD }}
-          port: ${{ secrets.GODADDY_SFTP_PORT || '22' }}
-          local-dir: ./
-          server-dir: /public_html/
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # or your preferred version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build
+
+    - name: Zip build artifacts
+      run: |
+        cd out
+        zip -r ../build.zip ./*
+        cd ..
+
+    - name: Deploy to GoDaddy cPanel
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ 's3cura.com' }} # e.g., yourdomain.com
+        username: ${{ 'iqfu27x9dob7' }}
+        password: ${{ 'Gaurav123#' }}
+        port: ${{ secrets.GODADDY_SSH_PORT || '22' }}
+        source: "build.zip"
+        target: "/home/username/public_html" # Replace with your cPanel username
+
+    - name: Unzip on server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ 's3cura.com' }}
+        username: ${{ 'iqfu27x9dob7' }}
+        password: ${{ 'Gaurav123#' }}
+        port: ${{ secrets.GODADDY_SSH_PORT || '22' }}
+        script: |
+          cd public_html
+          unzip -o /home/username/public_html/build.zip
+          rm /home/username/public_html/build.zip
