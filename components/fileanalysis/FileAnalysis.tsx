@@ -675,7 +675,7 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                             </div>
                                             :
                                             <div className='px-2 w-full max-w-md'>
-                                            <div className="border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center p-2 text-center">
+                                              <div className="border-2 py-4 border-dashed border-gray-300 hover:border-indigo-300 rounded flex flex-col items-center justify-center p-2 text-center transition-all duration-300">
                                                 <input
                                                    ref={fileInputRef}
                                                    type="file"
@@ -690,19 +690,19 @@ const FileAnalysis = ({ data, files, setFiles }: { data: any, files: any, setFil
                                                        <Upload className='h-6 w-6'/>
                                                     </div>
 
-                                                    <div className="flex flex-col items-center text-gray-600 ">
-                                                        <p className='font-bold'>Drop files here</p>
-                                                        <span className="my-1">or click to browse</span>
+                                                    <div className="flex flex-col items-center text-gray-600">
+                                                        <p className='font-semibold text-sm'>Drop files here</p>
+                                                        <span className="my-2">or click to browse</span>
                                                         <label
                                                             // htmlFor={id}
                                                             onClick={handleClick} 
-                                                            className="bg-[#1b3b5f] text-white px-4 py-1 rounded cursor-pointer hover:bg-[#23466e] transition-colors"
+                                                            className="bg-[#1b3b5f] text-sm text-white px-4 py-1 rounded cursor-pointer hover:bg-[#23466e] transition-colors"
                                                         >
                                                             Choose Files
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                              </div>
                                             </div>
                                     }
 
