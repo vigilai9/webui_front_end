@@ -292,6 +292,12 @@
 }
 
 
+.videoslider::-webkit-scrollbar{
+  display: none;
+}
+
+
+
 .chatsSlider::-webkit-scrollbar{
   display: none;
 }
@@ -335,6 +341,14 @@
   
   .backface-hidden {
     backface-visibility: hidden;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 /*   
   .rotate-y-180 {

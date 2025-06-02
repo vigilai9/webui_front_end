@@ -13,6 +13,9 @@ import ConnectHardware from "./ConnectHardware";
 import Deployment from "./Deployment";
 import SecurityDashboard from "./SecurityDashboard";
 
+import { useRef } from 'react';
+
+
 
 const Landing = () => {
 
@@ -33,12 +36,12 @@ const Landing = () => {
       <main className="flex h-full flex-col items-center justify-center">
         <Hero />
         <TrustedBy/>
-        <SmartMonetring/>
+        <SmartMonetring id="features"/>
         <Deployment/>
-        <ConnectHardware/>
-        <SecurityDashboard/>
-        <Features/>
-        <UserQuery />
+        <ConnectHardware id="connecthardware"/>
+        <SecurityDashboard id="dashboard"/>
+        <Features id="security"/>
+        <UserQuery id="contact"/>
         <Footer />
       </main>
     </div>
