@@ -32,10 +32,10 @@ jobs:
     - name: Deploy to GoDaddy cPanel
       uses: appleboy/scp-action@master
       with:
-        host: ${{ 's3cura.com' }} # e.g., yourdomain.com
+        host: ${{ 's3cura.com' }}
         username: ${{ 'iqfu27x9dob7' }}
         password: ${{ 'Gaurav123#' }}
-        port: ${{ secrets.GODADDY_SSH_PORT || '22' }}
+        port: ${{ '2222' }}
         source: "build.zip"
         target: "/home/username/public_html" # Replace with your cPanel username
 
@@ -45,7 +45,7 @@ jobs:
         host: ${{ 's3cura.com' }}
         username: ${{ 'iqfu27x9dob7' }}
         password: ${{ 'Gaurav123#' }}
-        port: ${{ secrets.GODADDY_SSH_PORT || '22' }}
+        port: ${{ '2222' }}
         script: |
           cd public_html
           unzip -o /home/username/public_html/build.zip
