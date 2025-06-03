@@ -1,54 +1,34 @@
-name: Deploy to GoDaddy cPanel
+name: Deploy to GoDaddy via FTP
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - home_page
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Build project
-      run: npm run build
+      - name: Build Static Site
+        run: npm run build
 
-    - name: Install zip and lftp
-      run: sudo apt-get update && sudo apt-get install -y zip lftp
-
-    - name: Zip build artifacts
-      run: |
-        cd out
-        zip -r ../build.zip ./*
-        cd ..
-
-    - name: Deploy via SFTP
-      run: |
-        lftp -e "
-          set ftp:ssl-allow no;
-          set ftp:passive-mode on;
-          open -u iqfu27x9dob7,Gaurav123# -p 2222 s3cura.ai;
-          mkdir -p public_html;
-          cd public_html;
-          put build.zip;
-          bye"
-
-    - name: Unzip on server
-      run: |
-        lftp -e "
-          set ftp:ssl-allow no;
-          open -u iqfu27x9dob7,Gaurav123# -p 2222 s3cura.ai;
-          cd public_html;
-          !unzip -o build.zip;
-          !rm build.zip;
-          bye"
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: s3cura.ai
+          username: iqfu27x9dob7
+          password: Gaurav123#
+          local-dir: ./out
+          server-dir: /public_html/
