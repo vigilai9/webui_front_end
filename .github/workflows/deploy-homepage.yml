@@ -36,18 +36,26 @@ jobs:
       run: |
         lftp -e "
           set ftp:ssl-allow no;
-          open -u iqfu27x9dob7 , Gaurav123# -p 2222 s3cura.ai;
+          open -u $FTP_USERNAME,$FTP_PASSWORD -p 2222 $FTP_HOST;
           mkdir -p public_html;
           cd public_html;
           put build.zip;
           bye"
+      env:
+        FTP_HOST: s3cura.com
+        FTP_USERNAME: iqfu27x9dob7
+        FTP_PASSWORD: Gaurav123#
 
     - name: Unzip on server
       run: |
         lftp -e "
           set ftp:ssl-allow no;
-          open -u iqfu27x9dob7 , Gaurav123# -p 2222 s3cura.ai;
+          open -u $FTP_USERNAME,$FTP_PASSWORD -p 2222 $FTP_HOST;
           cd public_html;
           !unzip -o build.zip;
           !rm build.zip;
           bye"
+      env:
+        FTP_HOST: s3cura.com
+        FTP_USERNAME: iqfu27x9dob7
+        FTP_PASSWORD: Gaurav123#
