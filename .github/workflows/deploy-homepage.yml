@@ -27,7 +27,7 @@ jobs:
       - name: Zip the Build Folder
         run: |
           cd out
-          zip -r ../site.zip .
+          zip -r ../site.zip ./*
           cd ..
 
       - name: Upload ZIP and PHP Script
@@ -35,14 +35,28 @@ jobs:
         with:
           server: s3cura.ai
           username: iqfu27x9dob7
-          password: Gaurav123#
-          local-dir: ./
+          password: Gaurav123#  # Use a GitHub Secret for security!
+          local-dir: ./  # Root directory (to find site.zip and unzip.php)
           server-dir: /public_html/
           exclude: |
-            **/.git*
-            **/node_modules/*
-            **/scripts/*
-            out/**
+            **/*  # Exclude everything by default
+            !site.zip  # Allow site.zip
+            !unzip.php  # Allow unzip.php
+          
+      # - name: Upload ZIP and PHP Script
+      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      #   with:
+      #     server: s3cura.ai
+      #     username: iqfu27x9dob7
+      #     password: Gaurav123#
+      #     local-dir: ./
+      #     server-dir: /public_html/
+      #     exclude: |
+      #       **/.git*
+      #       **/node_modules/*
+      #       **/scripts/*
+      #       out/**
 
       - name: Upload unzip.php
         run: cp scripts/unzip.php ./unzip.php
+
