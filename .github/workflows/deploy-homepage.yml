@@ -1,54 +1,50 @@
-name: Deploy to GoDaddy cPanel
+name: Deploy to cPanel
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # or your production branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
+    - uses: actions/checkout@v3
+    
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
-
+        node-version: '18' # or your preferred version
+    
     - name: Install dependencies
-      run: npm install
-
+      run: npm install # or yarn install
+    
     - name: Build project
-      run: npm run build
-
-    - name: Install zip and lftp
-      run: sudo apt-get update && sudo apt-get install -y zip lftp
-
-    - name: Zip build artifacts
+      run: npm run build # or your build command
+      env:
+        NODE_ENV: production
+    
+    - name: Zip build output
       run: |
-        cd out
-        zip -r ../build.zip ./*
-        cd ..
-
-    - name: Deploy via SFTP
-      run: |
-        lftp -e "
-          set ftp:ssl-allow no;
-          set ftp:passive-mode on;
-          open -u iqfu27x9dob7,Gaurav123# -p 2222 s3cura.ai;
-          mkdir -p public_html;
-          cd public_html;
-          put build.zip;
-          bye"
-
-    - name: Unzip on server
-      run: |
-        lftp -e "
-          set ftp:ssl-allow no;
-          open -u iqfu27x9dob7,Gaurav123# -p 2222 s3cura.ai;
-          cd public_html;
-          !unzip -o build.zip;
-          !rm build.zip;
-          bye"
+        cd out # or your build output directory
+        zip -r ../build.zip .
+    
+    - name: Deploy to cPanel
+      uses: appleboy/scp-action@master
+      with:
+        host: s3cura.ai
+        username: iqfu27x9dob7
+        password: Gaurav123#
+        source: "build.zip"
+        target: "public_html/"
+    
+    - name: SSH and extract
+      uses: appleboy/ssh-action@master
+      with:
+        host: s3cura.ai
+        username: iqfu27x9dob7
+        password: Gaurav123#
+        script: |
+          cd public_html
+          unzip -o build.zip
+          rm build.zip
