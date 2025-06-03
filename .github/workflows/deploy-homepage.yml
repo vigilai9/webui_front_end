@@ -36,6 +36,7 @@ jobs:
       run: |
         lftp -e "
           set ftp:ssl-allow no;
+          set ftp:passive-mode on;
           open -u iqfu27x9dob7,Gaurav123# -p 2222 s3cura.ai;
           mkdir -p public_html;
           cd public_html;
