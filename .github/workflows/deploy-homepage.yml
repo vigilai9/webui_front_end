@@ -30,11 +30,11 @@ jobs:
         zip -r ../out.zip .
   
     - name: Delete files in public_html
-      uses: appleboy/scp-action@master
+      uses: appleboy/ssh-action@master
       with:
-        host: ${{ 's3cura.ai' }}
-        username: ${{ 'iqfu27x9dob7' }}
-        password: ${{ 'Gaurav123#' }}
-        port: 22
-        command: |
-          rm -rf ~/public_html/*
+       host: 's3cura.ai'
+       username: 'iqfu27x9dob7'
+       password: 'Gaurav123#'
+       port: 22
+       script: |
+         rm -rf ~/public_html/*
