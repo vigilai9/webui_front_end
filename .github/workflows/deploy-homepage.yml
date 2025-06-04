@@ -2,45 +2,44 @@ name: Deploy to cPanel
 
 on:
   push:
-    branches: [ main ] # or your production branch
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # or your preferred version
-    
+        node-version: '18'
+
     - name: Install dependencies
-      run: npm install # or yarn install
-    
+      run: npm install
+
     - name: Build project
-      run: npm run build # or your build command
+      run: npm run build
       env:
         NODE_ENV: production
-    
+
     - name: Zip build output
       run: |
         cd out # or your build output directory
-        zip -r ../out .
-    
-  
-    - name: Delete files in public_html
-      uses: appleboy/ssh-action@master
-      with:
-       host: 's3cura.ai'
-       username: 'iqfu27x9dob7'
-       password: 'Gaurav123#'
-       port: 22
-       script: |
-         rm -rf ~/public_html/*
+        zip -r ../out.zip .
 
-    - name: Upload and deploy zip
+    - name: Upload zip file to server
+      uses: appleboy/scp-action@master
+      with:
+        host: 's3cura.ai'
+        username: 'iqfu27x9dob7'
+        password: 'Gaurav123#'
+        port: 22
+        source: 'out.zip'
+        target: '~/public_html/'
+
+    - name: Clean and deploy via SSH
       uses: appleboy/ssh-action@master
       with:
         host: 's3cura.ai'
@@ -48,11 +47,70 @@ jobs:
         password: 'Gaurav123#'
         port: 22
         script: |
-          # Upload and extract directly (no separate script needed)
-          cd ~/public_html
-          cat > out.zip
-          unzip -o out.zip -d ~/public_html/
+          rm -rf ~/public_html/*
+          unzip ~/public_html/out.zip -d ~/public_html/
+          rm ~/public_html/out.zip
           echo "Deployment completed successfully"
 
 
-# rm out.zip
+
+
+
+# name: Deploy to cPanel
+
+# on:
+#   push:
+#     branches: [ main ] # or your production branch
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#     - uses: actions/checkout@v3
+    
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: '18' # or your preferred version
+    
+#     - name: Install dependencies
+#       run: npm install # or yarn install
+    
+#     - name: Build project
+#       run: npm run build # or your build command
+#       env:
+#         NODE_ENV: production
+    
+#     - name: Zip build output
+#       run: |
+#         cd out # or your build output directory
+#         zip -r ../out.zip .
+    
+  
+#     - name: Delete files in public_html
+#       uses: appleboy/ssh-action@master
+#       with:
+#        host: 's3cura.ai'
+#        username: 'iqfu27x9dob7'
+#        password: 'Gaurav123#'
+#        port: 22
+#        script: |
+#          rm -rf ~/public_html/*
+
+#     - name: Upload and deploy zip
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: 's3cura.ai'
+#         username: 'iqfu27x9dob7'
+#         password: 'Gaurav123#'
+#         port: 22
+#         script: |
+#           # Upload and extract directly (no separate script needed)
+#           cd ~/public_html
+#           cat > out.zip
+#           unzip -o out.zip -d ~/public_html/
+#           echo "Deployment completed successfully"
+
+
+# # rm out.zip
