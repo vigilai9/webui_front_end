@@ -35,20 +35,6 @@ jobs:
         sudo apt-get install -y sshpass
         sshpass -p "Gaurav123#" scp -o StrictHostKeyChecking=no -P 22 out.zip iqfu27x9dob7@s3cura.ai:/home/iqfu27x9dob7/public_html/out.zip
 
-    - name: Clean and deploy via SSH
-      uses: appleboy/ssh-action@master
-      with:
-        host: 's3cura.ai'
-        username: 'iqfu27x9dob7'
-        password: 'Gaurav123#'
-        port: 22
-        script: |
-          rm -rf ~/public_html/*
-          unzip ~/public_html/out.zip -d ~/public_html/
-          rm ~/public_html/out.zip
-          echo "Deployment completed successfully"
-
-
 
 
 
