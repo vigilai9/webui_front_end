@@ -27,7 +27,7 @@ jobs:
     - name: Zip build output
       run: |
         cd out # or your build output directory
-        zip -r ../out.zip .
+        zip -r ../out .
     
   
     - name: Delete files in public_html
