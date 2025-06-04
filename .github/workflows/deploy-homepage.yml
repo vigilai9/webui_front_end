@@ -28,3 +28,13 @@ jobs:
       run: |
         cd out # or your build output directory
         zip -r ../out.zip .
+  
+    - name: Delete files in public_html
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ 's3cura.ai' }}
+        username: ${{ 'iqfu27x9dob7' }}
+        password: ${{ 'Gaurav123#' }}
+        port: 22
+        command: |
+          rm -rf ~/public_html/*
