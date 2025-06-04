@@ -48,11 +48,11 @@ jobs:
         password: 'Gaurav123#'
         port: 22
         script: |
-          # Create deployments directory if it doesn't exist
-          mkdir -p ~/public_html/deployments
-          
           # Upload and extract directly (no separate script needed)
-          cd ~/public_html/deployments
+          cd ~/public_html
           cat > out.zip
           unzip -o out.zip -d ~/public_html/
           echo "Deployment completed successfully"
+
+
+# rm out.zip
