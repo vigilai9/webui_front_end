@@ -55,5 +55,4 @@ jobs:
           cd ~/public_html/deployments
           cat > out.zip
           unzip -o out.zip -d ~/public_html/
-          rm out.zip
           echo "Deployment completed successfully"
