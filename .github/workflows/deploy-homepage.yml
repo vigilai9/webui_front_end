@@ -27,24 +27,4 @@ jobs:
     - name: Zip build output
       run: |
         cd out # or your build output directory
-        zip -r ../build.zip .
-    
-    - name: Deploy to cPanel
-      uses: appleboy/scp-action@master
-      with:
-        host: s3cura.ai
-        username: iqfu27x9dob7
-        password: Gaurav123#
-        source: "build.zip"
-        target: "public_html/"
-    
-    - name: SSH and extract
-      uses: appleboy/ssh-action@master
-      with:
-        host: s3cura.ai
-        username: iqfu27x9dob7
-        password: Gaurav123#
-        script: |
-          cd public_html
-          unzip -o build.zip
-          rm build.zip
+        zip -r ../out.zip .
