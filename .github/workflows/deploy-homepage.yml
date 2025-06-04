@@ -29,7 +29,18 @@ jobs:
         cd out # or your build output directory
         zip -r ../out.zip .
     
-    - name: Clean and Deploy to public_html
+  
+    - name: Delete files in public_html
+      uses: appleboy/ssh-action@master
+      with:
+       host: 's3cura.ai'
+       username: 'iqfu27x9dob7'
+       password: 'Gaurav123#'
+       port: 22
+       script: |
+         rm -rf ~/public_html/*
+
+    - name: Upload and deploy zip
       uses: appleboy/ssh-action@master
       with:
         host: 's3cura.ai'
@@ -37,43 +48,12 @@ jobs:
         password: 'Gaurav123#'
         port: 22
         script: |
-          # Clear public_html while preserving hidden files (like .htaccess)
-          cd ~/public_html
-          find . -maxdepth 1 ! -name '.*' ! -name '.' -exec rm -rf {} +
+          # Create deployments directory if it doesn't exist
+          mkdir -p ~/public_html/deployments
           
-          # Directly pipe the zip file through SSH
-          cat deploy.zip | ssh -p 22 iqfu27x9dob7@s3cura.ai "
-            cd ~/public_html
-            cat > deploy.zip
-            unzip -o deploy.zip
-            rm deploy.zip
-            echo 'Deployment completed successfully'
-          "
-  
-    # - name: Delete files in public_html
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #    host: 's3cura.ai'
-    #    username: 'iqfu27x9dob7'
-    #    password: 'Gaurav123#'
-    #    port: 22
-    #    script: |
-    #      rm -rf ~/public_html/*
-
-    # - name: Upload and extract ZIP to public_html
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: 's3cura.ai'
-    #     username: 'iqfu27x9dob7'
-    #     password: 'Gaurav123#'
-    #     port: 22
-    #     script: |
-    #       # Base64 encode the file for transfer
-    #       base64 out.zip > out.zip.b64
-    #       cat out.zip.b64 | ssh iqfu27x9dob7@s3cura.ai "
-    #         mkdir -p ~/public_html
-    #         cd ~/public_html
-    #         base64 --decode > out.zip
-    #         unzip -o out.zip
-    #         rm out.zip
-    #       "
+          # Upload and extract directly (no separate script needed)
+          cd ~/public_html/deployments
+          cat > out.zip
+          unzip -o out.zip -d ~/public_html/
+          rm out.zip
+          echo "Deployment completed successfully"
