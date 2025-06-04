@@ -38,6 +38,10 @@ jobs:
         port: 22
         source: 'out.zip'
         target: '~/public_html/'
+        rm: false
+        strip_components: 0
+        tar_tmp_path: ''
+        tar_exec: ''
 
     - name: Clean and deploy via SSH
       uses: appleboy/ssh-action@master
