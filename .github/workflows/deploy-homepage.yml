@@ -29,19 +29,11 @@ jobs:
         cd out # or your build output directory
         zip -r ../out.zip .
 
-    - name: Upload zip file to server
-      uses: appleboy/scp-action@master
-      with:
-        host: 's3cura.ai'
-        username: 'iqfu27x9dob7'
-        password: 'Gaurav123#'
-        port: 22
-        source: 'out.zip'
-        target: '~/public_html/'
-        rm: false
-        strip_components: 0
-        tar_tmp_path: ''
-        tar_exec: ''
+    - name: Upload ZIP using scp in shell
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass
+        sshpass -p "Gaurav123#" scp -o StrictHostKeyChecking=no -P 22 out.zip iqfu27x9dob7@s3cura.ai:/home/iqfu27x9dob7/public_html/out.zip
 
     - name: Clean and deploy via SSH
       uses: appleboy/ssh-action@master
