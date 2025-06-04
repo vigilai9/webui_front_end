@@ -48,7 +48,7 @@ jobs:
        port: 22
        script: |
         # Upload the file using SCP
-        scp -o StrictHostKeyChecking=no -r out.zip iqfu27x9dob7@s3cura.ai:/home/iqfu27x9dob7/public_html/
+        scp -o StrictHostKeyChecking=no -r out.zip ./home/iqfu27x9dob7/public_html/
       
         # Extract and clean up
         ssh iqfu27x9dob7@s3cura.ai "cd ~/public_html && unzip -o out.zip && rm out.zip"
