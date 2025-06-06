@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <OfflineNotification/>
+          {/* <OfflineNotification/> */}
           {children}
         </AuthProvider>
       </body>
