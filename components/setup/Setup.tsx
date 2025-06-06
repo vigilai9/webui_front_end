@@ -220,11 +220,11 @@ const Setup = () => {
                                     {/* Circle */}
                                     <button
                                         onClick={() => handleStepClick(step.number)}
-                                        className={`w-12 h-12 rounded-full flex items-center justify-center text-lgx transition-all duration-200 hover:scale-105 relative z-10 ${currentStep === step.number
+                                        className={`w-12 h-12 rounded-full flex items-center justify-center text-sm relative z-10 ${currentStep === step.number
                                             ? 'bg-blue-600 text-white shadow-lg'
                                             : currentStep > step.number
-                                                ? 'bg-green-500 text-white'
-                                                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                                                ? 'bg-green-600 text-white'
+                                                : 'bg-white text-gray-600  border border-gray-300'
                                             }`}
                                     >
                                         {currentStep > step.number ? (
@@ -251,7 +251,7 @@ const Setup = () => {
                                 {/* Connector Line - placed between circles */}
                                 {index < steps.length - 1 && (
                                     <div className={`absolute top-6 left-1/2 right-0 h-1 ${currentStep > step.number
-                                        ? 'bg-green-500'
+                                        ? 'bg-green-600'
                                         : 'bg-gray-300'
                                         }`} />
                                 )}
@@ -259,7 +259,7 @@ const Setup = () => {
                         ))}
                     </div>
                 </div>
-                <div className='flex justify-center mx-auto w-full mt-6'>
+                <div className='flex justify-center mx-auto w-full mt-6 pb-6'>
                     <div className='max-w-4xl w-full px-6 py-8 rounded-md bg-white'>
 
                         {
@@ -269,7 +269,7 @@ const Setup = () => {
                                         <label className='text-sm text-gray-600' htmlFor="">Device ID</label>
                                         <input onChange={(e) => setDeviceID(e.target.value)} className='border rounded px-4 py-2 focus:outline-none text-xs' type="text" placeholder='Enter your device id' />
                                     </div>
-                                    <div className='flex flex-col gap-3 mt-4'>
+                                    <div className='flex flex-col gap-3 mt-4 text-sm'>
                                         {
                                             isOnline &&
                                             <>
@@ -373,8 +373,8 @@ const Setup = () => {
                             {/* {formData.attachedCameras.length > 0 && ( */}
                               <div className="mb-6">
                                 <div 
-                                  className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors"
-                                //   onClick={() => setShowAttachedCameras(!showAttachedCameras)}
+                                  className="border border-gray-200 rounded p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                                  onClick={() => setShowAttachedCameras(!showAttachedCameras)}
                                 >
                                   <div className="flex items-center justify-between">
                                     <div>
@@ -388,31 +388,32 @@ const Setup = () => {
                                 </div>
                                 
                                 {showAttachedCameras && (
+                          
                                   <div className="mt-3 space-y-2 border-l-4 border-blue-200 pl-4">
-                                    {formData.attachedCameras.map((camera:any, index: number) => (
-                                      <div key={camera.id} className="p-3 bg-blue-50 rounded-lg">
+                                    {Array.from({length:3}).map((camera:any, index: number) => (
+                                      <div key={index} className="p-3 bg-blue-50 rounded-lg">
                                         <div className="flex items-center justify-between">
                                           <div>
-                                            <p className="font-medium text-blue-900">camera.location</p>
-                                            <p className="text-sm text-blue-700">camera.contextc</p>
+                                            <p className="font-medium text-blue-900">main gate</p>
+                                            <p className="text-sm text-blue-700">camera for main gate</p>
                                             <p className="text-xs text-blue-600 mt-1">IP: 252.12.4.4</p>
                                           </div>
                                           <div className="text-right">
-                                            <span className="text-xs text-blue-600">Device: {index}</span>
+                                            <span className="text-xs text-blue-600">Device: vigilai-VG0289</span>
                                           </div>
                                         </div>
                                       </div>
                                     ))}
                                   </div>
-                                )}
+                                 )} 
                               </div>
                             {/* )} */}
                 
                             {/* New Cameras Configuration */}
                             <div className="space-y-6">
-                              <h4 className="font-medium text-gray-700">New Cameras to Configure</h4>
+                              <h4 className="font-sm font-medium text-gray-700">New Cameras to Configure</h4>
                               {Array.from({length: 3}).map((camera:any, index: number) => (
-                                <div key={index} className="border border-gray-200 rounded-lg p-4 space-y-4">
+                                <div key={index} className="border border-gray-200 rounded p-4 space-y-4">
                                   <div className="flex items-center justify-between">
                                     <h4 className="font-semibold flex items-center space-x-2">
                                       <Camera size={20} />
@@ -423,7 +424,7 @@ const Setup = () => {
                                         type="checkbox"
                                         // checked={camera.active}
                                         onChange={(e) => updateCameraConfig(camera.id, 'active', e.target.checked)}
-                                        className="rounded text-blue-600"
+                                        className="rounded text-blue-600 focus:outline-none border border-red-600"
                                       />
                                       <span className="text-sm">Active</span>
                                     </label>
@@ -455,7 +456,7 @@ const Setup = () => {
                                         type="text"
                                         // value={camera.location}
                                         onChange={(e) => updateCameraConfig(camera.id, 'location', e.target.value)}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="e.g., Main Entrance"
                                       />
                                     </div>
@@ -481,7 +482,7 @@ const Setup = () => {
                                         type="text"
                                         // value={camera.context}
                                         onChange={(e) => updateCameraConfig(camera.id, 'context', e.target.value)}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="e.g., Security monitoring"
                                       />
                                     </div>
@@ -500,20 +501,20 @@ const Setup = () => {
                                   </p>
                                 </div>
                     
-                                <div className="bg-gray-50 rounded-lg p-4 space-y-4">
+                                <div className="bg-gray-50 rounded p-4 space-y-4">
                                   <div>
                                     <p className="text-sm text-gray-600">Device ID</p>
-                                    <p className="font-medium">98473yghbe</p>
+                                    <p className="font-normal">98473yghbe</p>
                                   </div>
                                   
                                   <div>
                                     <p className="text-sm text-gray-600">Total Cameras</p>
-                                    <p className="font-medium">4 cameras discovered</p>
+                                    <p className="font-normal">4 cameras discovered</p>
                                   </div>
                                   
                                   <div>
                                     <p className="text-sm text-gray-600">Active Cameras</p>
-                                    <p className="font-medium">
+                                    <p className="font-normal">
                                       2 cameras active
                                     </p>
                                   </div>
@@ -522,7 +523,7 @@ const Setup = () => {
                                 <div className="space-y-3">
                                   <h4 className="font-semibold">Configured Cameras:</h4>
                                   {formData.configuredCameras.filter((c:any) => c.active).map((camera:any) => (
-                                    <div key={camera.id} className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
+                                    <div key={camera.id} className="flex items-center justify-between p-2 bg-white border border-gray-200 rounded-md">
                                       <div>
                                         <p className="font-medium">camera location</p>
                                         <p className="text-sm text-gray-600">{camera.context || 'No context specified'}</p>
@@ -549,11 +550,11 @@ const Setup = () => {
                               </div>
                         }
                         <div className='mt-8 flex justify-between w-full'>
-                            <button onClick={handlePrev} className={`flex justify-center items-center gap-2 px-2 py-2 ${currentStep == 1 ? "text-gray-300" : "text-gray-500"}`}>
+                            <button onClick={handlePrev} className={`flex justify-center items-center gap-2 px-2 py-2 ${currentStep == 1 ? "text-gray-400" : "text-gray-500"}`}>
                                 <ChevronLeft className='h-4 w-4' />
                                 <span>Previous</span>
                             </button>
-                            {deviceID && <button onClick={handleNextStep} className={`flex justify-center items-center gap-2 px-2 py-2 rounded bg-blue-600 text-xs text-white ${isOnlineLoader || isCommunicationLoader ||  cameraFoundLoader || currentStep==4 ? "invisible" : "visible"}`}>
+                            {deviceID && <button onClick={handleNextStep} className={`flex justify-center items-center gap-2 px-4 py-2 rounded bg-blue-600 text-xs text-white ${isOnlineLoader || isCommunicationLoader ||  cameraFoundLoader || currentStep==4 ? "invisible" : "visible"}`}>
                                 {buttonText} <span>{buttonText == "Next" ? <ChevronRight className='h-4 w-4' /> : ""}</span>
                             </button>}
                         </div>
