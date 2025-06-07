@@ -2,7 +2,7 @@ name: Deploy to cPanel
 
 on:
   push:
-    branches: [ main ]
+    branches: [ home_page ] # or your production branch
 
 jobs:
   build-and-deploy:
@@ -14,85 +14,24 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '18' # or your preferred version
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Install dependencies
       run: npm install
 
     - name: Build project
       run: npm run build
-      env:
-        NODE_ENV: production
 
     - name: Zip build output
       run: |
         cd out # or your build output directory
         zip -r ../out.zip .
 
-    - name: Upload ZIP using scp in shell
+    - name: Upload to cPanel via SCP
       run: |
-        sudo apt-get update
-        sudo apt-get install -y sshpass
-        sshpass -p "Gaurav123#" scp -o StrictHostKeyChecking=no -P 22 out.zip iqfu27x9dob7@s3cura.ai:/home/iqfu27x9dob7/public_html/out.zip
-
-
-
-
-# name: Deploy to cPanel
-
-# on:
-#   push:
-#     branches: [ main ] # or your production branch
-
-# jobs:
-#   build-and-deploy:
-#     runs-on: ubuntu-latest
-    
-#     steps:
-#     - uses: actions/checkout@v3
-    
-#     - name: Set up Node.js
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: '18' # or your preferred version
-    
-#     - name: Install dependencies
-#       run: npm install # or yarn install
-    
-#     - name: Build project
-#       run: npm run build # or your build command
-#       env:
-#         NODE_ENV: production
-    
-#     - name: Zip build output
-#       run: |
-#         cd out # or your build output directory
-#         zip -r ../out.zip .
-    
-  
-#     - name: Delete files in public_html
-#       uses: appleboy/ssh-action@master
-#       with:
-#        host: 's3cura.ai'
-#        username: 'iqfu27x9dob7'
-#        password: 'Gaurav123#'
-#        port: 22
-#        script: |
-#          rm -rf ~/public_html/*
-
-#     - name: Upload and deploy zip
-#       uses: appleboy/ssh-action@master
-#       with:
-#         host: 's3cura.ai'
-#         username: 'iqfu27x9dob7'
-#         password: 'Gaurav123#'
-#         port: 22
-#         script: |
-#           # Upload and extract directly (no separate script needed)
-#           cd ~/public_html
-#           cat > out.zip
-#           unzip -o out.zip -d ~/public_html/
-#           echo "Deployment completed successfully"
-
-
-# # rm out.zip
+        sudo apt-get update && sudo apt-get install -y sshpass
+        sshpass -p Gaurav123# ssh -o StrictHostKeyChecking=no iqfu27x9dob7@s3cura.com "mkdir -p public_html/home_page"
+        sshpass -p Gaurav123# scp -o StrictHostKeyChecking=no -P 22 out.zip iqfu27x9dob7@s3cura.com:public_html/home_page/out.zip
