@@ -2,7 +2,7 @@ name: Deploy to cPanel
 
 on:
   push:
-    branches: [ home_page ] # or your production branch
+    branches: [ home_page ]
 
 jobs:
   build-and-deploy:
@@ -14,10 +14,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # or your preferred version
-
-    - name: Install dependencies
-      run: npm install
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
@@ -25,11 +22,9 @@ jobs:
     - name: Build project
       run: npm run build
 
-    # - name: Zip build output
-    #   run: |
-    #     cd out # or your build output directory
-    #     zip -r ../out.zip .
-    
+    - name: Verify build output
+      run: ls -la out/
+
     - name: Create home_page directory
       uses: appleboy/ssh-action@master
       with:
@@ -39,15 +34,16 @@ jobs:
         port: 22
         script: |
           mkdir -p /home/iqfu27x9dob7/public_html/home_page
+          chmod 755 /home/iqfu27x9dob7/public_html/home_page
 
-    - name: Upload 'out/' folder content to home_page
+    - name: Upload files using tar
       uses: appleboy/scp-action@master
       with:
-       host: 's3cura.ai'
-       username: 'iqfu27x9dob7'
-       password: 'Gaurav123#' # NEVER put passwords directly in workflow!
-       port: 22
-       source: "out/*"
-       target: "/home/iqfu27x9dob7/public_html/home_page"
-       overwrite: true
-       recursive: true
+        host: 's3cura.ai'
+        username: 'iqfu27x9dob7'
+        password: 'Gaurav123#'
+        port: 22
+        source: "out/"
+        target: "/home/iqfu27x9dob7/public_html/home_page"
+        overwrite: true
+        strip_components: 1  # This removes the 'out' directory from the path
