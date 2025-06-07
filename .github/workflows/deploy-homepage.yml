@@ -49,3 +49,4 @@ jobs:
         port: 22
         source: "out/*"
         target: "/home/iqfu27x9dob7/public_html/home_page"
+        protocol: scp
