@@ -29,9 +29,25 @@ jobs:
       run: |
         cd out # or your build output directory
         zip -r ../out.zip .
+    
+    - name: Create home_page directory
+      uses: appleboy/ssh-action@master
+      with:
+        host: 's3cura.ai'
+        username: 'iqfu27x9dob7'
+        password: 'Gaurav123#'
+        port: 22
+        script: |
+          mkdir -p /home/iqfu27x9dob7/public_html/home_page
 
-    - name: Upload to cPanel via SCP
-      run: |
-        sudo apt-get update && sudo apt-get install -y sshpass
-        sshpass -p Gaurav123# ssh -o StrictHostKeyChecking=no iqfu27x9dob7@s3cura.com "mkdir -p public_html/home_page"
-        sshpass -p Gaurav123# scp -o StrictHostKeyChecking=no -P 22 out.zip iqfu27x9dob7@s3cura.com:public_html/home_page/out.zip
+
+    # - name: Upload and Extract ZIP
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #    host: 's3cura.ai'
+    #    username: 'iqfu27x9dob7'
+    #    password: 'Gaurav123#'
+    #    port: 22
+    #    script: |
+    #     # Upload the file using SCP
+    #     scp -o StrictHostKeyChecking=no -r out.zip iqfu27x9dob7@s3cura.ai:/home/iqfu27x9dob7/public_html/home_page
