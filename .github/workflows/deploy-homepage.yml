@@ -39,14 +39,15 @@ jobs:
         port: 22
         script: |
           mkdir -p /home/iqfu27x9dob7/public_html/home_page
-    
+
     - name: Upload 'out/' folder content to home_page
       uses: appleboy/scp-action@master
       with:
-        host: 's3cura.ai'
-        username: 'iqfu27x9dob7'
-        password: 'Gaurav123#'
-        port: 22
-        source: "out/*"
-        target: "/home/iqfu27x9dob7/public_html/home_page"
-        protocol: scp
+       host: 's3cura.ai'
+       username: 'iqfu27x9dob7'
+       password: 'Gaurav123#' # NEVER put passwords directly in workflow!
+       port: 22
+       source: "out/*"
+       target: "/home/iqfu27x9dob7/public_html/home_page"
+       overwrite: true
+       recursive: true
